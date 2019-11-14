@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ackelman.github.io</title>
+</head>
+
+<body style="height: 100vh; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+  <canvas id="canvas" width="1500" height="1000"></canvas>
+</body>
+<script>
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+const timePerChar = 1000;
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+ctx.font = 'bold 48px sans';
+
+async function drawChar(str, y, i) {
+  var x = canvas.width - ctx.measureText(str.substr(i)).width;
+  if (str[i] === ' ') {
+    ctx.fillText(str[i], x, y);
+    return;
+  }
+  var time = Date.now();
+  var diff = 0;
+  while (diff <= timePerChar) {
+    ctx.clearRect(x, y - 48, ctx.measureText(str[i]).width, 48);
+    ctx.setLineDash([diff/10, (timePerChar - diff - 1) / 10]);
+    ctx.strokeText(str[i], x, y);
+    await sleep(1);
+    diff = Date.now() - time;
+  }
+  ctx.fillText(str[i], x, y);
+}
+
+async function fadeInChar(str, y, i) {
+  var x = canvas.width - ctx.measureText(str.substr(i)).width;
+  if (str[i] === ' ') {
+    ctx.fillText(str[i], x, y);
+    return;
+  }
+  var time = Date.now();
+  var diff = 0;
+  while (diff <= timePerChar) {
+    ctx.clearRect(x, y - 48, ctx.measureText(str[i]).width, 48);
+    ctx.globalAlpha = diff / timePerChar;
+    ctx.fillText(str[i], x, y);
+    await sleep(1);
+    diff = Date.now() - time;
+  }
+  ctx.fillText(str[i], x, y);
+}
+
+async function fadeInText(str, y) {
+  for (var i = 0; i < str.length; i++) {
+    await drawChar(str, y, i);
+  }
+  return;
+}
+
+/*
+async function copyDown(str, y1) {
+  var x = canvas.width - ctx.measureText(str).width;
+  var time = Date.now();
+  var diff = 0;
+  while (diff <= 2.5 * timePerChar) {
+    ctx.clearRect(x, y1 - 48, ctx.measureText(str).width, 96);
+    ctx.fillText(str, x, y1);
+    var y = y1 + diff * 48 / (2.5 * timePerChar);
+    ctx.fillText(str, x, y);
+    await sleep(1);
+    diff = Date.now() - time;
+  }
+  ctx.fillText(str, x, y1);
+  ctx.fillText(str, x, y1 + 48);
+}
+
+async function copyDownAddParens(str, y1) {
+  await copyDown(str, y1);
+  await addParens(str, y1);
+}
+
+async function copyDownSumFirstTwo(str, y) {
+  let idx = str.indexOf('+');
+  for (var i = 0; i < idx; i++) {
+    await fadeInChar(str, y, i);
+  }
+  await copyDown(str.substr(idx), y-48);
+}
+*/
+
+async function addParens(str, y) {
+  str = '(' + str;
+  let idx = str.indexOf(' ', 0);
+  idx = str.indexOf(' ', idx+1);
+  idx = str.indexOf(' ', idx+1);
+  str = str.slice(0, idx) + ')' + str.slice(idx+1);
+  await drawChar(str, y, 0);
+  await drawChar(str, y, str.indexOf(')'));
+}
+
+async function draw() {
+  var a = 10;
+  var b = 10;
+  var str = [];
+  for (var i = 0; i < b; i++) {
+    str.push(a);
+  }
+  var padTo = (str.length - 1) * 4 + 2;
+  await fadeInText(String(a) + " * " + String(b) + " = ", 48);
+
+  await fadeInText(str.map(e => String(e)).join(" + ") + " = ", 96);
+
+  var sum = str.pop();
+  var offset = 2;
+  while (str.length > 1) {
+    await addParens(String(sum) + ' + ' + str[0] + " + " + str.slice(1).map(e => String(e)).join(" + ") + " = ", offset*48);
+    await sleep(2 * timePerChar);
+    offset += 1;
+    sum += str.pop();
+    await fadeInText(String(sum) + ' + ' + str.map(e => String(e)).join(" + ") + " = ", offset*48);
+    await sleep(2 * timePerChar);
+  }
+  if (str.length > 0) {
+    sum += str.pop();
+    await fadeInText(String(sum) + '   ', offset*48+48);
+  }
+}
+draw();
+</script>
+</html>
