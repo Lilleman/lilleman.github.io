@@ -15,20 +15,22 @@ function sleep(ms) {
 }
 
 const timePerChar = 500;
-var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext('2d');
-ctx.font = 'bold 48px Courier New';
+let canvas = document.getElementById('canvas');
+let ctx = canvas.getContext('2d');
 
 async function drawChar(str, y, i) {
-  var x = canvas.width - ctx.measureText(str.substr(i)).width;
+  let x = canvas.width - ctx.measureText(str.substr(i)).width;
   if (str[i] === ' ') {
-    ctx.fillText(str[i], x, y);
     return;
   }
-  var time = Date.now();
-  var diff = 0;
+  let time = Date.now();
+  let diff = 0;
   while (diff <= timePerChar) {
-    ctx.clearRect(x, y - 48, ctx.measureText(str[i]).width, 48);
+    ctx.fillStyle = ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
+    ctx.setLineDash([]);
+    ctx.strokeText(str[i], x, y);
+    ctx.fillText(str[i], x, y);
+    ctx.fillStyle = ctx.strokeStyle = 'rgba(64, 64, 64, 1)';
     ctx.setLineDash([diff/10, (timePerChar - diff - 1) / 10]);
     ctx.strokeText(str[i], x, y);
     await sleep(1);
@@ -38,13 +40,13 @@ async function drawChar(str, y, i) {
 }
 
 async function fadeInChar(str, y, i) {
-  var x = canvas.width - ctx.measureText(str.substr(i)).width;
+  let x = canvas.width - ctx.measureText(str.substr(i)).width;
   if (str[i] === ' ') {
     ctx.fillText(str[i], x, y);
     return;
   }
-  var time = Date.now();
-  var diff = 0;
+  let time = Date.now();
+  let diff = 0;
   while (diff <= timePerChar) {
     ctx.clearRect(x, y - 48, ctx.measureText(str[i]).width, 48);
     ctx.globalAlpha = diff / timePerChar;
@@ -56,7 +58,7 @@ async function fadeInChar(str, y, i) {
 }
 
 async function fadeInText(str, y) {
-  for (var i = 0; i < str.length; i++) {
+  for (let i = 0; i < str.length; i++) {
     await drawChar(str, y, i);
   }
   return;
@@ -64,13 +66,13 @@ async function fadeInText(str, y) {
 
 /*
 async function copyDown(str, y1) {
-  var x = canvas.width - ctx.measureText(str).width;
-  var time = Date.now();
-  var diff = 0;
+  let x = canvas.width - ctx.measureText(str).width;
+  let time = Date.now();
+  let diff = 0;
   while (diff <= 2.5 * timePerChar) {
     ctx.clearRect(x, y1 - 48, ctx.measureText(str).width, 96);
     ctx.fillText(str, x, y1);
-    var y = y1 + diff * 48 / (2.5 * timePerChar);
+    let y = y1 + diff * 48 / (2.5 * timePerChar);
     ctx.fillText(str, x, y);
     await sleep(1);
     diff = Date.now() - time;
@@ -86,7 +88,7 @@ async function copyDownAddParens(str, y1) {
 
 async function copyDownSumFirstTwo(str, y) {
   let idx = str.indexOf('+');
-  for (var i = 0; i < idx; i++) {
+  for (let i = 0; i < idx; i++) {
     await fadeInChar(str, y, i);
   }
   await copyDown(str.substr(idx), y-48);
@@ -103,10 +105,26 @@ async function addParens(str, y) {
   await drawChar(str, y, str.indexOf(')'));
 }
 
+function drawGrid() {
+  ctx.strokeStyle = 'rgba(192, 192, 192, 0.5)';
+  for (let y = 0; y < canvas.height; y += 48) {
+    ctx.moveTo(0, y);
+    ctx.lineTo(canvas.width, y);
+    ctx.closePath();
+    ctx.stroke();
+  }
+  for (let x = 0; x < canvas.width; x += ctx.measureText('0').width) {
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, canvas.height);
+    ctx.closePath();
+    ctx.stroke();
+  }
+}
+
 async function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  var a = Number(document.getElementById("a").value);
-  var b = Number(document.getElementById("b").value);
+  let a = Number(document.getElementById("a").value);
+  let b = Number(document.getElementById("b").value);
   if (!a || a < 1 || a > 10) {
     alert("Invalid value: " + a);
     return;
@@ -115,8 +133,8 @@ async function draw() {
     alert("Invalid value: " + b);
     return;
   }
-  var str = [];
-  for (var i = 0; i < b; i++) {
+  let str = [];
+  for (let i = 0; i < b; i++) {
     str.push(a);
   }
   ctx.font = 'bold 48px Courier New';
@@ -129,8 +147,8 @@ async function draw() {
 
   await fadeInText(str.map(e => String(e)).join(" + ") + " =", 96);
 
-  var sum = str.pop();
-  var offset = 2;
+  let sum = str.pop();
+  let offset = 2;
   while (str.length > 1) {
     await addParens(String(sum) + ' + ' + str[0] + " + " + str.slice(1).map(e => String(e)).join(" + ") + " =", offset*48);
     await sleep(2 * timePerChar);
