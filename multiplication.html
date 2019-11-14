@@ -5,7 +5,7 @@
   <title>ackelman.github.io</title>
 </head>
 
-<body style="height: 100vh; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+<body style="height: 100vh; display: flex; align-items: center; margin-top: 10vh; flex-direction: column;">
   <span><input id="a" type="text">*<input id="b" type="text"><button onclick="draw()">Start</button></span>
   <canvas id="canvas" width="1500" height="600"></canvas>
 </body>
@@ -119,24 +119,29 @@ async function draw() {
   for (var i = 0; i < b; i++) {
     str.push(a);
   }
-  var padTo = (str.length - 1) * 4 + 2;
-  await fadeInText(String(a) + " * " + String(b) + " = ", 48);
+  ctx.font = 'bold 48px Courier New';
+  canvas.width = (String(a).length + 3) * b * ctx.measureText('0').width + 1;
+  canvas.height = (b + 1) * 48 + 1;
+  ctx.font = 'bold 48px Courier New';
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawGrid();
+  await fadeInText(String(a) + " * " + String(b) + " =", 48);
 
-  await fadeInText(str.map(e => String(e)).join(" + ") + " = ", 96);
+  await fadeInText(str.map(e => String(e)).join(" + ") + " =", 96);
 
   var sum = str.pop();
   var offset = 2;
   while (str.length > 1) {
-    await addParens(String(sum) + ' + ' + str[0] + " + " + str.slice(1).map(e => String(e)).join(" + ") + " = ", offset*48);
+    await addParens(String(sum) + ' + ' + str[0] + " + " + str.slice(1).map(e => String(e)).join(" + ") + " =", offset*48);
     await sleep(2 * timePerChar);
     offset += 1;
     sum += str.pop();
-    await fadeInText(String(sum) + ' + ' + str.map(e => String(e)).join(" + ") + " = ", offset*48);
+    await fadeInText(String(sum) + ' + ' + str.map(e => String(e)).join(" + ") + " =", offset*48);
     await sleep(2 * timePerChar);
   }
   if (str.length > 0) {
     sum += str.pop();
-    await fadeInText(String(sum) + '   ', offset*48+48);
+    await fadeInText(String(sum) + '  ', offset*48+48);
   }
 }
 </script>
