@@ -138,12 +138,22 @@ async function draw() {
     str.push(a);
   }
   ctx.font = 'bold 48px Courier New';
-  canvas.width = (String(a).length + 3) * b * ctx.measureText('0').width + 1;
+  let w = (String(a).length + 3) * b;
+  if (w < String(a).length + 3 + String(b).length + 2) {
+    w = String(a).length + 3 + String(b).length + 2;
+  }
+  console.log(w, ctx.measureText('0').width);
+  canvas.width = w * ctx.measureText('0').width + 1;
   canvas.height = (b + 1) * 48 + 1;
   ctx.font = 'bold 48px Courier New';
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawGrid();
   await fadeInText(String(a) + " * " + String(b) + " =", 48);
+
+  if (str.length < 2) {
+    await fadeInText(String(str.pop()) + '  ', 96);
+    return;
+  }
 
   await fadeInText(str.map(e => String(e)).join(" + ") + " =", 96);
 
