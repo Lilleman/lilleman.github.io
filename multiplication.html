@@ -6,17 +6,18 @@
 </head>
 
 <body style="height: 100vh; display: flex; align-items: center; justify-content: center; flex-direction: column;">
-  <canvas id="canvas" width="1500" height="1000"></canvas>
+  <span><input id="a" type="text">*<input id="b" type="text"><button onclick="draw()">Start</button></span>
+  <canvas id="canvas" width="1500" height="600"></canvas>
 </body>
 <script>
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-const timePerChar = 1000;
+const timePerChar = 500;
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
-ctx.font = 'bold 48px sans';
+ctx.font = 'bold 48px Courier New';
 
 async function drawChar(str, y, i) {
   var x = canvas.width - ctx.measureText(str.substr(i)).width;
@@ -103,8 +104,17 @@ async function addParens(str, y) {
 }
 
 async function draw() {
-  var a = 10;
-  var b = 10;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  var a = Number(document.getElementById("a").value);
+  var b = Number(document.getElementById("b").value);
+  if (!a || a < 1 || a > 10) {
+    alert("Invalid value: " + a);
+    return;
+  }
+  if (!b || b < 1 || b > 10) {
+    alert("Invalid value: " + b);
+    return;
+  }
   var str = [];
   for (var i = 0; i < b; i++) {
     str.push(a);
@@ -129,6 +139,5 @@ async function draw() {
     await fadeInText(String(sum) + '   ', offset*48+48);
   }
 }
-draw();
 </script>
 </html>
