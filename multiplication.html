@@ -105,19 +105,34 @@ async function addParens(str, y) {
   await drawChar(str, y, str.indexOf(')'));
 }
 
-function drawGrid() {
+function drawGrid(offsetY) {
+  offsetY *= 48;
   ctx.strokeStyle = 'rgba(192, 192, 192, 0.5)';
-  for (let y = 0; y < canvas.height; y += 48) {
+  for (let y = offsetY; y < canvas.height; y += 48) {
     ctx.moveTo(0, y);
     ctx.lineTo(canvas.width, y);
     ctx.closePath();
     ctx.stroke();
   }
   for (let x = 0; x < canvas.width; x += ctx.measureText('0').width) {
-    ctx.moveTo(x, 0);
+    ctx.moveTo(x, offsetY);
     ctx.lineTo(x, canvas.height);
     ctx.closePath();
     ctx.stroke();
+  }
+}
+
+async function drawDots(xn, yn, w) {
+  for (let x = 0; x < yn; x++) {
+    for (let y = 0; y < xn; y++) {
+      let tw = ctx.measureText(' ').width;
+      let x2 = (2*x + w / 2 - yn * 0.75) * tw;
+      let y2 = (y + 0.75) * 48 - tw / 2;
+      ctx.beginPath();
+      ctx.arc(x2, y2, tw / 2, 0, 2 * Math.PI);
+      ctx.fill();
+      await sleep(timePerChar);
+    }
   }
 }
 
@@ -144,21 +159,22 @@ async function draw() {
   }
   console.log(w, ctx.measureText('0').width);
   canvas.width = w * ctx.measureText('0').width + 1;
-  canvas.height = (b + 1) * 48 + 1;
+  canvas.height = (b + a + 1) * 48 + 1;
   ctx.font = 'bold 48px Courier New';
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawGrid();
-  await fadeInText(String(a) + " * " + String(b) + " =", 48);
+  drawGrid(a);
+  await drawDots(a, b, w);
+  await fadeInText(String(a) + " * " + String(b) + " =", (a+1)*48);
 
   if (str.length < 2) {
-    await fadeInText(String(str.pop()) + '  ', 96);
+    await fadeInText(String(str.pop()) + '  ', (a+2)*48);
     return;
   }
 
-  await fadeInText(str.map(e => String(e)).join(" + ") + " =", 96);
+  await fadeInText(str.map(e => String(e)).join(" + ") + " =", (a+2)*48);
 
   let sum = str.pop();
-  let offset = 2;
+  let offset = 2+a;
   while (str.length > 1) {
     await addParens(String(sum) + ' + ' + str[0] + " + " + str.slice(1).map(e => String(e)).join(" + ") + " =", offset*48);
     await sleep(2 * timePerChar);
