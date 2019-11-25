@@ -5,7 +5,7 @@
   <title>ackelman.github.io</title>
 </head>
 
-<body style="height: 100vh; display: flex; align-items: center; margin-top: 10vh; flex-direction: column;">
+<body style="height: 100vh; display: flex; align-items: center; flex-direction: column;">
   <span><input id="a" type="text">*<input id="b" type="text"><button onclick="draw()">Start</button></span>
   <canvas id="canvas" width="1500" height="600"></canvas>
 </body>
@@ -18,7 +18,31 @@ const timePerChar = 500;
 let canvas = document.getElementById('canvas');
 let ctx = canvas.getContext('2d');
 
-async function drawChar(str, y, i) {
+function makeColorGradient(f1, f2, f3, p1, p2, p3, c, w, len) {
+  if (c === undefined) c = 128;
+  if (w === undefined) w = 127;
+  if (len === undefined) len = 50;
+
+  let colors = [];
+  for (let i = 0; i < len; i++) {
+    let r = Math.sin(f1 * i + p1) * w + c;
+    colors.push({
+      r: Math.sin(f1 * i + p1) * w + c,
+      g: Math.sin(f2 * i + p2) * w + c,
+      b: Math.sin(f3 * i + p3) * w + c
+    })
+  }
+  return colors;
+}
+
+let rgbToStr = (c) => 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + (c.a || 1) + ')';
+
+function getColorPalette(numColors) {
+  let f = 0.75 * Math.PI;
+  return makeColorGradient(f, f, f, 0, 0.625 * Math.PI, 1.25 * Math.PI, 128, 127, numColors);
+}
+
+async function drawChar(str, y, i, color) {
   let x = canvas.width - ctx.measureText(str.substr(i)).width;
   if (str[i] === ' ') {
     return;
@@ -30,7 +54,8 @@ async function drawChar(str, y, i) {
     ctx.setLineDash([]);
     ctx.strokeText(str[i], x, y);
     ctx.fillText(str[i], x, y);
-    ctx.fillStyle = ctx.strokeStyle = 'rgba(64, 64, 64, 1)';
+    ctx.fillStyle = rgbToStr(color || { r: 64, g: 64, b: 64 });
+    ctx.strokeStyle = rgbToStr({ r: 0, g: 0, b: 0, a: 0.5 });
     ctx.setLineDash([diff/10, (timePerChar - diff - 1) / 10]);
     ctx.strokeText(str[i], x, y);
     await sleep(1);
@@ -57,9 +82,17 @@ async function fadeInChar(str, y, i) {
   ctx.fillText(str[i], x, y);
 }
 
-async function fadeInText(str, y) {
+async function fadeInText(str, y, colors = null) {
+  let j = 0;
   for (let i = 0; i < str.length; i++) {
-    await drawChar(str, y, i);
+    let color;
+    if (!isNaN(Number(str[i])) && colors) {
+      color = colors[j];
+      if (i < str.length && isNaN(Number(str[i+1]))) {
+        j++;
+      }
+    }
+    await drawChar(str, y, i, color);
   }
   return;
 }
@@ -123,7 +156,9 @@ function drawGrid(offsetY) {
 }
 
 async function drawDots(xn, yn, w) {
+  let colors = getColorPalette(yn);
   for (let x = 0; x < yn; x++) {
+    ctx.fillStyle = rgbToStr(colors[x]);
     for (let y = 0; y < xn; y++) {
       let tw = ctx.measureText(' ').width;
       let x2 = (2*x + w / 2 - yn * 0.75) * tw;
@@ -171,7 +206,9 @@ async function draw() {
     return;
   }
 
-  await fadeInText(str.map(e => String(e)).join(" + ") + " =", (a+2)*48);
+  let colors = getColorPalette(b);
+  await fadeInText(str.map(e => String(e)).join(" + ") + " =", (a+2)*48, colors);
+  colors.shift(); colors.shift(); colors.unshift({ r: 64, g: 64, b: 64 });
 
   let sum = str.pop();
   let offset = 2+a;
@@ -180,7 +217,8 @@ async function draw() {
     await sleep(2 * timePerChar);
     offset += 1;
     sum += str.pop();
-    await fadeInText(String(sum) + ' + ' + str.map(e => String(e)).join(" + ") + " =", offset*48);
+    await fadeInText(String(sum) + ' + ' + str.map(e => String(e)).join(" + ") + " =", offset*48, colors);
+    colors.shift(); colors.shift(); colors.unshift({ r: 64, g: 64, b: 64 });
     await sleep(2 * timePerChar);
   }
   if (str.length > 0) {
