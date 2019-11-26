@@ -1,0 +1,1487 @@
+<body style="margin: 0">
+  <div style="display: flex">
+<div style="float: left; width: 50%">
+  <textarea id="story" placeholder="Klistra in text här" rows="4" style="width: 100%"></textarea>
+</div>
+<div style="float: left; width: 50%">
+  <label for="animationSpeed">Hastighet:</label><br>
+  <input type="range" id="animSpeed" name="animationSpeed" min="0" max="50" value="45"><br>
+  <button onclick="draw()" style="font-size: 1.25em">Start</button>
+</div>
+</div>
+<canvas id="canvas"></canvas>
+</body>
+<script>
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+
+let font = {
+  ',': {
+    isolated: [
+      {type: 'line', points: [{x: 0.45, y: 0.85}, {x: 0.275, y: 1.175}]}
+    ]
+  },
+  '.': {
+    isolated: [
+      {type: 'arc', center: {x: 0.5, y: 0.925}, rx: 0.045, ry: 0.045, a1: 0, a2: 2 * Math.PI}
+    ]
+  },
+  ':': {
+    isolated: [
+      {type: 'arc', center: {x: 0.5, y: 0.55}, rx: 0.045, ry: 0.045, a1: 0, a2: 2 * Math.PI},
+      {type: 'arc', center: {x: 0.5, y: 0.925}, rx: 0.045, ry: 0.045, a1: 0, a2: 2 * Math.PI}
+    ]
+  },
+  '\'': {
+    isolated: [
+      {type: 'line', points: [{x: 0.5, y: 0.275}, {x: 0.5, y: 0.6}]}
+    ]
+  },
+  '"': {
+    isolated: [
+      {type: 'line', points: [{x: 0.3125, y: 0.275}, {x: 0.3125, y: 0.6}]},
+      {type: 'line', points: [{x: 0.6875, y: 0.275}, {x: 0.6875, y: 0.6}]}
+    ]
+  },
+  'A': {
+    isolated: [
+      {type: 'line', points: [{x: 0.075, y: 1}, {x: 0.5, y: 0.35}]},
+      {type: 'line', points: [{x: 0.5, y: 0.35}, {x: 0.925, y: 1}]},
+      {type: 'line', points: [{x: 0.75, y: 0.775}, {x: 0.25, y: 0.775}]}
+    ]
+  },
+  'B': {
+    isolated: [
+      {type: 'line', points: [{x: 0.2, y: 0.35}, {x: 0.2, y: 1}]},
+      {type: 'line', points: [{x: 0.2, y: 0.375}, {x: 0.575, y: 0.375}]},
+      {type: 'arc', center: {x: 0.55, y: 0.525}, rx: 0.25, ry: 0.15, a1: -Math.PI / 2, a2: Math.PI / 2},
+      {type: 'line', points: [{x: 0.575, y: 0.675}, {x: 0.2, y: 0.675}]},
+      {type: 'arc', center: {x: 0.55, y: 0.825}, rx: 0.3, ry: 0.15, a1: -Math.PI / 2, a2: Math.PI / 2},
+      {type: 'line', points: [{x: 0.575, y: 0.975}, {x: 0.2, y: 0.975}]}
+    ]
+  },
+  'C': {
+    isolated: [
+      {type: 'arc', center: {x: 0.55, y: 0.675}, rx: 0.375, ry: 0.3, a1: 3.6 * Math.PI / 2, a2: 0.3 * Math.PI / 2}
+    ]
+  },
+  'D': {
+    isolated: [
+      {type: 'line', points: [{x: 0.2, y: 0.35}, {x: 0.2, y: 1}]},
+      {type: 'line', points: [{x: 0.2, y: 0.375}, {x: 0.35, y: 0.375}]},
+      {type: 'arc', center: {x: 0.35, y: 0.675}, rx: 0.5, ry: 0.3, a1: -Math.PI / 2, a2: Math.PI / 2},
+      {type: 'line', points: [{x: 0.35, y: 0.975}, {x: 0.2, y: 0.975}]},
+    ]
+  },
+  'E': {
+    isolated: [
+      {type: 'line', points: [{x: 0.2, y: 0.35}, {x: 0.2, y: 1}]},
+      {type: 'line', points: [{x: 0.85, y: 0.375}, {x: 0.2, y: 0.375}]},
+      {type: 'line', points: [{x: 0.825, y: 0.675}, {x: 0.2, y: 0.675}]},
+      {type: 'line', points: [{x: 0.875, y: 0.975}, {x: 0.2, y: 0.975}]}
+    ]
+  },
+  'F': {
+    isolated: [
+      {type: 'line', points: [{x: 0.225, y: 0.35}, {x: 0.225, y: 1}]},
+      {type: 'line', points: [{x: 0.85, y: 0.375}, {x: 0.2, y: 0.375}]},
+      {type: 'line', points: [{x: 0.825, y: 0.675}, {x: 0.2, y: 0.675}]}
+    ]
+  },
+  'G': {
+    isolated: [
+      {type: 'arc', center: {x: 0.55, y: 0.675}, rx: 0.375, ry: 0.3, a1: 3.6 * Math.PI / 2, a2: 0.5 * Math.PI / 2},
+      {type: 'line', points: [{x: 0.8, y: 0.95}, {x: 0.8, y: 0.675}]},
+      {type: 'line', points: [{x: 0.85, y: 0.675}, {x: 0.5, y: 0.675}]},
+    ]
+  },
+  'H': {
+    isolated: [
+      {type: 'line', points: [{x: 0.2, y: 0.35}, {x: 0.2, y: 1}]},
+      {type: 'line', points: [{x: 0.8, y: 0.35}, {x: 0.8, y: 1}]},
+      {type: 'line', points: [{x: 0.8, y: 0.65}, {x: 0.2, y: 0.65}]}
+    ]
+  },
+  'I': {
+    isolated: [
+      {type: 'line', points: [{x: 0.5, y: 0.35}, {x: 0.5, y: 1}]}
+    ]
+  },
+  'J': {
+    isolated: [
+      {type: 'line', points: [{x: 0.75, y: 0.35}, {x: 0.75, y: 0.825}]},
+      {type: 'arc', center: {x: 0.5, y: 0.825}, rx: 0.25, ry: 0.15, a1: 0, a2: Math.PI}
+    ]
+  },
+  'K': {
+    isolated: [
+      {type: 'line', points: [{x: 0.2, y: 0.35}, {x: 0.2, y: 1}]},
+      {type: 'line', points: [{x: 0.85, y: 0.35}, {x: 0.2, y: 0.75}]},
+      {type: 'line', points: [{x: 0.4, y: 0.625}, {x: 0.9, y: 1}]}
+    ]
+  },
+  'L': {
+    isolated: [
+      {type: 'line', points: [{x: 0.25, y: 0.35}, {x: 0.25, y: 1}]},
+      {type: 'line', points: [{x: 0.25, y: 0.975}, {x: 0.875, y: 0.975}]}
+    ]
+  },
+  'M': {
+    isolated: [
+      {type: 'line', points: [{x: 0.175, y: 1}, {x: 0.175, y: 0.35}]},
+      {type: 'line', points: [{x: 0.2, y: 0.35}, {x: 0.5, y: 0.775}]},
+      {type: 'line', points: [{x: 0.5, y: 0.775}, {x: 0.8, y: 0.35}]},
+      {type: 'line', points: [{x: 0.825, y: 0.35}, {x: 0.825, y: 1}]}
+    ]
+  },
+  'N': {
+    isolated: [
+      {type: 'line', points: [{x: 0.2, y: 1}, {x: 0.2, y: 0.35}]},
+      {type: 'line', points: [{x: 0.25, y: 0.35}, {x: 0.75, y: 1}]},
+      {type: 'line', points: [{x: 0.8, y: 1}, {x: 0.8, y: 0.35}]}
+    ]
+  },
+  'O': {
+    isolated: [
+      {type: 'arc', center: {x: 0.5, y: 0.675}, rx: 0.35, ry: 0.3, a1: -Math.PI / 2, a2: 3 * Math.PI / 2}
+    ]
+  },
+  'P': {
+    isolated: [
+      {type: 'line', points: [{x: 0.2, y: 1}, {x: 0.2, y: 0.35}]},
+      {type: 'line', points: [{x: 0.2, y: 0.375}, {x: 0.575, y: 0.375}]},
+      {type: 'arc', center: {x: 0.55, y: 0.5375}, rx: 0.275, ry: 0.1625, a1: -Math.PI / 2, a2: Math.PI / 2},
+      {type: 'line', points: [{x: 0.575, y: 0.7}, {x: 0.2, y: 0.7}]},
+    ]
+  },
+  'Q': {
+    isolated: [
+      {type: 'arc', center: {x: 0.5, y: 0.675}, rx: 0.35, ry: 0.3, a1: -Math.PI / 2, a2: 3 * Math.PI / 2},
+      {type: 'arc', center: {x: 0.85, y: 0.95}, rx: 0.35, ry: 0.2, a1: Math.PI, a2: 0.75 * Math.PI / 2}
+    ]
+  },
+  'R': {
+    isolated: [
+      {type: 'line', points: [{x: 0.2, y: 1}, {x: 0.2, y: 0.35}]},
+      {type: 'line', points: [{x: 0.2, y: 0.375}, {x: 0.575, y: 0.375}]},
+      {type: 'arc', center: {x: 0.55, y: 0.5375}, rx: 0.275, ry: 0.1625, a1: -Math.PI / 2, a2: Math.PI / 2},
+      {type: 'line', points: [{x: 0.575, y: 0.7}, {x: 0.2, y: 0.7}]},
+      {type: 'line', points: [{x: 0.5, y: 0.7}, {x: 0.875, y: 1}]}
+    ]
+  },
+  'S': {
+    isolated: [
+      {type: 'arc', center: {x: 0.5, y: 0.5125}, rx: 0.325, ry: 0.1375, a1: 2 * Math.PI, a2: 0.625 * Math.PI},
+      {type: 'line', points: [{x: 0.325, y: 0.62}, {x: 0.7, y: 0.6875}]},
+      {type: 'arc', center: {x: 0.5, y: 0.8125}, rx: 0.35, ry: 0.15, a1: - 0.375 * Math.PI, a2: Math.PI}
+    ]
+  },
+  'T': {
+    isolated: [
+      {type: 'line', points: [{x: 0.5, y: 0.35}, {x: 0.5, y: 1}]},
+      {type: 'line', points: [{x: 0.075, y: 0.375}, {x: 0.925, y: 0.375}]}
+    ]
+  },
+  'U': {
+    isolated: [
+      {type: 'line', points: [{x: 0.2, y: 0.35}, {x: 0.2, y: 0.8}]},
+      {type: 'arc', center: {x: 0.5, y: 0.8}, rx: 0.3, ry: 0.175, a1: Math.PI, a2: 0},
+      {type: 'line', points: [{x: 0.8, y: 0.8}, {x: 0.8, y: 0.35}]}
+    ]
+  },
+  'V': {
+    isolated: [
+      {type: 'line', points: [{x: 0.1, y: 0.35}, {x: 0.5, y: 1}]},
+      {type: 'line', points: [{x: 0.5, y: 1}, {x: 0.9, y: 0.35}]}
+    ]
+  },
+  'W': {
+    isolated: [
+      {type: 'line', points: [{x: 0.1, y: 0.35}, {x: 0.25, y: 1}]},
+      {type: 'line', points: [{x: 0.25, y: 1}, {x: 0.5, y: 0.55}]},
+      {type: 'line', points: [{x: 0.5, y: 0.55}, {x: 0.75, y: 1}]},
+      {type: 'line', points: [{x: 0.75, y: 1}, {x: 0.9, y: 0.35}]}
+    ]
+  },
+  'X': {
+    isolated: [
+      {type: 'line', points: [{x: 0.15, y: 0.35}, {x: 0.875, y: 1}]},
+      {type: 'line', points: [{x: 0.85, y: 0.35}, {x: 0.125, y: 1}]}
+    ]
+  },
+  'Y': {
+    isolated: [
+      {type: 'line', points: [{x: 0.125, y: 0.35}, {x: 0.5, y: 0.7}]},
+      {type: 'line', points: [{x: 0.875, y: 0.35}, {x: 0.5, y: 0.7}]},
+      {type: 'line', points: [{x: 0.5, y: 0.7}, {x: 0.5, y: 1}]}
+    ]
+  },
+  'Z': {
+    isolated: [
+      {type: 'line', points: [{x: 0.1, y: 0.375}, {x: 0.875, y: 0.375}]},
+      {type: 'line', points: [{x: 0.85, y: 0.375}, {x: 0.1, y: 0.975}]},
+      {type: 'line', points: [{x: 0.075, y: 0.975}, {x: 0.925, y: 0.975}]}
+    ]
+  },
+  'Å': {
+    isolated: [
+      {type: 'line', points: [{x: 0.075, y: 1}, {x: 0.5, y: 0.35}]},
+      {type: 'line', points: [{x: 0.5, y: 0.35}, {x: 0.925, y: 1}]},
+      {type: 'line', points: [{x: 0.75, y: 0.775}, {x: 0.25, y: 0.775}]},
+      {type: 'arc', center: {x: 0.5, y: 0.3}, rx: 0.125, ry: 0.05, a1: -Math.PI / 2, a2: 3 * Math.PI / 2}
+    ]
+  },
+  'Ä': {
+    isolated: [
+      {type: 'line', points: [{x: 0.075, y: 1}, {x: 0.5, y: 0.35}]},
+      {type: 'line', points: [{x: 0.5, y: 0.35}, {x: 0.925, y: 1}]},
+      {type: 'line', points: [{x: 0.75, y: 0.775}, {x: 0.25, y: 0.775}]},
+      {type: 'arc', center: {x: 0.325, y: 0.25}, rx: 0.025, ry: 0.025, a1: -Math.PI / 2, a2: 3 * Math.PI / 2},
+      {type: 'arc', center: {x: 0.675, y: 0.25}, rx: 0.025, ry: 0.025, a1: -Math.PI / 2, a2: 3 * Math.PI / 2}
+    ]
+  },
+  'Ö': {
+    isolated: [
+      {type: 'arc', center: {x: 0.5, y: 0.675}, rx: 0.35, ry: 0.3, a1: -Math.PI / 2, a2: 3 * Math.PI / 2},
+      {type: 'arc', center: {x: 0.325, y: 0.25}, rx: 0.025, ry: 0.025, a1: -Math.PI / 2, a2: 3 * Math.PI / 2},
+      {type: 'arc', center: {x: 0.675, y: 0.25}, rx: 0.025, ry: 0.025, a1: -Math.PI / 2, a2: 3 * Math.PI / 2}
+    ]
+  },
+  'a': {
+    isolated: [
+      {type: 'arc', center: {x: 0.475, y: 0.6}, rx: 0.25, ry: 0.1, a1: Math.PI, a2: 2 * Math.PI},
+      {type: 'line', points: [{x: 0.725, y: 0.6}, {x: 0.725, y: 0.875}]},
+      {type: 'arc', center: {x: 0.45, y: 0.85}, rx: 0.275, ry: 0.125, a1: 0 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'line', points: [{x: 0.45, y: 0.725}, {x: 0.725, y: 0.725}]},
+      {type: 'arc', center: {x: 0.925, y: 0.85}, rx: 0.2, ry: 0.125, a1: Math.PI, a2: 0.5 * Math.PI}
+    ]
+  },
+  'b': {
+    isolated: [
+      {type: 'line', points: [{x: 0.225, y: 0.25}, {x: 0.225, y: 1}]},
+      {type: 'arc', center: {x: 0.55, y: 0.7375}, rx: 0.275, ry: 0.225, a1: Math.PI, a2: -Math.PI}
+    ]
+  },
+  'c': {
+    isolated: [
+      {type: 'arc', center: {x: 0.55, y: 0.725}, rx: 0.375, ry: 0.225, a1: 3.6 * Math.PI / 2, a2: 0.4 * Math.PI / 2}
+    ]
+  },
+  'd': {
+    isolated: [
+      {type: 'line', points: [{x: 0.775, y: 0.25}, {x: 0.775, y: 1}]},
+      {type: 'arc', center: {x: 0.45, y: 0.7375}, rx: 0.275, ry: 0.225, a1: 0, a2: 2 * Math.PI}
+    ]
+  },
+  'e': {
+    isolated: [
+      {type: 'line', points: [{x: 0.25, y: 0.725}, {x: 0.9, y: 0.725}]},
+      {type: 'arc', center: {x: 0.5, y: 0.7375}, rx: 0.325, ry: 0.25, a1: 2 * Math.PI, a2: 0.15 * Math.PI}
+    ]
+  },
+  'f': {
+    isolated: [
+      {type: 'arc', center: {x: 0.85, y: 0.425}, rx: 0.45, ry: 0.125, a1: 1.5 * Math.PI, a2: Math.PI},
+      {type: 'line', points: [{x: 0.4, y: 0.4}, {x: 0.4, y: 1}]},
+      {type: 'line', points: [{x: 0.85, y: 0.5}, {x: 0.1, y: 0.5}]},
+    ]
+  },
+  'g': {
+    isolated: [
+      {type: 'arc', center: {x: 0.45, y: 0.7375}, rx: 0.275, ry: 0.225, a1: 2 * Math.PI, a2: 0},
+      {type: 'line', points: [{x: 0.775, y: 0.475}, {x: 0.775, y: 1.05}]},
+      {type: 'arc', center: {x: 0.5, y: 1.05}, rx: 0.275, ry: 0.125, a1: 0, a2: Math.PI}
+    ]
+  },
+  'h': {
+    isolated: [
+      {type: 'line', points: [{x: 0.225, y: 0.25}, {x: 0.225, y: 1}]},
+      {type: 'arc', center: {x: 0.5, y: 0.65}, rx: 0.275, ry: 0.15, a1: Math.PI, a2: 2 * Math.PI},
+      {type: 'line', points: [{x: 0.775, y: 0.65}, {x: 0.775, y: 1}]}
+    ]
+  },
+  'i': {
+    isolated: [
+      {type: 'line', points: [{x: 0.525, y: 0.475}, {x: 0.525, y: 1}]},
+      {type: 'arc', center: {x: 0.525, y: 0.325}, rx: 0.025, ry: 0.025, a1: -Math.PI / 2, a2: 3 * Math.PI / 2}
+    ]
+  },
+  'j': {
+    isolated: [
+      {type: 'line', points: [{x: 0.6, y: 0.475}, {x: 0.6, y: 1}]},
+      {type: 'arc', center: {x: 0.2, y: 0.975}, rx: 0.4, ry: 0.2, a1: 0, a2: 0.6 * Math.PI},
+      {type: 'arc', center: {x: 0.6, y: 0.325}, rx: 0.025, ry: 0.025, a1: -Math.PI / 2, a2: 3 * Math.PI / 2}
+    ]
+  },
+  'k': {
+    isolated: [
+      {type: 'line', points: [{x: 0.25, y: 0.25}, {x: 0.25, y: 1}]},
+      {type: 'line', points: [{x: 0.8, y: 0.475}, {x: 0.25, y: 0.85}]},
+      {type: 'line', points: [{x: 0.475, y: 0.725}, {x: 0.85, y: 1}]}
+    ]
+  },
+  'l': {
+    isolated: [
+      {type: 'line', points: [{x: 0.525, y: 0.275}, {x: 0.525, y: 1}]},
+    ]
+  },
+  'm': {
+    isolated: [
+      {type: 'line', points: [{x: 0.15, y: 0.45}, {x: 0.15, y: 1}]},
+      {type: 'arc', center: {x: 0.325, y: 0.65}, rx: 0.175, ry: 0.15, a1: Math.PI, a2: 2 * Math.PI},
+      {type: 'line', points: [{x: 0.5, y: 0.65}, {x: 0.5, y: 1}]},
+      {type: 'arc', center: {x: 0.675, y: 0.65}, rx: 0.175, ry: 0.15, a1: Math.PI, a2: 2 * Math.PI},
+      {type: 'line', points: [{x: 0.85, y: 0.65}, {x: 0.85, y: 1}]}
+    ]
+  },
+  'n': {
+    isolated: [
+      {type: 'line', points: [{x: 0.225, y: 0.45}, {x: 0.225, y: 1}]},
+      {type: 'arc', center: {x: 0.5, y: 0.65}, rx: 0.275, ry: 0.15, a1: Math.PI, a2: 2 * Math.PI},
+      {type: 'line', points: [{x: 0.775, y: 0.65}, {x: 0.775, y: 1}]}
+    ]
+  },
+  'o': {
+    isolated: [
+      {type: 'arc', center: {x: 0.5, y: 0.725}, rx: 0.325, ry: 0.25, a1: -Math.PI / 2, a2: 3 * Math.PI / 2}
+    ]
+  },
+  'p': {
+    isolated: [
+      {type: 'line', points: [{x: 0.225, y: 0.475}, {x: 0.225, y: 1.225}]},
+      {type: 'arc', center: {x: 0.525, y: 0.7375}, rx: 0.3, ry: 0.225, a1: Math.PI, a2: 3 * Math.PI}
+    ]
+  },
+  'q': {
+    isolated: [
+      {type: 'arc', center: {x: 0.475, y: 0.7375}, rx: 0.3, ry: 0.225, a1: 2 * Math.PI, a2: 0},
+      {type: 'line', points: [{x: 0.775, y: 0.475}, {x: 0.775, y: 1.225}]}
+    ]
+  },
+  'r': {
+    isolated: [
+      {type: 'line', points: [{x: 0.3125, y: 1}, {x: 0.3125, y: 0.475}]},
+      {type: 'arc', center: {x: 0.8375, y: 0.7}, rx: 0.525, ry: 0.2, a1: Math.PI, a2: 1.5 * Math.PI},
+    ]
+  },
+  's': {
+    isolated: [
+      {type: 'arc', center: {x: 0.5, y: 0.6125}, rx: 0.275, ry: 0.1125, a1: 2 * Math.PI, a2: 0.625 * Math.PI},
+      {type: 'line', points: [{x: 0.325, y: 0.7}, {x: 0.7, y: 0.7675}]},
+      {type: 'arc', center: {x: 0.5, y: 0.85}, rx: 0.3, ry: 0.1125, a1: - 0.375 * Math.PI, a2: Math.PI}
+    ]
+  },
+  't': {
+    isolated: [
+      {type: 'line', points: [{x: 0.3625, y: 0.325}, {x: 0.3625, y: 0.875}]},
+      {type: 'arc', center: {x: 0.7375, y: 0.85}, rx: 0.375, ry: 0.125, a1: Math.PI, a2: 0.4 * Math.PI},
+      {type: 'line', points: [{x: 0.775, y: 0.5}, {x: 0.15, y: 0.5}]},
+    ]
+  },
+  'u': {
+    isolated: [
+      {type: 'line', points: [{x: 0.225, y: 0.475}, {x: 0.225, y: 0.8}]},
+      {type: 'arc', center: {x: 0.5, y: 0.8}, rx: 0.275, ry: 0.175, a1: Math.PI, a2: 0},
+      {type: 'line', points: [{x: 0.775, y: 0.8}, {x: 0.775, y: 0.475}]},
+      {type: 'line', points: [{x: 0.775, y: 0.475}, {x: 0.775, y: 1}]}
+    ]
+  },
+  'v': {
+    isolated: [
+      {type: 'line', points: [{x: 0.125, y: 0.45}, {x: 0.5, y: 1}]},
+      {type: 'line', points: [{x: 0.5, y: 1}, {x: 0.875, y: 0.45}]}
+    ]
+  },
+  'w': {
+    isolated: [
+      {type: 'line', points: [{x: 0.075, y: 0.45}, {x: 0.25, y: 1}]},
+      {type: 'line', points: [{x: 0.25, y: 1}, {x: 0.5, y: 0.625}]},
+      {type: 'line', points: [{x: 0.5, y: 0.625}, {x: 0.75, y: 1}]},
+      {type: 'line', points: [{x: 0.75, y: 1}, {x: 0.925, y: 0.45}]}
+    ]
+  },
+  'x': {
+    isolated: [
+      {type: 'line', points: [{x: 0.15, y: 0.45}, {x: 0.85, y: 1}]},
+      {type: 'line', points: [{x: 0.85, y: 0.45}, {x: 0.15, y: 1}]}
+    ]
+  },
+  'y': {
+    isolated: [
+      {type: 'line', points: [{x: 0.125, y: 0.475}, {x: 0.5, y: 0.975}]},
+      {type: 'line', points: [{x: 0.875, y: 0.475}, {x: 0.5, y: 0.975}]},
+      {type: 'arc', center: {x: 0.125, y: 0.975}, rx: 0.375, ry: 0.2, a1: 0, a2: 0.5 * Math.PI}
+    ]
+  },
+  'z': {
+    isolated: [
+      {type: 'line', points: [{x: 0.15, y: 0.5}, {x: 0.85, y: 0.5}]},
+      {type: 'line', points: [{x: 0.8, y: 0.5}, {x: 0.15, y: 0.975}]},
+      {type: 'line', points: [{x: 0.125, y: 0.975}, {x: 0.875, y: 0.975}]}
+    ]
+  },
+  'å': {
+    isolated: [
+      {type: 'arc', center: {x: 0.475, y: 0.6}, rx: 0.25, ry: 0.1, a1: Math.PI, a2: 2 * Math.PI},
+      {type: 'line', points: [{x: 0.725, y: 0.6}, {x: 0.725, y: 0.875}]},
+      {type: 'arc', center: {x: 0.45, y: 0.85}, rx: 0.275, ry: 0.125, a1: 0 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'line', points: [{x: 0.45, y: 0.725}, {x: 0.725, y: 0.725}]},
+      {type: 'arc', center: {x: 0.925, y: 0.85}, rx: 0.2, ry: 0.125, a1: Math.PI, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.5, y: 0.3375}, rx: 0.125, ry: 0.05, a1: -Math.PI / 2, a2: 3 * Math.PI / 2}
+    ]
+  },
+  'ä': {
+    isolated: [
+      {type: 'arc', center: {x: 0.475, y: 0.6}, rx: 0.25, ry: 0.1, a1: Math.PI, a2: 2 * Math.PI},
+      {type: 'line', points: [{x: 0.725, y: 0.6}, {x: 0.725, y: 0.875}]},
+      {type: 'arc', center: {x: 0.45, y: 0.85}, rx: 0.275, ry: 0.125, a1: 0 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'line', points: [{x: 0.45, y: 0.725}, {x: 0.725, y: 0.725}]},
+      {type: 'arc', center: {x: 0.925, y: 0.85}, rx: 0.2, ry: 0.125, a1: Math.PI, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.35, y: 0.35}, rx: 0.025, ry: 0.025, a1: -Math.PI / 2, a2: 3 * Math.PI / 2},
+      {type: 'arc', center: {x: 0.65, y: 0.35}, rx: 0.025, ry: 0.025, a1: -Math.PI / 2, a2: 3 * Math.PI / 2}
+    ]
+  },
+  'ö': {
+    isolated: [
+      {type: 'arc', center: {x: 0.5, y: 0.725}, rx: 0.325, ry: 0.25, a1: -Math.PI / 2, a2: 3 * Math.PI / 2},
+      {type: 'arc', center: {x: 0.35, y: 0.35}, rx: 0.025, ry: 0.025, a1: -Math.PI / 2, a2: 3 * Math.PI / 2},
+      {type: 'arc', center: {x: 0.65, y: 0.35}, rx: 0.025, ry: 0.025, a1: -Math.PI / 2, a2: 3 * Math.PI / 2}
+    ]
+  },
+  'ا': {
+    isolated: [
+      {type: 'line', points: [{x: 0.5, y: 0.25}, {x: 0.5, y: 1}]}
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.55, ry: 0.25, a1: 0.5 * Math.PI, a2: Math.PI},
+      {type: 'line', points: [{x: 0.45, y: 0.75}, {x: 0.45, y: 0.25}]}
+    ]
+  },
+  'ب': {
+    isolated: [
+      {type: 'arc', center: {x: 0.5, y: 0.775}, rx: 0.375, ry: 0.2, a1: -0.125 * Math.PI, a2: 1.125 * Math.PI},
+      {type: 'arc', center: {x: 0.475, y: 1.13}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ],
+    initial: [
+      {type: 'arc', center: {x: 0, y: 0.7}, rx: 0.5, ry: 0.25, a1: 0, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.5, y: 1.115}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ],
+    medial: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.5, ry: 0.25, a1: 0.5 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.7}, rx: 0.5, ry: 0.25, a1: 0, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.5, y: 1.115}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.65}, rx: 0.175, ry: 0.3, a1: 0.5 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0.45, y: 0.775}, rx: 0.35, ry: 0.2, a1: -0.125 * Math.PI, a2: 1.125 * Math.PI},
+      {type: 'arc', center: {x: 0.45, y: 1.13}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ]
+  },
+  'پ': {
+    isolated: [
+      {type: 'arc', center: {x: 0.5, y: 0.775}, rx: 0.375, ry: 0.2, a1: -0.125 * Math.PI, a2: 1.125 * Math.PI},
+      {type: 'arc', center: {x: 0.4, y: 1.085}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.525, y: 1.085}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.4625, y: 1.2}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ],
+    initial: [
+      {type: 'arc', center: {x: 0, y: 0.7}, rx: 0.5, ry: 0.25, a1: 0, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.3, y: 1.085}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.7, y: 1.085}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.5, y: 1.2}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ],
+    medial: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.5, ry: 0.25, a1: 0.5 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.7}, rx: 0.5, ry: 0.25, a1: 0, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.3, y: 1.085}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.7, y: 1.085}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.5, y: 1.2}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.65}, rx: 0.175, ry: 0.3, a1: 0.5 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0.45, y: 0.775}, rx: 0.35, ry: 0.2, a1: -0.125 * Math.PI, a2: 1.125 * Math.PI},
+      {type: 'arc', center: {x: 0.375, y: 1.085}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.525, y: 1.085}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.45, y: 1.2}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ]
+  },
+  'ت': {
+    isolated: [
+      {type: 'arc', center: {x: 0.5, y: 0.775}, rx: 0.375, ry: 0.2, a1: -0.125 * Math.PI, a2: 1.125 * Math.PI},
+      {type: 'arc', center: {x: 0.4, y: 0.65}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.525, y: 0.65}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ],
+    initial: [
+      {type: 'arc', center: {x: 0, y: 0.7}, rx: 0.5, ry: 0.25, a1: 0, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.3, y: 0.55}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.7, y: 0.55}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ],
+    medial: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.5, ry: 0.25, a1: 0.5 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.7}, rx: 0.5, ry: 0.25, a1: 0, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.3, y: 0.55}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.7, y: 0.55}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.65}, rx: 0.175, ry: 0.3, a1: 0.5 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0.45, y: 0.775}, rx: 0.35, ry: 0.2, a1: -0.125 * Math.PI, a2: 1.125 * Math.PI},
+      {type: 'arc', center: {x: 0.3875, y: 0.65}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.5125, y: 0.65}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ]
+  },
+  'ث': {
+    isolated: [
+      {type: 'arc', center: {x: 0.5, y: 0.775}, rx: 0.375, ry: 0.2, a1: -0.125 * Math.PI, a2: 1.125 * Math.PI},
+      {type: 'arc', center: {x: 0.4, y: 0.65}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.525, y: 0.65}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.4625, y: 0.525}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ],
+    initial: [
+      {type: 'arc', center: {x: 0, y: 0.7}, rx: 0.5, ry: 0.25, a1: 0, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.3, y: 0.55}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.7, y: 0.55}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.5, y: 0.425}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ],
+    medial: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.5, ry: 0.25, a1: 0.5 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.7}, rx: 0.5, ry: 0.25, a1: 0, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.3, y: 0.55}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.7, y: 0.55}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.5, y: 0.425}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.65}, rx: 0.175, ry: 0.3, a1: 0.5 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0.45, y: 0.775}, rx: 0.35, ry: 0.2, a1: -0.125 * Math.PI, a2: 1.125 * Math.PI},
+      {type: 'arc', center: {x: 0.3875, y: 0.65}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.5125, y: 0.65}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.45, y: 0.525}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ]
+  },
+  'ج': {
+    isolated: [
+      {type: 'arc', center: {x: 0.5, y: 0.825}, rx: 0.6, ry: 0.2, a1: 1.3 * Math.PI, a2: 1.675 * Math.PI},
+      {type: 'arc', center: {x: 0.65, y: 0.925}, rx: 0.45, ry: 0.275, a1: 1.575 * Math.PI, a2: 0.3 * Math.PI},
+      {type: 'arc', center: {x: 0.625, y: 0.95}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ],
+    initial: [
+      {type: 'arc', center: {x: 0.15, y: 0.85}, rx: 0.9, ry: 0.2, a1: 1.5 * Math.PI, a2: 1.8 * Math.PI},
+      {type: 'arc', center: {x: 1.2, y: 0.9}, rx: 0.7, ry: 0.2, a1: 1.35 * Math.PI, a2: 1.1 * Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.75}, rx: 0.6, ry: 0.2, a1: 0.1 * Math.PI, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.475, y: 1.11}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ],
+    medial: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.35, ry: 0.25, a1: 0.5 * Math.PI, a2: 0.9 * Math.PI},
+      {type: 'arc', center: {x: 0.125, y: 0.85}, rx: 0.9, ry: 0.2, a1: 1.5 * Math.PI, a2: 1.8 * Math.PI},
+      {type: 'arc', center: {x: 0.85, y: 0.95}, rx: 0.45, ry: 0.2, a1: 1.5 * Math.PI, a2: 1.1 * Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.75}, rx: 0.55, ry: 0.2, a1: 0.1 * Math.PI, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.45, y: 1.11}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.3, ry: 0.25, a1: 0.5 * Math.PI, a2: 1.05 * Math.PI},
+      {type: 'arc', center: {x: 0.525, y: 0.825}, rx: 0.65, ry: 0.2, a1: 1.3 * Math.PI, a2: 1.675 * Math.PI},
+      {type: 'arc', center: {x: 0.65, y: 0.95}, rx: 0.45, ry: 0.2625, a1: 1.575 * Math.PI, a2: 0.25 * Math.PI},
+      {type: 'arc', center: {x: 0.59, y: 0.98}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ]
+  },
+  'چ': {
+    isolated: [
+      {type: 'arc', center: {x: 0.5, y: 0.825}, rx: 0.6, ry: 0.2, a1: 1.3 * Math.PI, a2: 1.675 * Math.PI},
+      {type: 'arc', center: {x: 0.65, y: 0.925}, rx: 0.45, ry: 0.275, a1: 1.575 * Math.PI, a2: 0.3 * Math.PI},
+      {type: 'arc', center: {x: 0.55, y: 0.88}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.75, y: 0.88}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.65, y: 1}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ],
+    initial: [
+      {type: 'arc', center: {x: 0.15, y: 0.85}, rx: 0.9, ry: 0.2, a1: 1.5 * Math.PI, a2: 1.8 * Math.PI},
+      {type: 'arc', center: {x: 1.2, y: 0.9}, rx: 0.7, ry: 0.2, a1: 1.35 * Math.PI, a2: 1.1 * Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.75}, rx: 0.6, ry: 0.2, a1: 0.1 * Math.PI, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.375, y: 1.06}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.575, y: 1.06}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.475, y: 1.18}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ],
+    medial: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.35, ry: 0.25, a1: 0.5 * Math.PI, a2: 0.9 * Math.PI},
+      {type: 'arc', center: {x: 0.125, y: 0.85}, rx: 0.9, ry: 0.2, a1: 1.5 * Math.PI, a2: 1.8 * Math.PI},
+      {type: 'arc', center: {x: 0.85, y: 0.95}, rx: 0.45, ry: 0.2, a1: 1.5 * Math.PI, a2: 1.1 * Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.75}, rx: 0.55, ry: 0.2, a1: 0.1 * Math.PI, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.35, y: 1.06}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.55, y: 1.06}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.45, y: 1.18}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.3, ry: 0.25, a1: 0.5 * Math.PI, a2: 1.05 * Math.PI},
+      {type: 'arc', center: {x: 0.525, y: 0.825}, rx: 0.65, ry: 0.2, a1: 1.3 * Math.PI, a2: 1.675 * Math.PI},
+      {type: 'arc', center: {x: 0.65, y: 0.95}, rx: 0.45, ry: 0.2625, a1: 1.575 * Math.PI, a2: 0.25 * Math.PI},
+      {type: 'arc', center: {x: 0.45, y: 0.94}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.65, y: 0.94}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.55, y: 1.06}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ]
+  },
+  'ح': {
+    isolated: [
+      {type: 'arc', center: {x: 0.5, y: 0.825}, rx: 0.6, ry: 0.2, a1: 1.3 * Math.PI, a2: 1.675 * Math.PI},
+      {type: 'arc', center: {x: 0.65, y: 0.925}, rx: 0.45, ry: 0.275, a1: 1.575 * Math.PI, a2: 0.3 * Math.PI},
+    ],
+    initial: [
+      {type: 'arc', center: {x: 0.15, y: 0.85}, rx: 0.9, ry: 0.2, a1: 1.5 * Math.PI, a2: 1.8 * Math.PI},
+      {type: 'arc', center: {x: 1.2, y: 0.9}, rx: 0.7, ry: 0.2, a1: 1.35 * Math.PI, a2: 1.1 * Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.75}, rx: 0.6, ry: 0.2, a1: 0.1 * Math.PI, a2: 0.5 * Math.PI},
+    ],
+    medial: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.35, ry: 0.25, a1: 0.5 * Math.PI, a2: 0.9 * Math.PI},
+      {type: 'arc', center: {x: 0.125, y: 0.85}, rx: 0.9, ry: 0.2, a1: 1.5 * Math.PI, a2: 1.8 * Math.PI},
+      {type: 'arc', center: {x: 0.85, y: 0.95}, rx: 0.45, ry: 0.2, a1: 1.5 * Math.PI, a2: 1.1 * Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.75}, rx: 0.55, ry: 0.2, a1: 0.1 * Math.PI, a2: 0.5 * Math.PI},
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.3, ry: 0.25, a1: 0.5 * Math.PI, a2: 1.05 * Math.PI},
+      {type: 'arc', center: {x: 0.525, y: 0.825}, rx: 0.65, ry: 0.2, a1: 1.3 * Math.PI, a2: 1.675 * Math.PI},
+      {type: 'arc', center: {x: 0.65, y: 0.95}, rx: 0.45, ry: 0.2625, a1: 1.575 * Math.PI, a2: 0.25 * Math.PI}
+    ]
+  },
+  'خ': {
+    isolated: [
+      {type: 'arc', center: {x: 0.5, y: 0.825}, rx: 0.6, ry: 0.2, a1: 1.3 * Math.PI, a2: 1.675 * Math.PI},
+      {type: 'arc', center: {x: 0.65, y: 0.925}, rx: 0.45, ry: 0.275, a1: 1.575 * Math.PI, a2: 0.3 * Math.PI},
+      {type: 'arc', center: {x: 0.5, y: 0.45}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ],
+    initial: [
+      {type: 'arc', center: {x: 0.15, y: 0.85}, rx: 0.9, ry: 0.2, a1: 1.5 * Math.PI, a2: 1.8 * Math.PI},
+      {type: 'arc', center: {x: 1.2, y: 0.9}, rx: 0.7, ry: 0.2, a1: 1.35 * Math.PI, a2: 1.1 * Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.75}, rx: 0.6, ry: 0.2, a1: 0.1 * Math.PI, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.475, y: 0.5}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ],
+    medial: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.35, ry: 0.25, a1: 0.5 * Math.PI, a2: 0.9 * Math.PI},
+      {type: 'arc', center: {x: 0.125, y: 0.85}, rx: 0.9, ry: 0.2, a1: 1.5 * Math.PI, a2: 1.8 * Math.PI},
+      {type: 'arc', center: {x: 0.85, y: 0.95}, rx: 0.45, ry: 0.2, a1: 1.5 * Math.PI, a2: 1.1 * Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.75}, rx: 0.55, ry: 0.2, a1: 0.1 * Math.PI, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.45, y: 0.5}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.3, ry: 0.25, a1: 0.5 * Math.PI, a2: 1.05 * Math.PI},
+      {type: 'arc', center: {x: 0.525, y: 0.825}, rx: 0.65, ry: 0.2, a1: 1.3 * Math.PI, a2: 1.675 * Math.PI},
+      {type: 'arc', center: {x: 0.65, y: 0.95}, rx: 0.45, ry: 0.2625, a1: 1.575 * Math.PI, a2: 0.25 * Math.PI},
+      {type: 'arc', center: {x: 0.5, y: 0.45}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ]
+  },
+  'د': {
+    isolated: [
+      {type: 'arc', center: {x: 0.15, y: 0.75}, rx: 0.65, ry: 0.2, rot: 0.125 * Math.PI, a1: -0.45 * Math.PI, a2: 0.4 * Math.PI}
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.375, ry: 0.25, a1: 0.5 * Math.PI, a2: 0.9 * Math.PI},
+      {type: 'arc', center: {x: 0.1, y: 0.75}, rx: 0.6, ry: 0.2, rot: 0.125 * Math.PI, a1: -0.45 * Math.PI, a2: 0.4 * Math.PI}
+    ]
+  },
+  'ذ': {
+    isolated: [
+      {type: 'arc', center: {x: 0.15, y: 0.75}, rx: 0.65, ry: 0.2, rot: 0.125 * Math.PI, a1: -0.45 * Math.PI, a2: 0.4 * Math.PI},
+      {type: 'arc', center: {x: 0.45, y: 0.45}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.375, ry: 0.25, a1: 0.5 * Math.PI, a2: 0.9 * Math.PI},
+      {type: 'arc', center: {x: 0.1, y: 0.75}, rx: 0.6, ry: 0.2, rot: 0.125 * Math.PI, a1: -0.45 * Math.PI, a2: 0.4 * Math.PI},
+      {type: 'arc', center: {x: 0.375, y: 0.45}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ]
+  },
+  'ر': {
+    isolated: [
+      {type: 'arc', center: {x: 0, y: 0.85}, rx: 0.8, ry: 0.35, a1: -0.1 * Math.PI, a2: 0.525 * Math.PI}
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.35, ry: 0.25, a1: 0.5 * Math.PI, a2: 0.9 * Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.85}, rx: 0.7, ry: 0.35, a1: -0.1 * Math.PI, a2: 0.525 * Math.PI}
+    ]
+  },
+  'ز': {
+    isolated: [
+      {type: 'arc', center: {x: 0, y: 0.85}, rx: 0.8, ry: 0.35, a1: -0.1 * Math.PI, a2: 0.525 * Math.PI},
+      {type: 'arc', center: {x: 0.7, y: 0.575}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.35, ry: 0.25, a1: 0.5 * Math.PI, a2: 0.9 * Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.85}, rx: 0.7, ry: 0.35, a1: -0.1 * Math.PI, a2: 0.525 * Math.PI},
+      {type: 'arc', center: {x: 0.625, y: 0.575}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ]
+  },
+  'ژ': {
+    isolated: [
+      {type: 'arc', center: {x: 0, y: 0.85}, rx: 0.8, ry: 0.35, a1: -0.1 * Math.PI, a2: 0.525 * Math.PI},
+      {type: 'arc', center: {x: 0.575, y: 0.575}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.7, y: 0.45}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.825, y: 0.575}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.35, ry: 0.25, a1: 0.5 * Math.PI, a2: 0.9 * Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.85}, rx: 0.7, ry: 0.35, a1: -0.1 * Math.PI, a2: 0.525 * Math.PI},
+      {type: 'arc', center: {x: 0.525, y: 0.575}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.625, y: 0.45}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.725, y: 0.575}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ]
+  },
+  'س': {
+    isolated: [
+      {type: 'arc', center: {x: 0.8, y: 0.7}, rx: 0.11, ry: 0.25, a1: -0.125 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0.575, y: 0.7}, rx: 0.11, ry: 0.25, a1: 0, a2: Math.PI},
+      {type: 'arc', center: {x: 0.29, y: 0.9}, rx: 0.1875, ry: 0.325, rot: 0.1 * Math.PI, a1: -0.25 * Math.PI, a2: Math.PI}
+    ],
+    initial: [
+      {type: 'arc', center: {x: 0.7, y: 0.7}, rx: 0.1625, ry: 0.25, a1: -0.125 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0.375, y: 0.7}, rx: 0.1625, ry: 0.25, a1: 0, a2: Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.7}, rx: 0.2, ry: 0.25, a1: 0, a2: 0.5 * Math.PI}
+    ],
+    medial: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.2, ry: 0.25, a1: 0.5 * Math.PI, a2: 1.0625 * Math.PI},
+      {type: 'arc', center: {x: 0.65, y: 0.7}, rx: 0.15, ry: 0.25, a1: -0.0625 * Math.PI, a2: 1 * Math.PI},
+      {type: 'arc', center: {x: 0.3625, y: 0.7}, rx: 0.15, ry: 0.25, a1: 0, a2: Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.7}, rx: 0.2, ry: 0.25, a1: 0, a2: 0.5 * Math.PI}
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.1375, ry: 0.25, a1: 0.5 * Math.PI, a2: 1.0625 * Math.PI},
+      {type: 'arc', center: {x: 0.7625, y: 0.7}, rx: 0.1, ry: 0.25, a1: -0.0625 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0.55, y: 0.7}, rx: 0.1, ry: 0.25, a1: 0, a2: Math.PI},
+      {type: 'arc', center: {x: 0.275, y: 0.9}, rx: 0.175, ry: 0.325, rot: 0.1 * Math.PI, a1: -0.275 * Math.PI, a2: Math.PI}
+    ]
+  },
+  'ش': {
+    isolated: [
+      {type: 'arc', center: {x: 0.8, y: 0.7}, rx: 0.11, ry: 0.25, a1: -0.125 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0.575, y: 0.7}, rx: 0.11, ry: 0.25, a1: 0, a2: Math.PI},
+      {type: 'arc', center: {x: 0.29, y: 0.9}, rx: 0.1875, ry: 0.325, rot: 0.1 * Math.PI, a1: -0.25 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0.525, y: 0.575}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.575, y: 0.45}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.625, y: 0.575}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ],
+    initial: [
+      {type: 'arc', center: {x: 0.7, y: 0.7}, rx: 0.1625, ry: 0.25, a1: -0.125 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0.375, y: 0.7}, rx: 0.1625, ry: 0.25, a1: 0, a2: Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.7}, rx: 0.2, ry: 0.25, a1: 0, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.425, y: 0.575}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.5, y: 0.45}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.575, y: 0.575}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ],
+    medial: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.2, ry: 0.25, a1: 0.5 * Math.PI, a2: 1.0625 * Math.PI},
+      {type: 'arc', center: {x: 0.65, y: 0.7}, rx: 0.15, ry: 0.25, a1: -0.0625 * Math.PI, a2: 1 * Math.PI},
+      {type: 'arc', center: {x: 0.3625, y: 0.7}, rx: 0.15, ry: 0.25, a1: 0, a2: Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.7}, rx: 0.2, ry: 0.25, a1: 0, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.4, y: 0.575}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.46875, y: 0.45}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.5375, y: 0.575}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.1375, ry: 0.25, a1: 0.5 * Math.PI, a2: 1.0625 * Math.PI},
+      {type: 'arc', center: {x: 0.7625, y: 0.7}, rx: 0.1, ry: 0.25, a1: -0.0625 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0.55, y: 0.7}, rx: 0.1, ry: 0.25, a1: 0, a2: Math.PI},
+      {type: 'arc', center: {x: 0.275, y: 0.9}, rx: 0.175, ry: 0.325, rot: 0.1 * Math.PI, a1: -0.275 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0.5, y: 0.575}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.55, y: 0.45}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.6, y: 0.575}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ]
+  },
+  'ص': {
+    isolated: [
+      {type: 'arc', center: {x: 0.725, y: 0.825}, rx: 0.2, ry: 0.12, rot: -0.1 * Math.PI, a1: Math.PI, a2: 3 * Math.PI},
+      {type: 'arc', center: {x: 0.575, y: 0.75}, rx: 0.125, ry: 0.2, a1: 0.475 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0.275, y: 0.9}, rx: 0.175, ry: 0.325, rot: 0.1 * Math.PI, a1: -0.2 * Math.PI, a2: Math.PI}
+    ],
+    initial: [
+      {type: 'arc', center: {x: 0.6, y: 0.825}, rx: 0.3, ry: 0.12, rot: -0.1 * Math.PI, a1: Math.PI, a2: 3 * Math.PI},
+      {type: 'arc', center: {x: 0.425, y: 0.75}, rx: 0.2125, ry: 0.2, a1: 0.475 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.75}, rx: 0.2125, ry: 0.2, a1: 0, a2: 0.5 * Math.PI},
+    ],
+    medial: [
+      {type: 'arc', center: {x: 1, y: 0.75}, rx: 0.175, ry: 0.2, a1: 0.5 * Math.PI, a2: 0.9 * Math.PI},
+      {type: 'arc', center: {x: 0.6, y: 0.825}, rx: 0.3, ry: 0.12, rot: -0.1 * Math.PI, a1: Math.PI, a2: 3 * Math.PI},
+      {type: 'arc', center: {x: 0.425, y: 0.75}, rx: 0.2125, ry: 0.2, a1: 0.475 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.75}, rx: 0.2125, ry: 0.2, a1: 0, a2: 0.5 * Math.PI},
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.75}, rx: 0.125, ry: 0.2, a1: 0.5 * Math.PI, a2: 0.9 * Math.PI},
+      {type: 'arc', center: {x: 0.7125, y: 0.825}, rx: 0.2, ry: 0.12, rot: -0.1 * Math.PI, a1: Math.PI, a2: 3 * Math.PI},
+      {type: 'arc', center: {x: 0.575, y: 0.75}, rx: 0.125, ry: 0.2, a1: 0.475 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0.275, y: 0.9}, rx: 0.175, ry: 0.325, rot: 0.1 * Math.PI, a1: -0.2 * Math.PI, a2: Math.PI}
+    ]
+  },
+  'ض': {
+    isolated: [
+      {type: 'arc', center: {x: 0.725, y: 0.825}, rx: 0.2, ry: 0.12, rot: -0.1 * Math.PI, a1: Math.PI, a2: 3 * Math.PI},
+      {type: 'arc', center: {x: 0.575, y: 0.75}, rx: 0.125, ry: 0.2, a1: 0.475 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0.275, y: 0.9}, rx: 0.175, ry: 0.325, rot: 0.1 * Math.PI, a1: -0.2 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0.55, y: 0.575}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ],
+    initial: [
+      {type: 'arc', center: {x: 0.6, y: 0.825}, rx: 0.3, ry: 0.12, rot: -0.1 * Math.PI, a1: Math.PI, a2: 3 * Math.PI},
+      {type: 'arc', center: {x: 0.425, y: 0.75}, rx: 0.2125, ry: 0.2, a1: 0.475 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.75}, rx: 0.2125, ry: 0.2, a1: 0, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.3125, y: 0.575}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ],
+    medial: [
+      {type: 'arc', center: {x: 1, y: 0.75}, rx: 0.175, ry: 0.2, a1: 0.5 * Math.PI, a2: 0.9 * Math.PI},
+      {type: 'arc', center: {x: 0.6, y: 0.825}, rx: 0.3, ry: 0.12, rot: -0.1 * Math.PI, a1: Math.PI, a2: 3 * Math.PI},
+      {type: 'arc', center: {x: 0.425, y: 0.75}, rx: 0.2125, ry: 0.2, a1: 0.475 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.75}, rx: 0.2125, ry: 0.2, a1: 0, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.3125, y: 0.575}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.75}, rx: 0.125, ry: 0.2, a1: 0.5 * Math.PI, a2: 0.9 * Math.PI},
+      {type: 'arc', center: {x: 0.7125, y: 0.825}, rx: 0.2, ry: 0.12, rot: -0.1 * Math.PI, a1: Math.PI, a2: 3 * Math.PI},
+      {type: 'arc', center: {x: 0.575, y: 0.75}, rx: 0.125, ry: 0.2, a1: 0.475 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0.275, y: 0.9}, rx: 0.175, ry: 0.325, rot: 0.1 * Math.PI, a1: -0.2 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0.5375, y: 0.575}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ]
+  },
+  'ط': {
+    isolated: [
+      {type: 'line', points: [{x: 0.31875, y: 0.25}, {x: 0.31875, y: 1}]},
+      {type: 'arc', center: {x: 0.65, y: 0.825}, rx: 0.275, ry: 0.125, rot: -0.125 * Math.PI, a1: Math.PI, a2: 3 * Math.PI},
+      {type: 'line', points: [{x: 0.425, y: 0.95}, {x: 0.075, y: 0.95}]},
+    ],
+    initial: [
+      {type: 'line', points: [{x: 0.2125, y: 0.25}, {x: 0.2125, y: 1}]},
+      {type: 'arc', center: {x: 0.6, y: 0.825}, rx: 0.3, ry: 0.125, rot: -0.125 * Math.PI, a1: Math.PI, a2: 3 * Math.PI},
+      {type: 'line', points: [{x: 0.325, y: 0.95}, {x: 0, y: 0.95}]},
+    ],
+    medial: [
+      {type: 'arc', center: {x: 1, y: 0.75}, rx: 0.275, ry: 0.2, a1: 0.5 * Math.PI, a2: 0.8 * Math.PI},
+      {type: 'line', points: [{x: 0.20625, y: 0.25}, {x: 0.20625, y: 1}]},
+      {type: 'arc', center: {x: 0.575, y: 0.825}, rx: 0.3, ry: 0.125, rot: -0.125 * Math.PI, a1: Math.PI, a2: 3 * Math.PI},
+      {type: 'line', points: [{x: 0.3, y: 0.95}, {x: 0, y: 0.95}]},
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.75}, rx: 0.25, ry: 0.2, a1: 0.5 * Math.PI, a2: 0.8 * Math.PI},
+      {type: 'line', points: [{x: 0.30625, y: 0.25}, {x: 0.30625, y: 1}]},
+      {type: 'arc', center: {x: 0.625, y: 0.825}, rx: 0.25, ry: 0.125, rot: -0.125 * Math.PI, a1: Math.PI, a2: 3 * Math.PI},
+      {type: 'line', points: [{x: 0.425, y: 0.95}, {x: 0.075, y: 0.95}]},
+    ]
+  },
+  'ظ': {
+    isolated: [
+      {type: 'line', points: [{x: 0.31875, y: 0.25}, {x: 0.31875, y: 1}]},
+      {type: 'arc', center: {x: 0.65, y: 0.825}, rx: 0.275, ry: 0.125, rot: -0.125 * Math.PI, a1: Math.PI, a2: 3 * Math.PI},
+      {type: 'line', points: [{x: 0.425, y: 0.95}, {x: 0.075, y: 0.95}]},
+      {type: 'arc', center: {x: 0.55, y: 0.55}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ],
+    initial: [
+      {type: 'line', points: [{x: 0.2125, y: 0.25}, {x: 0.2125, y: 1}]},
+      {type: 'arc', center: {x: 0.6, y: 0.825}, rx: 0.3, ry: 0.125, rot: -0.125 * Math.PI, a1: Math.PI, a2: 3 * Math.PI},
+      {type: 'line', points: [{x: 0.325, y: 0.95}, {x: 0, y: 0.95}]},
+      {type: 'arc', center: {x: 0.475, y: 0.55}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ],
+    medial: [
+      {type: 'arc', center: {x: 1, y: 0.75}, rx: 0.275, ry: 0.2, a1: 0.5 * Math.PI, a2: 0.8 * Math.PI},
+      {type: 'line', points: [{x: 0.20625, y: 0.25}, {x: 0.20625, y: 1}]},
+      {type: 'arc', center: {x: 0.575, y: 0.825}, rx: 0.3, ry: 0.125, rot: -0.125 * Math.PI, a1: Math.PI, a2: 3 * Math.PI},
+      {type: 'line', points: [{x: 0.3, y: 0.95}, {x: 0, y: 0.95}]},
+      {type: 'arc', center: {x: 0.475, y: 0.55}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.75}, rx: 0.25, ry: 0.2, a1: 0.5 * Math.PI, a2: 0.8 * Math.PI},
+      {type: 'line', points: [{x: 0.30625, y: 0.25}, {x: 0.30625, y: 1}]},
+      {type: 'arc', center: {x: 0.625, y: 0.825}, rx: 0.25, ry: 0.125, rot: -0.125 * Math.PI, a1: Math.PI, a2: 3 * Math.PI},
+      {type: 'line', points: [{x: 0.425, y: 0.95}, {x: 0.075, y: 0.95}]},
+      {type: 'arc', center: {x: 0.5375, y: 0.55}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ]
+  },
+  'ع': {
+    isolated: [
+      {type: 'arc', center: {x: 0.65, y: 0.65}, rx: 0.4, ry: 0.125, a1: 1.5 * Math.PI, a2: 0.625 * Math.PI},
+      {type: 'arc', center: {x: 0.75, y: 0.975}, rx: 0.6, ry: 0.225, a1: 1.35 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.8, y: 0.975}, rx: 0.65, ry: 0.225, a1: 1.5 * Math.PI, a2: 0.4 * Math.PI}
+    ],
+    initial: [
+      {type: 'arc', center: {x: 0.65, y: 0.7}, rx: 0.4, ry: 0.175, a1: 1.5 * Math.PI, a2: 0.625 * Math.PI},
+      {type: 'line', points: [{x: 0.825, y: 0.775}, {x: 0.3, y: 0.91}]},
+      {type: 'arc', center: {x: 0, y: 0.75}, rx: 0.5, ry: 0.2, a1: 0.25 * Math.PI, a2: 0.5 * Math.PI},
+    ],
+    medial: [
+      {type: 'arc', center: {x: 1, y: 0.75}, rx: 0.5, ry: 0.2, a1: 0.5 * Math.PI, a2: 0.9 * Math.PI},
+      {type: 'arc', center: {x: 0.5, y: 0.7375}, rx: 0.225, ry: 0.08, a1: 0.5 * Math.PI, a2: 2.5 * Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.75}, rx: 0.5, ry: 0.2, a1: 0.1 * Math.PI, a2: 0.5 * Math.PI},
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.75}, rx: 0.6, ry: 0.2, a1: 0.5 * Math.PI, a2: 0.9 * Math.PI},
+      {type: 'arc', center: {x: 0.475, y: 0.74}, rx: 0.2, ry: 0.08, a1: 0.5 * Math.PI, a2: 2.5 * Math.PI},
+      {type: 'arc', center: {x: 0.8, y: 1}, rx: 0.6, ry: 0.2, a1: 1.3 * Math.PI, a2: 0.3 * Math.PI}
+    ]
+  },
+  'غ': {
+    isolated: [
+      {type: 'arc', center: {x: 0.65, y: 0.65}, rx: 0.4, ry: 0.125, a1: 1.5 * Math.PI, a2: 0.625 * Math.PI},
+      {type: 'arc', center: {x: 0.75, y: 0.975}, rx: 0.6, ry: 0.225, a1: 1.35 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.8, y: 0.975}, rx: 0.65, ry: 0.225, a1: 1.5 * Math.PI, a2: 0.4 * Math.PI},
+      {type: 'arc', center: {x: 0.375, y: 0.375}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ],
+    initial: [
+      {type: 'arc', center: {x: 0.725, y: 0.7}, rx: 0.45, ry: 0.175, a1: 1.5 * Math.PI, a2: 0.625 * Math.PI},
+      {type: 'line', points: [{x: 0.925, y: 0.775}, {x: 0.3, y: 0.925}]},
+      {type: 'arc', center: {x: 0, y: 0.75}, rx: 0.6, ry: 0.2, a1: 0.25 * Math.PI, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.425, y: 0.375}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ],
+    medial: [
+      {type: 'arc', center: {x: 1, y: 0.75}, rx: 0.5, ry: 0.2, a1: 0.5 * Math.PI, a2: 0.9 * Math.PI},
+      {type: 'arc', center: {x: 0.5, y: 0.7375}, rx: 0.225, ry: 0.08, a1: 0.5 * Math.PI, a2: 2.5 * Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.75}, rx: 0.5, ry: 0.2, a1: 0.1 * Math.PI, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.5, y: 0.5}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.75}, rx: 0.6, ry: 0.2, a1: 0.5 * Math.PI, a2: 0.9 * Math.PI},
+      {type: 'arc', center: {x: 0.475, y: 0.74}, rx: 0.2, ry: 0.08, a1: 0.5 * Math.PI, a2: 2.5 * Math.PI},
+      {type: 'arc', center: {x: 0.8, y: 1}, rx: 0.6, ry: 0.2, a1: 1.3 * Math.PI, a2: 0.3 * Math.PI},
+      {type: 'arc', center: {x: 0.4625, y: 0.5}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ]
+  },
+  'ف': {
+    isolated: [
+      {type: 'arc', center: {x: 0.7625, y: 0.6825}, rx: 0.1125, ry: 0.1125, a1: 0.25 * Math.PI, a2: 2.25 * Math.PI},
+      {type: 'arc', center: {x: 0.5, y: 0.8}, rx: 0.375, ry: 0.2, a1: -0.125 * Math.PI, a2: 1.125 * Math.PI},
+      {type: 'arc', center: {x: 0.75, y: 0.4}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ],
+    initial: [
+      {type: 'arc', center: {x: 0.5125, y: 0.6775}, rx: 0.25, ry: 0.1125, a1: 0.25 * Math.PI, a2: 2.25 * Math.PI},
+      {type: 'arc', center: {x: 0.4, y: 0.75}, rx: 0.375, ry: 0.2, a1: -0.0625 * Math.PI, a2: 0.5 * Math.PI},
+      {type: 'line', points: [{x: 0.45, y: 0.95}, {x: 0, y: 0.95}]},
+      {type: 'arc', center: {x: 0.5125, y: 0.4}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ],
+    medial: [
+      {type: 'arc', center: {x: 1, y: 0.75}, rx: 0.9, ry: 0.2, a1: 0.5 * Math.PI, a2: 0.7 * Math.PI},
+      {type: 'arc', center: {x: 0.5, y: 0.78}, rx: 0.2125, ry: 0.1125, a1: 0.5 * Math.PI, a2: 2.5 * Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.75}, rx: 0.9, ry: 0.2, a1: 0.3 * Math.PI, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.5, y: 0.475}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.75}, rx: 0.4, ry: 0.2, a1: 0.5 * Math.PI, a2: 0.75 * Math.PI},
+      {type: 'arc', center: {x: 0.76, y: 0.78}, rx: 0.1125, ry: 0.1125, a1: 0.5 * Math.PI, a2: 2.5 * Math.PI},
+      {type: 'arc', center: {x: 0.5, y: 0.8}, rx: 0.375, ry: 0.2, a1: 0.2 * Math.PI, a2: 1.125 * Math.PI},
+      {type: 'arc', center: {x: 0.75, y: 0.5}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ]
+  },
+  'ق': {
+    isolated: [
+      {type: 'arc', center: {x: 0.6925, y: 0.6775}, rx: 0.15, ry: 0.1125, a1: 0.25 * Math.PI, a2: 2.25 * Math.PI},
+      {type: 'arc', center: {x: 0.5, y: 0.8}, rx: 0.325, ry: 0.4, rot: 0.125 * Math.PI, a1: -0.175 * Math.PI, a2: 0.95 * Math.PI},
+      {type: 'arc', center: {x: 0.575, y: 0.4}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.75, y: 0.4}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ],
+    initial: [
+      {type: 'arc', center: {x: 0.5125, y: 0.6775}, rx: 0.25, ry: 0.1125, a1: 0.25 * Math.PI, a2: 2.25 * Math.PI},
+      {type: 'arc', center: {x: 0.4, y: 0.75}, rx: 0.375, ry: 0.2, a1: -0.0625 * Math.PI, a2: 0.5 * Math.PI},
+      {type: 'line', points: [{x: 0.45, y: 0.95}, {x: 0, y: 0.95}]},
+      {type: 'arc', center: {x: 0.375, y: 0.4}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.625, y: 0.4}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ],
+    medial: [
+      {type: 'arc', center: {x: 1, y: 0.75}, rx: 0.9, ry: 0.2, a1: 0.5 * Math.PI, a2: 0.7 * Math.PI},
+      {type: 'arc', center: {x: 0.5, y: 0.78}, rx: 0.2125, ry: 0.1125, a1: 0.5 * Math.PI, a2: 2.5 * Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.75}, rx: 0.9, ry: 0.2, a1: 0.3 * Math.PI, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.375, y: 0.475}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.625, y: 0.475}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.75}, rx: 0.9, ry: 0.2, a1: 0.5 * Math.PI, a2: 0.65 * Math.PI},
+      {type: 'arc', center: {x: 0.6425, y: 0.8125}, rx: 0.1375, ry: 0.125, a1: 0.5 * Math.PI, a2: 2 * Math.PI},
+      {type: 'line', points: [{x: 0.78, y: 0.8075}, {x: 0.78, y: 1}]},
+      {type: 'arc', center: {x: 0.5, y: 0.8}, rx: 0.35, ry: 0.425, rot: 0.125 * Math.PI, a1: 0, a2: 0.825 * Math.PI},
+      {type: 'arc', center: {x: 0.575, y: 0.54}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.725, y: 0.54}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI}
+    ]
+  },
+  'ک': {
+    isolated: [
+      {type: 'line', points: [{x: 1, y: 0.2875}, {x: 0.5, y: 0.475}]},
+      {type: 'line', points: [{x: 0.525, y: 0.475}, {x: 0.8, y: 0.8}]},
+      {type: 'arc', center: {x: 0.45, y: 0.8}, rx: 0.325, ry: 0.2, a1: -0.125 * Math.PI, a2: 1.125 * Math.PI},
+    ],
+    initial: [
+      {type: 'line', points: [{x: 1, y: 0.2875}, {x: 0.075, y: 0.4625}]},
+      {type: 'line', points: [{x: 0.075, y: 0.4625}, {x: 0.65, y: 0.8}]},
+      {type: 'arc', center: {x: 0.3, y: 0.8}, rx: 0.325, ry: 0.15, a1: -0.0625 * Math.PI, a2: 0.5 * Math.PI},
+      {type: 'line', points: [{x: 0.3, y: 0.95}, {x: 0, y: 0.95}]}
+    ],
+    medial: [
+      {type: 'arc', center: {x: 1, y: 0.75}, rx: 0.425, ry: 0.2, a1: 0.5 * Math.PI, a2: 0.9 * Math.PI},
+      {type: 'line', points: [{x: 0.9, y: 0.275}, {x: 0.075, y: 0.4625}]},
+      {type: 'line', points: [{x: 0.075, y: 0.4625}, {x: 0.625, y: 0.85}]},
+      {type: 'arc', center: {x: 0.125, y: 0.8}, rx: 0.4, ry: 0.15, a1: -0.05 * Math.PI, a2: 0.5 * Math.PI},
+      {type: 'line', points: [{x: 0.15, y: 0.95}, {x: 0, y: 0.95}]}
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.175, ry: 0.25, a1: 0.5 * Math.PI, a2: 0.8 * Math.PI},
+      {type: 'line', points: [{x: 1, y: 0.2875}, {x: 0.5, y: 0.475}]},
+      {type: 'line', points: [{x: 0.5125, y: 0.475}, {x: 0.9, y: 0.9}]},
+      {type: 'arc', center: {x: 0.45, y: 0.8}, rx: 0.325, ry: 0.2, a1: -0.125 * Math.PI, a2: 1.125 * Math.PI},
+    ]
+  },
+  'گ': {
+    isolated: [
+      {type: 'line', points: [{x: 1, y: 0.2875}, {x: 0.5, y: 0.475}]},
+      {type: 'line', points: [{x: 0.525, y: 0.475}, {x: 0.8, y: 0.8}]},
+      {type: 'arc', center: {x: 0.45, y: 0.8}, rx: 0.325, ry: 0.2, a1: -0.125 * Math.PI, a2: 1.125 * Math.PI},
+      {type: 'line', points: [{x: 1, y: 0.15}, {x: 0.525, y: 0.325}]}
+    ],
+    initial: [
+      {type: 'line', points: [{x: 1, y: 0.2875}, {x: 0.075, y: 0.4625}]},
+      {type: 'line', points: [{x: 0.075, y: 0.4625}, {x: 0.65, y: 0.8}]},
+      {type: 'arc', center: {x: 0.3, y: 0.8}, rx: 0.325, ry: 0.15, a1: -0.0625 * Math.PI, a2: 0.5 * Math.PI},
+      {type: 'line', points: [{x: 0.3, y: 0.95}, {x: 0, y: 0.95}]},
+      {type: 'line', points: [{x: 0.975, y: 0.15}, {x: 0.125, y: 0.325}]}
+    ],
+    medial: [
+      {type: 'arc', center: {x: 1, y: 0.75}, rx: 0.425, ry: 0.2, a1: 0.5 * Math.PI, a2: 0.9 * Math.PI},
+      {type: 'line', points: [{x: 0.9, y: 0.275}, {x: 0.075, y: 0.4625}]},
+      {type: 'line', points: [{x: 0.075, y: 0.4625}, {x: 0.625, y: 0.85}]},
+      {type: 'arc', center: {x: 0.125, y: 0.8}, rx: 0.4, ry: 0.15, a1: -0.05 * Math.PI, a2: 0.5 * Math.PI},
+      {type: 'line', points: [{x: 0.15, y: 0.95}, {x: 0, y: 0.95}]},
+      {type: 'line', points: [{x: 0.85, y: 0.15}, {x: 0.1, y: 0.325}]}
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.175, ry: 0.25, a1: 0.5 * Math.PI, a2: 0.8 * Math.PI},
+      {type: 'line', points: [{x: 1, y: 0.2875}, {x: 0.5, y: 0.475}]},
+      {type: 'line', points: [{x: 0.5125, y: 0.475}, {x: 0.9, y: 0.9}]},
+      {type: 'arc', center: {x: 0.45, y: 0.8}, rx: 0.325, ry: 0.2, a1: -0.125 * Math.PI, a2: 1.125 * Math.PI},
+      {type: 'line', points: [{x: 1, y: 0.15}, {x: 0.525, y: 0.325}]}
+    ]
+  },
+  'ل': {
+    isolated: [
+      {type: 'line', points: [{x: 0.81, y: 0.25}, {x: 0.81, y: 0.925}]},
+      {type: 'arc', center: {x: 0.475, y: 0.9}, rx: 0.325, ry: 0.2, a1: 0, a2: 1.125 * Math.PI}
+    ],
+    initial: [
+      {type: 'line', points: [{x: 0.55, y: 0.25}, {x: 0.55, y: 0.8}]},
+      {type: 'arc', center: {x: 0, y: 0.8}, rx: 0.55, ry: 0.15, a1: 0, a2: 0.5 * Math.PI}
+    ],
+    medial: [
+      {type: 'arc', center: {x: 1, y: 0.8}, rx: 0.5, ry: 0.15, a1: 0.5 * Math.PI, a2: Math.PI},
+      {type: 'line', points: [{x: 0.5, y: 0.25}, {x: 0.5, y: 0.8}]},
+      {type: 'arc', center: {x: 0, y: 0.8}, rx: 0.5, ry: 0.15, a1: 0, a2: 0.5 * Math.PI}
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.8}, rx: 0.225, ry: 0.15, a1: 0.5 * Math.PI, a2: Math.PI},
+      {type: 'line', points: [{x: 0.775, y: 0.25}, {x: 0.775, y: 0.9}]},
+      {type: 'arc', center: {x: 0.475, y: 0.9}, rx: 0.3, ry: 0.2, a1: 0, a2: 1.125 * Math.PI}
+    ]
+  },
+  'م': {
+    isolated: [
+      {type: 'arc', center: {x: 0.6, y: 0.8}, rx: 0.2, ry: 0.125, a1: 0.125 * Math.PI, a2: 2.125 * Math.PI},
+      {type: 'arc', center: {x: 0.375, y: 1.025}, rx: 0.1875, ry: 0.15, a1: 1.675 * Math.PI, a2: Math.PI},
+      {type: 'line', points: [{x: 0.1875, y: 1}, {x: 0.1875, y: 1.25}]}
+    ],
+    initial: [
+      {type: 'arc', center: {x: 0.5375, y: 0.8625}, rx: 0.225, ry: 0.125, a1: 0.125 * Math.PI, a2: 2.125 * Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.8}, rx: 0.35, ry: 0.15, a1: 0.125 * Math.PI, a2: 0.5 * Math.PI},
+    ],
+    medial: [
+      {type: 'arc', center: {x: 1, y: 0.8}, rx: 0.35, ry: 0.15, a1: 0.5 * Math.PI, a2: 0.75 * Math.PI},
+      {type: 'arc', center: {x: 0.5, y: 0.8625}, rx: 0.225, ry: 0.125, a1: 0.125 * Math.PI, a2: 2.125 * Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.8}, rx: 0.35, ry: 0.15, a1: 0.25 * Math.PI, a2: 0.5 * Math.PI},
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.8}, rx: 0.3, ry: 0.15, a1: 0.5 * Math.PI, a2: 0.75 * Math.PI},
+      {type: 'arc', center: {x: 0.5625, y: 0.8625}, rx: 0.2, ry: 0.125, a1: 0.125 * Math.PI, a2: 2.125 * Math.PI},
+      {type: 'arc', center: {x: 0.375, y: 1.025}, rx: 0.1875, ry: 0.1, a1: 1.5 * Math.PI, a2: Math.PI},
+      {type: 'line', points: [{x: 0.175, y: 1}, {x: 0.175, y: 1.25}]}
+    ]
+  },
+  'ن': {
+    isolated: [
+      {type: 'arc', center: {x: 0.4875, y: 0.825}, rx: 0.3375, ry: 0.3, a1: -0.2 * Math.PI, a2: 1.075 * Math.PI},
+      {type: 'arc', center: {x: 0.425, y: 0.575}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ],
+    initial: [
+      {type: 'arc', center: {x: 0, y: 0.7}, rx: 0.5, ry: 0.25, a1: 0, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.5, y: 0.55}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ],
+    medial: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.5, ry: 0.25, a1: 0.5 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.7}, rx: 0.5, ry: 0.25, a1: 0, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.5, y: 0.55}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.225, ry: 0.25, a1: 0.5 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0.475, y: 0.9}, rx: 0.325, ry: 0.3, a1: -0.2 * Math.PI, a2: 1.075 * Math.PI},
+      {type: 'arc', center: {x: 0.425, y: 0.7}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ]
+  },
+  'و': {
+    isolated: [
+      {type: 'arc', center: {x: 0.5, y: 0.85}, rx: 0.25, ry: 0.12, a1: 0.125 * Math.PI, a2: 2.125 * Math.PI},
+      {type: 'arc', center: {x: -0.05, y: 0.95}, rx: 0.8, ry: 0.25, a1: -0.05 * Math.PI, a2: 0.525 * Math.PI},
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.8}, rx: 0.5, ry: 0.15, a1: 0.5 * Math.PI, a2: 0.75 * Math.PI},
+      {type: 'arc', center: {x: 0.475, y: 0.85}, rx: 0.225, ry: 0.12, a1: 0.125 * Math.PI, a2: 2.125 * Math.PI},
+      {type: 'arc', center: {x: -0.05, y: 0.95}, rx: 0.75, ry: 0.25, a1: -0.05 * Math.PI, a2: 0.525 * Math.PI},
+    ]
+  },
+  'ه': {
+    isolated: [
+      {type: 'arc', center: {x: 0.5, y: 0.85}, rx: 0.3, ry: 0.15, a1: 0.25 * Math.PI, a2: 2.25 * Math.PI}
+    ],
+    initial: [
+      {type: 'arc', center: {x: -0.1, y: 0.875}, rx: 1, ry: 0.35, rot: 0.125 * Math.PI, a1: -0.5 * Math.PI, a2: -0.15 * Math.PI},
+      {type: 'arc', center: {x: 0.6, y: 0.9}, rx: 0.2, ry: 0.1, a1: -0.15 * Math.PI, a2: 0.9 * Math.PI},
+      {type: 'arc', center: {x: 0.375, y: 0.775}, rx: 0.2, ry: 0.125, a1: 0.5 * Math.PI, a2: 2.5 * Math.PI},
+      {type: 'line', points: [{x: 0.375, y: 0.95}, {x: -0.05, y: 0.95}]}
+    ],
+    medial: [
+      {type: 'line', points: [{x: 1, y: 0.95}, {x: 0.4, y: 0.95}]},
+      {type: 'arc', center: {x: 0.5, y: 0.825}, rx: 0.175, ry: 0.15, rot: 0.25 * Math.PI, a1: 0.25 * Math.PI, a2: 2.25 * Math.PI},
+      {type: 'arc', center: {x: 0.5, y: 1.075}, rx: 0.175, ry: 0.15, rot: -0.25 * Math.PI, a1: 1.75 * Math.PI, a2: -0.25 * Math.PI},
+      {type: 'line', points: [{x: 0.5, y: 0.95}, {x: 0, y: 0.95}]},
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.65}, rx: 0.37, ry: 0.3, a1: 0.5 * Math.PI, a2: 1.05 * Math.PI},
+      {type: 'arc', center: {x: 0.475, y: 0.8375}, rx: 0.275, ry: 0.1, a1: 0.15 * Math.PI, a2: 1.75 * Math.PI}
+    ]
+  },
+  'ی': {
+    isolated: [
+      {type: 'arc', center: {x: 0.6875, y: 0.725}, rx: 0.175, ry: 0.09, a1: 2 * Math.PI, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.4625, y: 0.9375}, rx: 0.35, ry: 0.15, a1: -0.375 * Math.PI, a2: 1.25 * Math.PI},
+    ],
+    initial: [
+      {type: 'arc', center: {x: 0, y: 0.7}, rx: 0.5, ry: 0.25, a1: 0, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.275, y: 1.11}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.725, y: 1.11}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ],
+    medial: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.5, ry: 0.25, a1: 0.5 * Math.PI, a2: Math.PI},
+      {type: 'arc', center: {x: 0, y: 0.7}, rx: 0.5, ry: 0.25, a1: 0, a2: 0.5 * Math.PI},
+      {type: 'arc', center: {x: 0.3, y: 1.11}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+      {type: 'arc', center: {x: 0.7, y: 1.11}, rx: 0.01, ry: 0.01, a1: -0.5 * Math.PI, a2: 1.5 * Math.PI},
+    ],
+    final: [
+      {type: 'arc', center: {x: 1, y: 0.7}, rx: 0.175, ry: 0.25, a1: 0.5 * Math.PI, a2: 0.875 * Math.PI},
+      {type: 'arc', center: {x: 0.775, y: 0.875}, rx: 0.1, ry: 0.075, a1: 2 * Math.PI, a2: 0.725 * Math.PI},
+      {type: 'arc', center: {x: 0.625, y: 0.975}, rx: 0.1, ry: 0.075, a1: -0.25 * Math.PI, a2: 0.375 * Math.PI},
+      {type: 'arc', center: {x: 0.425, y: 0.95}, rx: 0.3, ry: 0.15, a1: 0 * Math.PI, a2: 1.25 * Math.PI},
+    ]
+  }
+}
+
+const FONT_SIZE = 80;
+const DRAW_VERT_LINES = false;
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+let animationTime = 0;
+let timeBetweenChars = animationTime * 20;
+
+function calcNumDots() {
+  for (let i = 'ا'.charCodeAt(0); i <= 'ی'.charCodeAt(0); i++) {
+    let c = String.fromCharCode(i);
+    let info = font[c];
+    if (!info) {
+      continue;
+    }
+    font[c].dots = 0;
+  }
+  for (let i = 'ا'.charCodeAt(0); i <= 'ی'.charCodeAt(0); i++) {
+    let c = String.fromCharCode(i);
+    let info = font[c];
+    if (!info) {
+      continue;
+    }
+    let width = ctx.measureText(c).width;
+    if (info.initial) {
+      let init = info.initial;
+      for (let p = 0; p < init.length; p++) {
+        let isDot = init[p].type === 'arc' && init[p].rx * width < FONT_SIZE * 0.075 && init[p].ry < 0.075;
+        font[c].dots = font[c].dots + Number(isDot);
+      }
+    }
+  }
+}
+
+calcNumDots();
+
+async function animateArc(x, y, rx, ry, a1, a2, rot) {
+  let antiCC = a1 > a2;
+  if (rx < 5 && ry < 5) {
+    let steps = 2;
+    if (timeBetweenChars > 0) await sleep(timeBetweenChars); 
+    for (let i = 0; i <= steps; i++) {
+      let a3 = a1 + (a2 - a1) * i / steps;
+      ctx.beginPath();
+      ctx.ellipse(x, y, rx, ry, rot, a1, a3, antiCC);
+      ctx.stroke();
+    }
+    return;
+  }
+  let steps = Math.abs((a2 - a1) * 180 / Math.PI) / 4;
+  for (let i = 0; i <= steps; i++) {
+    let a3 = a1 + (a2 - a1) * i / steps;
+    ctx.beginPath();
+    ctx.ellipse(x, y, rx, ry, rot, a1, a3, antiCC);
+    ctx.stroke();
+    if (animationTime > 0) await sleep(animationTime); 
+  }
+}
+
+async function animateLine(x1, y1, x2, y2) {
+  let steps = Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1));
+  for (let i = 0; i <= steps; i++) {
+    let x3 = x1 + (x2 - x1) * i / steps;
+    let y3 = y1 + (y2 - y1) * i / steps;
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x3, y3);
+    ctx.stroke();
+    if (animationTime > 0) await sleep(animationTime); 
+  }
+}
+
+async function drawSpline(path, x, y, width, height) {
+  y -= height;
+  if (path.type === 'arc') {
+    await animateArc(x + path.center.x * width, y + path.center.y * height,
+      path.rx * width, path.ry * height, path.a1, path.a2, path.rot || 0);
+  } else {
+    let p = path.points;
+    await animateLine(x + p[0].x * width, y + p[0].y * height,
+      x + p[1].x * width, y + p[1].y * height);
+  }
+}
+
+function getWidth(text, idx) {
+  let cc;
+  let char = text[idx];
+  let info = font[char];
+  if (!info) {
+    return ctx.measureText(char).width;
+  }
+  if (!mostlyArabic(char)) {
+    return ctx.measureText(char).width;
+  }
+  if (char.charCodeAt(0) === 'پ'.charCodeAt(0)) {
+    cc = parseInt('FB56', 16);
+  } else if (char.charCodeAt(0) === 'چ'.charCodeAt(0)) {
+    cc = parseInt('FB7A', 16);
+  } else if (char.charCodeAt(0) === 'ژ'.charCodeAt(0)) {
+    cc = parseInt('FB8A', 16);
+  } else if (char.charCodeAt(0) === 'گ'.charCodeAt(0)) {
+    cc = parseInt('FB92', 16);
+  } else if (char.charCodeAt(0) === 'ک'.charCodeAt(0)) {
+    cc = parseInt('FB8E', 16);
+  } else {
+    let noConnect = ['ا', 'د', 'ذ', 'ر', 'ز', 'ژ', 'و', 'آ', 'ة', 'ى'];
+    let num = 0;
+    for (let cc = 'ا'.charCodeAt(0); cc < Math.min(char.charCodeAt(0), 'غ'.charCodeAt(0)+1); cc++) {
+      num += (noConnect.includes(String.fromCharCode(cc))) ? 2 : 4;
+    }
+    for (let cc = 'ف'.charCodeAt(0); cc < char.charCodeAt(0); cc++) {
+      num += (noConnect.includes(String.fromCharCode(cc))) ? 2 : 4;
+    }
+    cc = parseInt('FE8D', 16) + num;
+  }
+  let initial = (idx === 0 || (idx > 0 && (!mostlyArabic(text[idx-1]) || font[text[idx-1]].medial === undefined)));
+  let final = (idx === text.length - 1 || (idx < text.length - 1 && !mostlyArabic(text[idx+1])));
+  if (initial && !final) {
+    cc = (info.initial) ? cc + 2 : cc;
+  } else if (final && !initial) {
+    cc++;
+  } else if (!initial && !final) {
+    cc = (info.medial) ? cc + 3 : cc + 1;
+  }
+  if (char.charCodeAt(0) === 'ی'.charCodeAt(0)) {
+    cc = parseInt('FEEF', 16);
+    if (initial && !final) {
+      cc += 4;
+    } else if (final && !initial) {
+      cc++;
+    } else if (!initial && !final) {
+      cc += 5;
+    }
+  }
+  let c = String.fromCharCode(cc);
+  return ctx.measureText(c).width;
+}
+
+function mostlyArabic(str) {
+  let num = 0;
+  for (let i = 0; i < str.length; i++) {
+    num += Number(str.charCodeAt(i) >= 'ا'.charCodeAt(0));
+  }
+  return num >= (str.length / 2);
+}
+
+function getPaths(info, text, idx) {
+  if (!info) {
+    return null;
+  }
+  if (mostlyArabic(text[idx])) {
+    let initial = (idx === 0 || (idx > 0 && (!mostlyArabic(text[idx-1]) || font[text[idx-1]].medial === undefined)));
+    let final = (idx === text.length - 1 || (idx < text.length - 1 && !mostlyArabic(text[idx+1])));
+    if (initial && final) {
+      return info.isolated;
+    } else if (initial) {
+      return info.initial || info.isolated;
+    } else if (final) {
+      return info.final;
+    } else if (!initial && !final) {
+      return info.medial || info.final;
+    }
+  } else {
+    return info.isolated;
+  }
+}
+
+async function addDots(text, startIdx, endIdx, x, y) {
+  let x2 = x;
+  let rightAlign = mostlyArabic(text);
+  if (rightAlign) {
+    x2 += ctx.measureText(text).width;
+  }
+  for (let i = 0; i < startIdx; i++) {
+      x2 -= getWidth(text, i);
+  }
+  for (let i = startIdx; i <= endIdx; i++) {
+    if (rightAlign) {
+      x2 -= getWidth(text, i);
+    }
+    let info = font[text[i]];
+    let width = getWidth(text, i);
+    let paths = getPaths(info, text, i);
+    for (let i = paths.length - 1; i >= paths.length - info.dots; i--) {
+      await drawSpline(paths[i], x2, y, width, FONT_SIZE);
+    }
+  }
+}
+
+async function drawCharacter(text, idx, x, y) {
+  let info = font[text[idx]];
+  if (!info) {
+    return;
+  }
+  let width = getWidth(text, idx);
+  let paths = getPaths(info, text, idx);
+  let dots = (paths === info.initial || paths === info.medial) ? info.dots : 0;
+  for (let i = 0; i < paths.length - dots; i++) {
+    await drawSpline(paths[i], x, y, width, FONT_SIZE);
+  }
+}
+
+async function drawText(text, x, y, drawOutline = false) {
+  if (drawOutline) {
+    ctx.strokeStyle = '#AAAAAA';
+    ctx.lineWidth = 1;
+    ctx.strokeText(text, x, y);
+  }
+  ctx.fillStyle = ctx.strokeStyle = '#404040';
+  ctx.lineWidth = FONT_SIZE * 0.075;
+  let x2 = x;
+  let rightAlign = mostlyArabic(text);
+  if (rightAlign) {
+    x2 += ctx.measureText(text).width;
+  }
+  let startIdx = -1;
+  for (let i = 0; i < text.length; i++) {
+    if (rightAlign) {
+      x2 -= getWidth(text, i);
+    }
+    let info = font[text[i]];
+    let paths = getPaths(info, text, i);
+    if (info && info.initial && paths === info.initial) {
+      startIdx = i;
+    }
+    await drawCharacter(text, i, x2, y);
+    if (info && info.final && paths === info.final && startIdx > -1) {
+      await addDots(text, startIdx, i, x, y);
+      startIdx = -1;
+    }
+    if (timeBetweenChars > 0 && info && !(paths === info.initial || paths === info.medial)) await sleep(timeBetweenChars); 
+    if (!rightAlign) {
+      x2 += ctx.measureText(text[i]).width;
+    }
+  }
+}
+
+function resizeCanvas(lines) {
+  canvas.width = lines.map(e => ctx.measureText(e).width).reduce((a, b) => Math.max(a, b));
+  canvas.height = FONT_SIZE * lines.length + FONT_SIZE / 2;
+  ctx.font = String(FONT_SIZE) + 'px Courier New';
+  ctx.fillStyle = '#F5F5E6';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+function splitLines(text) {
+  if (text.includes('\n')) {
+    return text.split('\n');
+  }
+  canvas.width = document.body.clientWidth;
+  ctx.font = String(FONT_SIZE) + 'px Courier New';
+  let tmp = text.split(' ');
+  let lines = [tmp.shift()];
+  while (tmp.length > 0) {
+    if (ctx.measureText(lines[lines.length - 1] + ' ' + tmp[0]).width > canvas.width) {
+      lines.push(tmp.shift());
+      continue;
+    }
+    lines[lines.length - 1] += ' ' + tmp.shift();
+  }
+  return lines;
+}
+
+function drawHorizLines(lines) {
+  ctx.strokeStyle = '#AAAAAA';
+  ctx.lineWidth = 2;
+  let maxLen = lines.map(e => ctx.measureText(e).width).reduce((a, b) => Math.max(a, b));
+  for (let i = 0; i < lines.length; i++) {
+    ctx.beginPath();
+    let rightAlign = mostlyArabic(lines[i]);
+    if (true) {
+      ctx.moveTo(rightAlign ? canvas.width : 0, (i+1)*FONT_SIZE);
+      ctx.lineTo(rightAlign ? (canvas.width - maxLen) : maxLen, (i+1)*FONT_SIZE);
+    }
+    ctx.stroke();
+  }
+}
+
+function drawVertLines(lines) {
+  if (!DRAW_VERT_LINES) {
+    return;
+  }
+
+  for (let l = 0; l < lines.length; l++) {
+    let x = canvas.width;
+    for (let i = 0; i < lines[l].length; i++) {
+      if (!mostlyArabic(lines[l])) {
+        ctx.beginPath();
+        ctx.moveTo(ctx.measureText(lines[l].substr(0, i+1)).width, FONT_SIZE/4 + l*FONT_SIZE);
+        ctx.lineTo(ctx.measureText(lines[l].substr(0, i+1)).width, (l+1) * FONT_SIZE+FONT_SIZE/4);
+        ctx.stroke();
+      } else {
+        let w = getWidth(lines[l], i);
+        x -= w;
+        ctx.beginPath();
+        ctx.moveTo(x, FONT_SIZE/4 + l*FONT_SIZE);
+        ctx.lineTo(x, (l+1) * FONT_SIZE+FONT_SIZE/4);
+        ctx.stroke();
+      }    
+    }
+  }
+}
+
+async function draw() {
+  ctx.font = String(FONT_SIZE) + 'px Courier New';
+  let text = document.getElementById('story').value;
+  animationTime = 50 - document.getElementById('animSpeed').value;
+  timeBetweenChars = animationTime * 20;
+  let txt1 = 'Följande är\nrefrängen till\n"Farda Soraghe Man\nBia" av Ali Azimi:'
+  let txt2 = 'تاریکم\nفردا سراغ من بیا\nیک روز زیبا سراغ من بیا';
+  //let text = txt1 + '\n' + txt2;
+  let lines = splitLines(text);
+  resizeCanvas(lines);
+  drawHorizLines(lines);
+  drawVertLines(lines);
+  for (let i = 0; i < lines.length; i++) {
+    let ox = mostlyArabic(lines[i]) ? (canvas.width - ctx.measureText(lines[i]).width) : 0;
+    await drawText(lines[i], ox, (i+1)*FONT_SIZE);
+  }
+}
+</script>
