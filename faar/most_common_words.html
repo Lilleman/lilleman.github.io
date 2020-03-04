@@ -191,63 +191,19 @@ function createTables(matrix) {
   }
 }
 
-let A1 = [];
-let A2 = [];
-let B1 = [];
-let B2 = [];
+let dictionary = {};
+
+const wordDifficulties = ['A1', 'A2', 'B1', 'B2'];
+const wordCategories = ['N', 'A', 'V', 'Adv', 'Pronoun', 'Pre', 'Det', 'Num', 'Con', 'Exc', 'Def', 'Inf'];
 
 function regenTable() {
-  let ar = [];
-  if (document.getElementById('choiceA1').checked) {
-    ar = ar.concat(A1);
-  }
-  if (document.getElementById('choiceA2').checked) {
-    ar = ar.concat(A2);
-  }
-  if (document.getElementById('choiceB1').checked) {
-    ar = ar.concat(B1);
-  }
-  if (document.getElementById('choiceB2').checked) {
-    ar = ar.concat(B2);
-  }
+  let ar = wordDifficulties
+  .filter(cat => document.getElementById('choice' + cat).checked)
+  .map(cat => dictionary[cat]).flat();
 
-  let filter = [];
-  if (document.getElementById('choiceN').checked) {
-    filter.push("n");
-  }
-  if (document.getElementById('choiceA').checked) {
-    filter.push("a");
-  }
-  if (document.getElementById('choiceV').checked) {
-    filter.push("v");
-  }
-  if (document.getElementById('choiceAdv').checked) {
-    filter.push("adv");
-  }
-  if (document.getElementById('choicePronoun').checked) {
-    filter.push("pronoun");
-  }
-  if (document.getElementById('choicePre').checked) {
-    filter.push("pre");
-  }
-  if (document.getElementById('choiceDet').checked) {
-    filter.push("det");
-  }
-  if (document.getElementById('choiceNum').checked) {
-    filter.push("num");
-  }
-  if (document.getElementById('choiceCon').checked) {
-    filter.push("con");
-  }
-  if (document.getElementById('choiceExc').checked) {
-    filter.push("exc");
-  }
-  if (document.getElementById('choiceDef').checked) {
-    filter.push("def");
-  }
-  if (document.getElementById('choiceInf').checked) {
-    filter.push("inf");
-  }
+  let filter = wordCategories
+  .filter(cat => document.getElementById('choice' + cat).checked)
+  .map(cat => cat.toLowerCase());
 
   let ar2 = ar.filter(e => e[0].split(", ").some(e => filter.includes(e)));
   ar2.sort((a, b) => a[1].replace('(to) ', '').localeCompare(b[1].replace('(to) ', '')));
@@ -261,24 +217,24 @@ function check(which) {
   regenTable();
 }
 
-let A1Promise = fetch('https://ackelman.github.io/faar/A1.json').then(val => val.json());
-let A2Promise = fetch('https://ackelman.github.io/faar/A2.json').then(val => val.json());
-let B1Promise = fetch('https://ackelman.github.io/faar/B1.json').then(val => val.json());
-let B2Promise = fetch('https://ackelman.github.io/faar/B2.json').then(val => val.json());
+let promises = wordDifficulties.map(a => {
+  return fetch('https://ackelman.github.io/faar/' + a + '.json').then(val => val.json());
+});
 
-Promise.all([A1Promise, A2Promise, B1Promise, B2Promise])
+Promise.all(promises)
 .then(function (values) {
-  A1 = values[0];
-  A2 = values[1];
-  B1 = values[2];
-  B2 = values[3];
+  dictionary = {
+    'A1': values[0],
+    'A2': values[1],
+    'B1': values[2],
+    'B2': values[3]
+  };
 
-  ['EN', 'SV', 'AR', 'FA', 'A1', 'A2', 'B1', 'B2', 'N', 'A', 'V',
-    'Adv', 'Pronoun', 'Pre', 'Det', 'Num', 'Con', 'Exc', 'Def', 'Inf'].forEach(txt => {
+  ['EN', 'SV', 'AR', 'FA'].concat(wordDifficulties).concat(wordCategories).forEach(txt => {
     document.getElementById('choice' + txt).addEventListener('click', regenTable);
   });
 
-  check(['EN', 'FA', 'A1', 'A2', 'N', 'A', 'V', 'Adv', 'Pronoun', 'Pre', 'Det', 'Num', 'Con', 'Exc', 'Def', 'Inf']);
+  check(['EN', 'FA', 'A1', 'A2'].concat(wordCategories));
 })
 
 </script>
