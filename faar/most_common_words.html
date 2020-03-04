@@ -29,6 +29,17 @@
 
 <div class="container" style="max-width: none;">
   <div class="row">
+    <div class="col-sm">Display languages:</div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm"><input type="checkbox" id="choiceEN"><label for="choiceEN">English</label></div>
+    <div class="col-sm"><input type="checkbox" id="choiceSV"><label for="choiceSV">Swedish</label></div>
+    <div class="col-sm"><input type="checkbox" id="choiceAR"><label for="choiceAR">Arabic</label></div>
+    <div class="col-sm"><input type="checkbox" id="choiceFA"><label for="choiceFA">Persian</label></div>
+  </div>
+
+  <div class="row">
     <div class="col-sm">Display difficulties:</div>
   </div>
 
@@ -89,21 +100,39 @@ function createTable(matrix) {
     td.appendChild(document.createTextNode(txt));
     return td;
   }
+  const createLink = (txt, link) => {
+    let a = document.createElement('a');
+    a.setAttribute('href', link);
+    a.appendChild(document.createTextNode(txt));
+    return a;
+  }
   matrix.forEach(row => {
     const tr = document.createElement('tr');
-    let a = document.createElement('a');
     let path = [];
     let row2 = row[1].replace('(to) ', '');
     path.push(row2[0]); //n
     path.push(row2.slice(0, 3).padEnd(3, '_')); //nei, a__
     path.push(row2.slice(0, 5).padEnd(5, '_')); // neith, able_
-    a.setAttribute('href', 'https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/' + path.join('/') + '/' + row2 + '__gb_1.mp3');
-    a.appendChild(document.createTextNode(row[1]));
     let td = document.createElement('td');
-    td.appendChild(a);
+    td.appendChild(createLink(row[1], 'https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/' + path.join('/') + '/' + row2 + '__gb_1.mp3'));
     tr.appendChild(td);
-    tr.appendChild(createTDWithTxt(row[2]));
-    tr.appendChild(createTDWithTxt(row[3]));
+    if (document.getElementById('choiceSV').checked) {
+      let td = document.createElement('td');
+      let ar = row[4].split('/');
+      for (let i = 0; i < ar.length; i++) {
+        td.appendChild(createLink(ar[i], 'https://forvo.com/search/' + ar[i] + '/sv/'));
+        if (i < ar.length - 1) {
+          td.appendChild(document.createTextNode('/'));
+        }
+      }
+      tr.appendChild(td);
+    }
+    if (document.getElementById('choiceAR').checked) {
+      tr.appendChild(createTDWithTxt(row[2]));
+    }
+    if (document.getElementById('choiceFA').checked) {
+      tr.appendChild(createTDWithTxt(row[3]));
+    }
     tbody.appendChild(tr);
   })
 
@@ -130,16 +159,29 @@ function createTables(matrix) {
       fa++;
     }
   }
+
+  removeChildren(document.getElementById('ar_prog'));
+  removeChildren(document.getElementById('fa_prog'));
+
+  let bodyArProg, bodyFaProg;
+  if (document.getElementById('choiceAR').checked && document.getElementById('choiceFA').checked) {
+    bodyArProg = document.getElementById('ar_prog');
+    bodyFaProg = document.getElementById('fa_prog');
+  } else if (document.getElementById('choiceAR').checked) {
+    bodyArProg = document.getElementById('ar_prog');
+  } else if (document.getElementById('choiceFA').checked) {
+    bodyFaProg = document.getElementById('ar_prog');
+  }
   
-  const body1 = document.getElementById('ar_prog');
-  removeChildren(body1);
-  let par = Math.round(ar * 1000 / len) / 10;
-  body1.appendChild(document.createTextNode('Arabic progress: ' + ar + '/' + len +  ' (' + par + '%)'));
+  if (document.getElementById('choiceAR').checked) {
+    let par = Math.round(ar * 1000 / len) / 10;
+    bodyArProg.appendChild(document.createTextNode('Arabic progress: ' + ar + '/' + len +  ' (' + par + '%)'));
+  }
   
-  const body3 = document.getElementById('fa_prog');
-  removeChildren(body3);
-  let pfa = Math.round(fa * 1000 / len) / 10;
-  body3.appendChild(document.createTextNode('Persian progress: ' + fa + '/' + len +  ' (' + pfa + '%)'));
+  if (document.getElementById('choiceFA').checked) {
+    let pfa = Math.round(fa * 1000 / len) / 10;
+    bodyFaProg.appendChild(document.createTextNode('Persian progress: ' + fa + '/' + len +  ' (' + pfa + '%)'));
+  }
 
   const halfLen = Math.round(len/4);
   for (let i = 0; i < 4; i++) {
@@ -230,26 +272,13 @@ Promise.all([A1Promise, A2Promise, B1Promise, B2Promise])
   A2 = values[1];
   B1 = values[2];
   B2 = values[3];
-  
-  document.getElementById('choiceA1').addEventListener('click', regenTable);
-  document.getElementById('choiceA2').addEventListener('click', regenTable);
-  document.getElementById('choiceB1').addEventListener('click', regenTable);
-  document.getElementById('choiceB2').addEventListener('click', regenTable);
 
-  document.getElementById('choiceN').addEventListener('click', regenTable);
-  document.getElementById('choiceA').addEventListener('click', regenTable);
-  document.getElementById('choiceV').addEventListener('click', regenTable);
-  document.getElementById('choiceAdv').addEventListener('click', regenTable);
-  document.getElementById('choicePronoun').addEventListener('click', regenTable);
-  document.getElementById('choicePre').addEventListener('click', regenTable);
-  document.getElementById('choiceDet').addEventListener('click', regenTable);
-  document.getElementById('choiceNum').addEventListener('click', regenTable);
-  document.getElementById('choiceCon').addEventListener('click', regenTable);
-  document.getElementById('choiceExc').addEventListener('click', regenTable);
-  document.getElementById('choiceDef').addEventListener('click', regenTable);
-  document.getElementById('choiceInf').addEventListener('click', regenTable);
+  ['EN', 'SV', 'AR', 'FA', 'A1', 'A2', 'B1', 'B2', 'N', 'A', 'V',
+    'Adv', 'Pronoun', 'Pre', 'Det', 'Num', 'Con', 'Exc', 'Def', 'Inf'].forEach(txt => {
+    document.getElementById('choice' + txt).addEventListener('click', regenTable);
+  });
 
-  check(['A1', 'A2', 'N', 'A', 'V', 'Adv', 'Pronoun', 'Pre', 'Det', 'Num', 'Con', 'Exc', 'Def', 'Inf']);
+  check(['EN', 'FA', 'A1', 'A2', 'N', 'A', 'V', 'Adv', 'Pronoun', 'Pre', 'Det', 'Num', 'Con', 'Exc', 'Def', 'Inf']);
 })
 
 </script>
