@@ -20,6 +20,8 @@
     h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {margin-right:10px}
     div.row {flex-wrap: initial;margin-block-start: 0;margin-block-end: 0;}
     div.col-sm {margin-top: 0;margin-bottom: 0;}
+    a{color: blue !important; text-decoration: underline !important;}
+    a:hover{cursor: pointer}
     </style>
   </head>
 <body>
@@ -89,6 +91,13 @@
 </body>
 </html>
 <script>
+let audio = new Audio();
+function playAudio(url) {
+  audio.pause();
+  audio = new Audio(url);
+  audio.play();
+}
+
 function createTable(matrix) {
   const table = document.createElement('table');
   table.setAttribute('border', '1');
@@ -100,21 +109,39 @@ function createTable(matrix) {
     td.appendChild(document.createTextNode(txt));
     return td;
   }
+  const getLinkToSound = (word) => {
+    word = word.replace('to ', '');
+    let path = [
+      word[0], //n
+      word.slice(0, 3).padEnd(3, '_') //nei, a__
+    ];
+    if (word.length < 3) {
+      path.push(word.slice(0, 5).padEnd(4, '_').padEnd(5, 'g'));
+    } else {
+      path.push(word.slice(0, 5).padEnd(5, '_'));  // neith, able_
+    }
+    return 'https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/' + path.join('/') + '/' + word + '__gb_1.mp3';
+  }
   const createLink = (txt, link) => {
     let a = document.createElement('a');
-    a.setAttribute('href', link);
+    a.setAttribute('onclick', 'playAudio(\'' + link + '\')');
     a.appendChild(document.createTextNode(txt));
     return a;
   }
   matrix.forEach(row => {
     const tr = document.createElement('tr');
-    let path = [];
-    let row2 = row[1].replace('(to) ', '');
-    path.push(row2[0]); //n
-    path.push(row2.slice(0, 3).padEnd(3, '_')); //nei, a__
-    path.push(row2.slice(0, 5).padEnd(5, '_')); // neith, able_
     let td = document.createElement('td');
-    td.appendChild(createLink(row[1], 'https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/' + path.join('/') + '/' + row2 + '__gb_1.mp3'));
+    if (row[1].includes('/')) {
+      let words = row[1].split('/');
+      for (let i = 0; i < words.length; i++) {
+        td.appendChild(createLink(words[i], getLinkToSound(words[i])));
+        if (i + 1 < words.length) {
+          td.appendChild(document.createTextNode('/'));
+        }
+      }
+    } else {
+      td.appendChild(createLink(row[1], getLinkToSound(row[1])));
+    }
     tr.appendChild(td);
     if (document.getElementById('choiceSV').checked) {
       let td = document.createElement('td');
