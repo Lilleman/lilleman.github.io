@@ -1,96 +1,96 @@
 {
-  "title": "Greeting",
-  "content": [
-    {
-      "title": "Grammar",
-      "description": "Personal pronouns",
-      "table": [
-        "I", "من",
-        "We", "ما",
-        "You (singular)", "تو",
-        "You (plural)", "شما",
-        "He/she/it", "او",
-        "They", "آنها"
-      ],
-      "numTableColumns": 4
-    },
-    {
-      "title": "Conversation",
-      "table": [
-        "Adam: Hi", "آدَم: سلام",
-        "Lina: Hi, how are you?", "لینَ: سلام، چطوری؟",
-        "Adam: I'm fine, and you?", "آدَم: خوبم، چطوری؟",
-        "Line: I'm great, thanks.", "لینَ: عالی هستم، ممنون"
-      ]
-    },
-    {
-      "title": "Grammar",
-      "description": "Simple present of \"to be\"",
-      "table": [
-        "I am", "هستم",
-        "We are", "هستیم",
-        "You (singular) are", "هستی",
-        "You (plural) are", "هستید",
-        "He/she/it is", "هست",
-        "They are", "هستند"
-      ],
-      "numTableColumns": 4
-    },
-    {
-      "title": "Common Phrases",
-      "table": [
-        "How are you?", "چطوری؟",
-        "Good evening!", "عصر بخیر",
-        "What's up?", "چه خبر؟",
-        "You're welcome", "خواهش می‌کنم",
-        "Are you fine?", "خوبی؟",
-        "Thank you very much!", "خیلی ممنون",
-        "Good morning!", "صبح بخیر",
-        "Thank you!", "مرسی"
-      ]
-    },
-    {
-      "title": "Reading",
-      "description": "I'm a student.\nYou're an engineer.\nWe're professors.\nThey're doctors.\nShe's a student.\nYou're happy.\nHe's happy.\nWe're great.\nI'm fine.\nThey're students."
-    },
-    {
-      "title": "Vocabulary",
-      "table": [
-        ["thankful", "ممنون"],
-        ["happy", "خوشحال/شاد"],
-        ["to see", "دیدن"],
-        ["to", "به"],
-        ["with", "با"],
-        ["to read", "خواندن"],
-        ["to write", "نوشتن"],
-        ["night", "شب"],
-        ["girl", "دختر"],
-        ["how're you?", "چطوری؟"],
-        ["tomorrow", "فردا"],
-        ["from", "از"],
-        ["and", "و"],
-        ["that", "آن"],
-        ["hello/hi", "سلام"],
-        ["water", "آب"],
-        ["good/fine", "خوب"],
-        ["yes", "بله"],
-        ["very", "خیلی"],
-        ["no", "نه"],
-        ["woman", "زن"],
-        ["engineer", "مهندس"],
-        ["professor", "استاد"],
-        ["doctor", "پزشک"],
-        ["excellent", "عالی"],
-        ["bad", "بد"],
-        ["to escape", "فرار کردن"],
-        ["morning", "صبح"],
-        ["evening", "عصر"],
-        ["noon", "ظهر"],
-        ["boy", "پسر"],
-        ["home", "خانه"],
-        ["yesterday", "دیروز"],
-        ["today", "امروز"]
-      ]
-    }
-  ]
+	"title": "Greeting",
+	"content": [
+		{
+			"title": "Grammar",
+			"description": "Personal pronouns",
+			"table": [
+				"I", "من",
+				"We", "ما",
+				"You (singular)", "تو",
+				"You (plural)", "شما",
+				"He/she/it", "او",
+				"They", "آنها"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Conversation",
+			"table": [
+				"Adam: Hi", "آدَم: سلام",
+				"Lina: Hi, how are you?", "لینَ: سلام، چطوری؟",
+				"Adam: I'm fine, and you?", "آدَم: خوبم، چطوری؟",
+				"Line: I'm great, thanks.", "لینَ: عالی هستم، ممنون"
+			]
+		},
+		{
+			"title": "Grammar",
+			"description": "Simple present of \"to be\"",
+			"table": [
+				"I am", "هستم",
+				"We are", "هستیم",
+				"You (singular) are", "هستی",
+				"You (plural) are", "هستید",
+				"He/she/it is", "هست",
+				"They are", "هستند"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Common Phrases",
+			"table": [
+				"How are you?", "چطوری؟",
+				"Good evening!", "عصر بخیر",
+				"What's up?", "چه خبر؟",
+				"You're welcome", "خواهش می‌کنم",
+				"Are you fine?", "خوبی؟",
+				"Thank you very much!", "خیلی ممنون",
+				"Good morning!", "صبح بخیر",
+				"Thank you!", "مرسی"
+			]
+		},
+		{
+			"title": "Reading",
+			"description": "I'm a student.\nYou're an engineer.\nWe're professors.\nThey're doctors.\nShe's a student.\nYou're happy.\nHe's happy.\nWe're great.\nI'm fine.\nThey're students."
+		},
+		{
+			"title": "Vocabulary",
+			"table": [
+				["thankful", "ممنون"],
+				["happy", "خوشحال/شاد"],
+				["to see", "دیدن"],
+				["to", "به"],
+				["with", "با"],
+				["to read", "خواندن"],
+				["to write", "نوشتن"],
+				["night", "شب"],
+				["girl", "دختر"],
+				["how're you?", "چطوری؟"],
+				["tomorrow", "فردا"],
+				["from", "از"],
+				["and", "و"],
+				["that", "آن"],
+				["hello/hi", "سلام"],
+				["water", "آب"],
+				["good/fine", "خوب"],
+				["yes", "بله"],
+				["very", "خیلی"],
+				["no", "نه"],
+				["woman", "زن"],
+				["engineer", "مهندس"],
+				["professor", "استاد"],
+				["doctor", "پزشک"],
+				["excellent", "عالی"],
+				["bad", "بد"],
+				["to escape", "فرار کردن"],
+				["morning", "صبح"],
+				["evening", "عصر"],
+				["noon", "ظهر"],
+				["boy", "پسر"],
+				["home", "خانه"],
+				["yesterday", "دیروز"],
+				["today", "امروز"]
+			]
+		}
+	]
 }
