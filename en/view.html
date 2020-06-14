@@ -127,8 +127,8 @@ async function init() {
     let res = await fetch('https://raw.githubusercontent.com/ackelman/ackelman.github.io/master/en/' + lesson + '.json');
     res = await res.json();
     const title = document.createElement('h1');
-    title.innerText = res.title;
-    document.body.appendChild('Lesson ' + lesson + ': ' + title);
+    title.innerText = 'Lesson ' + lesson + ': ' + res.title;
+    document.body.appendChild(title);
     res.content.forEach(elem => {
       createFrameAroundItem(elem.title, elem.description || "", createTable(elem.table, elem.numTableColumns));
     });
