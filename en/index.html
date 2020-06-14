@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    h1 {
+      margin-top: -100px;
+      margin-bottom: 0;
+      text-align: center;
+    }
+    a {
+      color: black;
+    }
+    </style>
+  </head>
+<body>
+</body>
+</html>
+<script>
+async function init() {
+  document.body = document.createElement('body');
+
+  let header = document.createElement('h1');
+  header.innerText = 'Lessons';
+  document.body.appendChild(header);
+
+  const createLink = (txt, link) => {
+    let a = document.createElement('a');
+    a.setAttribute('href', link);
+    a.appendChild(document.createTextNode(txt));
+    return a;
+  }
+
+  let ol = document.createElement('ol');
+
+  let baseURL = 'https://raw.githubusercontent.com/ackelman/ackelman.github.io/master/en/';
+  for (let i = 1; i <= 100; i++) {
+    try {
+      let res = await fetch(baseURL + i + '.json');
+      res = await res.json();
+      let li = document.createElement('li');
+      li.appendChild(createLink(res.title, 'https://ackelman.github.io/en/view.html?lesson=' + i));
+      ol.appendChild(li);
+    } catch (error) {
+      break;
+    }
+  }
+
+  document.body.appendChild(ol);
+}
+
+init();
+</script>
