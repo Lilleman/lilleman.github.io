@@ -17,6 +17,11 @@
     a {
       color: black;
     }
+    ol {
+      columns: 4;
+      -webkit-columns: 4;
+      -moz-columns: 4;
+    }
     </style>
   </head>
 <body>
@@ -25,6 +30,7 @@
 <script>
 async function init() {
   document.body = document.createElement('body');
+  document.body.style.cursor = 'wait';
 
   let header = document.createElement('h1');
   header.innerText = 'Lessons';
@@ -40,19 +46,16 @@ async function init() {
   let ol = document.createElement('ol');
 
   let baseURL = 'https://raw.githubusercontent.com/ackelman/ackelman.github.io/master/en/';
-  for (let i = 1; i <= 100; i++) {
-    try {
-      let res = await fetch(baseURL + i + '.json');
-      res = await res.json();
-      let li = document.createElement('li');
-      li.appendChild(createLink(res.title, 'https://ackelman.github.io/en/view.html?lesson=' + i));
-      ol.appendChild(li);
-    } catch (error) {
-      break;
-    }
+  let arr = await Promise.all([...Array(100).keys()].map(i => fetch(baseURL + (i+1) + '.json')));
+  arr = await Promise.all(arr.map(el => el.json()));
+  for (let i = 0; i < arr.length; i++) {
+    let li = document.createElement('li');
+    li.appendChild(createLink(arr[i].title, 'https://ackelman.github.io/en/view.html?lesson=' + (i+1)));
+    ol.appendChild(li);
   }
-
   document.body.appendChild(ol);
+  
+  document.body.style.cursor = 'auto';
 }
 
 init();
