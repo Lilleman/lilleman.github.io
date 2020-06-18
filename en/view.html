@@ -36,7 +36,7 @@ function playAudio(url) {
 }
 
 function getLinkToSound(word) {
-  word = word.replace('to ', '');
+  word = word.toLowerCase();
   let path = [
     word[0], //n
     word.slice(0, 3).padEnd(3, '_') //nei, a__
@@ -79,15 +79,27 @@ function createTable(rows, numPerRow = 0) {
       rows.splice(0, 3).forEach(row => {
         let td = document.createElement('td');
         if (row[0].includes('/')) {
-          let words = row[0].split('/');
-          for (let i = 0; i < words.length; i++) {
-            td.appendChild(createLink(words[i], getLinkToSound(words[i])));
-            if (i + 1 < words.length) {
+          let phrases = row[0].split('/');
+          for (let i = 0; i < phrases.length; i++) {
+            let words = phrases[i].split(' ');
+            for (let j = 0; j < words.length; j++) {
+              td.appendChild(createLink(words[j], getLinkToSound(words[j])));
+              if (j + 1 < words.length) {
+                td.appendChild(document.createTextNode(' '));
+              }
+            }
+            if (i + 1 < phrases.length) {
               td.appendChild(document.createTextNode('/'));
             }
           }
         } else {
-          td.appendChild(createLink(row[0], getLinkToSound(row[0])));
+          let words = row[0].split(' ');
+          for (let j = 0; j < words.length; j++) {
+            td.appendChild(createLink(words[j], getLinkToSound(words[j])));
+            if (j + 1 < words.length) {
+              td.appendChild(document.createTextNode(' '));
+            }
+          }
         }
         tr.appendChild(td);
         tr.appendChild(createTDWithTxt(row[1]));
