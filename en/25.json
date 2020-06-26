@@ -1,4 +1,88 @@
 {
-    "title": "TODO",
-    "content": []
+    "title": "‌Visiting a Doctor",
+    "content": [
+        {
+            "title": "Conversation",
+			"table": [
+				"Patient: I have a stomach ache.", "بیمار: من دل درد دارم.",
+				"Doctor: Is it something you ate?", "دکتر: چیزی خورده‌اید؟",
+				"Patient: Maybe, I'm not sure.", "بیمار: شاید مطمئن نیستم.",
+				"Doctor: What did you have for breakfast?", "دکتر: صبحانه چی خورده‌اید؟",
+				"Patient: Egg with milk and a banana.", "بیمار: تخم مرغ با شیر و موز.",
+				"Doctor: Maybe the milk was spoiled.", "دکتر: ممکن است شیر خراب بوده باشد.",
+				"Patient: It didn't smell bad.", "بیمار: آن بوی بدی نمی‌داد.",
+				"Doctor: I will give you an injection to dull the pain.", "دکتر: من یک آمپول به شما می‌زنم تا دردتان کم شود."
+			]
+        },
+        {
+			"title": "Diseases",
+			"table": [
+				"allergy", "حساسیت",
+				"analysis", "آزمایش",
+				"prescription", "نسخه",
+				"examination", "معاینه",
+				"nausea", "حالت تهوع",
+				"arthritis", "آرتروز",
+				"infection", "عفونت",
+				"treatment", "درمان",
+				"appointment", "وقت تعیین شده",
+				"specimen", "نمونه آزمایش"
+			],
+			"numTableColumns": 8
+		},
+		{
+			"title": "Common Phrases",
+			"table": [
+				"I would like to see a doctor.", "می‌خواهم پزشک من را ببیند.",
+				"I would like to make an appointment.", "می‌خواهم یک وقت بگیرم.",
+				"I need a medical consulation.", "من به مشاوره پزشکی نیاز دارم.",
+				"What are the consulation hours?", "مشاوره چه ساعتی است؟"
+			]
+		},
+		{
+		    "title": "Reading",
+		    "description": "Ibn Sina was born in 980 AD in Bukhara. He was an Iranian physician and poet. Ibn Sina has written many books on the topic of medicine. Mr. George Sarten considers Ibn Sina to be the greatest scientists in the field of medicine. Ibn Sina has written his books in the Arabic language because in his time, Arabic was a common language."
+		},
+		{
+			"title": "Vocabulary",
+			"table": [
+				["to be born", "به دنیا آمدن"],
+				["about", "در مورد"],
+				["special", "مخصوص"],
+				["consultation", "مشاوره"],
+				["pain", "درد"],
+				["pill", "قرص"],
+				["muscle", "عضله"],
+				["vessel", "رگ"],
+				["optometrist", "چشم پزشک"],
+				["pharmacist", "داروساز"],
+				["pharmacy", "داروخانه"],
+				["children", "اطفال"],
+				["field", "زمینه"],
+				["way", "راه"],
+				["sore throat", "گلودرد"],
+				["to cough", "سرفه کردن"],
+				["ampoule", "آمپول"],
+				["pain killer", "مسکن"],
+				["positive", "مثبت"],
+				["heart disease", "بیماری قلبی"],
+				["nurse", "پرستار"],
+				["prescription", "نسخه"],
+				["worms", "کرم"],
+				["x-ray",  "اشعه ایکس"],
+				["solution", "راه حل"],
+				["to prescribe", "تجویز کردن"],
+				["signs", "علائم"],
+				["sickness", "بیماری"],
+				["asthma", "آسم"],
+				["negative", "منفی"],
+				["medicine", "دارو"],
+				["adult", "بزرگسال"],
+				["clinic", "درمانگاه"],
+				["hospital", "بیمارستان"],
+				["emergency", "اورژانس"],
+				["injections", "تزریقات"]
+			]
+		}
+    ]
 }
