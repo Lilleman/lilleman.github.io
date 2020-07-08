@@ -42,46 +42,6 @@
 		{
 		    "title": "Reading",
 		    "description": "Shakespear was a famous British poet. He is famous all over the world. Shakespear lived in the city Stratford-upon-Avon. Shakespears poems have been translated into many different languages. Shakespears grave is located in Stratford-upon-Avon. Every year on the 23 April, a commemoration is held."
-		},
-		{
-			"title": "Vocabulary",
-			"table": [
-				["poet", "شاعر"],
-				["different", "مختلف"],
-				["to translate", "ترجمه کردن"],
-				["trouble", "زحمت"],
-				["to progress", "پیش رفتن"],
-				["there", "آنجا"],
-				["problem", "مشکل"],
-				["to thank", "تشکر کردن"],
-				["hopeful", "امیدوار"],
-				["to compose", "سرودن"],
-				["noisy", "شلوغ"],
-				["to fight", "دعوا کردن"],
-				["reputation", "شهرت"],
-				["ceremony", "مراسم"],
-				["to build up", "آباد کردن"],
-				["times", "اوقات"],
-				["young", "جوان"],
-				["competition", "مسابقه"],
-				["kind", "مهربان"],
-				["population", "جمعیت"],
-				["world", "جهان"],
-				["more", "بیشتر"],
-				["to gain", "کسب کردن"],
-				["book",  "دفتر"],
-				["poem", "شعر"],
-				["commemoration", "بزرگداشت"],
-				["equal", "برابر"],
-				["here", "اینجا"],
-				["scandal", "افتضاح"],
-				["now", "اکنون"],
-				["picture", "تصویر"],
-				["member", "عضو"],
-				["if", "اگر"],
-				["popular", "محبوب"],
-				["river", "رود"]
-			]
 		}
     ]
 }

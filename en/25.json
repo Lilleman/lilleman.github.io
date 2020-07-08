@@ -42,47 +42,6 @@
 		{
 		    "title": "Reading",
 		    "description": "Ibn Sina was born in 980 AD in Bukhara. He was an Iranian physician and poet. Ibn Sina has written many books on the topic of medicine. Mr. George Sarten considers Ibn Sina to be the greatest scientists in the field of medicine. Ibn Sina has written his books in the Arabic language because in his time, Arabic was a common language."
-		},
-		{
-			"title": "Vocabulary",
-			"table": [
-				["to be born", "به دنیا آمدن"],
-				["about", "در مورد"],
-				["special", "مخصوص"],
-				["consultation", "مشاوره"],
-				["pain", "درد"],
-				["pill", "قرص"],
-				["muscle", "عضله"],
-				["vessel", "رگ"],
-				["optometrist", "چشم پزشک"],
-				["pharmacist", "داروساز"],
-				["pharmacy", "داروخانه"],
-				["children", "اطفال"],
-				["field", "زمینه"],
-				["way", "راه"],
-				["sore throat", "گلودرد"],
-				["to cough", "سرفه کردن"],
-				["ampoule", "آمپول"],
-				["pain killer", "مسکن"],
-				["positive", "مثبت"],
-				["heart disease", "بیماری قلبی"],
-				["nurse", "پرستار"],
-				["prescription", "نسخه"],
-				["worms", "کرم"],
-				["x-ray",  "اشعه ایکس"],
-				["solution", "راه حل"],
-				["to prescribe", "تجویز کردن"],
-				["signs", "علائم"],
-				["sickness", "بیماری"],
-				["asthma", "آسم"],
-				["negative", "منفی"],
-				["medicine", "دارو"],
-				["adult", "بزرگسال"],
-				["clinic", "درمانگاه"],
-				["hospital", "بیمارستان"],
-				["emergency", "اورژانس"],
-				["injections", "تزریقات"]
-			]
 		}
     ]
 }

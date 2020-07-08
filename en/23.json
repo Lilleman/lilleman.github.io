@@ -37,46 +37,6 @@
 		{
 		    "title": "Reading",
 		    "description": "The weather in Sweden is very varied. In spring and summer the climate in southern and central Sweden is warm and sunny. In the northern part of Sweden, the climate is colder and more pleasant. Autumn is beautiful in most parts of Sweden. In winter the northern half of the country is cold and covered by snow, while the sourthern half is rainy and slightly warmer."
-		},
-		{
-			"title": "Vocabulary",
-			"table": [
-				["diverse", "متنوع"],
-				["hot", "گرم"],
-				["cold", "سرد"],
-				["air/weather", "هوا"],
-				["areas", "مناطق"],
-				["pleasant", "مطبوع"],
-				["season", "فصل"],
-				["pleasing", "دل انگیز"],
-				["country", "کشور"],
-				["to be simple", "ساده بودن"],
-				["members", "اعضا"],
-				["team", "تیم"],
-				["preposition", "حرف اضافه"],
-				["next", "بعد"],
-				["atmosphere", "جو"],
-				["tornado", "گردباد"],
-				["cold", "سرما"],
-				["rainbow", "رنگین کمان"],
-				["sun", "خورشید"],
-				["ice cream", "بستنی"],
-				["conditions", "شرایط"],
-				["flood", "سیل"],
-				["to destroy", "خراب کردن"],
-				["soccer",  "فوتبال"],
-				["evaporation", "تبخیر"],
-				["hail", "تگرگ"],
-				["ice", "یخ"],
-				["heat", "گرما"],
-				["earthquake", "زلزله"],
-				["to damage", "آسیب زدن"],
-				["damage", "خسارت"],
-				["to escape", "فرار کردن"],
-				["safety", "ایمنی"],
-				["mud", "گل"],
-				["soil", "خاک"]
-			]
 		}
     ]
 }

@@ -46,46 +46,6 @@
         {
             "title": "Reading",
 			"description": "Ms.Ahmadi is an accountant. She must wake up early and go to work, so that she can feed her children. On fridays, Lady Ahmadi takes her children to a restaurant. The children likes kebab very much. They order kebab every time they go to the restaurant."
-        },
-        {
-			"title": "Vocabulary",
-			"table": [
-				["to select", "انتخاب کردن"],
-				["accountant", "حسابدار"],
-				["to wake up", "بیدار شدن"],
-				["must", "باید"],
-				["to feed", "غذا دادن"],
-				["Friday", "جمعه"],
-				["always", "همیشه"],
-				["to inform", "اطلاع دادن"],
-				["to put", "گذاشتن"],
-				["current", "جربان"],
-				["new", "جدید"],
-				["dessert", "دسر"],
-				["old", "قدیم"],
-				["to inform", "آگاه کردن"],
-				["dough", "دوغ"],
-				["knowledge", "دانش"],
-				["to inform", "خبر دادن"],
-				["to calculate", "حساب کردن"],
-				["to reserve", "رزرو کردن"],
-				["to order", "سفارش دادن"],
-				["bitter", "تلخ"],
-				["cake", "کیک"],
-				["to cook", "پختن"],
-				["fresh", "تازه"],
-				["fruit", "میوه"],
-				["jam", "مربا"],
-				["macaroni", "ماکارونی"],
-				["poached", "آب پز شده"],
-				["chips", "چیپس"],
-				["raw", "خام"],
-				["salty", "شور"],
-				["spicy/hot", "تند"],
-				["tender", "نرم"],
-				["toast", "نان تست"],
-				["topping", "چاشنی غذا"]
-			]
-		}
+        }
     ]
 }

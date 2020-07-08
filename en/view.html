@@ -128,6 +128,19 @@ function createFrameAroundItem(label, desc, item) {
   document.body.appendChild(fieldset);
 }
 
+const BASE_URL = 'https://api.mongolab.com/api/1/databases/persian_deck/collections/words'
+const KEY = 'apiKey=9ROoRY8i79_40JLlPIsUiCWBZUHuNMo_'
+
+async function fetchVocab(lesson) {
+  let condition = 'q={"tags":"Lesson ' + lesson + '"}'
+  let res = await fetch(BASE_URL + '?' + condition + '&' + KEY);
+  res = await res.json();
+  res = res.map(elem => {
+    return [elem.english, elem.persian];
+  });
+  createFrameAroundItem("Vocabulary", "", createTable(res));
+}
+
 async function init() {
   document.body = document.createElement('body');
 
@@ -144,6 +157,7 @@ async function init() {
     res.content.forEach(elem => {
       createFrameAroundItem(elem.title, elem.description || "", createTable(elem.table, elem.numTableColumns));
     });
+    fetchVocab(lesson);
   }
 }
 
