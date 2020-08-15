@@ -1,0 +1,342 @@
+<html>
+<head>
+  <title>Maze Algorithms</title>
+  <style>
+    .row .maze {
+      padding: 0 0 20px 20px;
+      display: inline-block;
+    }
+    
+    .maze .grid { width: 210px; height: 210px; }
+    .maze .grid .row { width: 210px; }
+    
+    .small .grid .row > div { width: 40px; height: 40px; }
+    .medium .grid .row > div { width: 12px; height: 12px; }
+    .large .grid .row > div { width: 5px; height: 5px; }
+    
+    .maze .grid { border: 1px solid black; }
+    
+    .maze .grid .row > div { display: inline-block; border: 1px solid black; background: #ccc; }
+    
+    .maze .grid div.in { background: #fff; }
+    .maze .grid div.f { background: #faa; }
+    .maze .grid div.cursor { background: #7f7; }
+    
+    .maze .grid div.e { border-right: none; padding-right: 1px; }
+    .maze .grid div.w { border-left: none; padding-left: 1px; }
+    .maze .grid div.n { border-top: none; padding-top: 1px; }
+    .maze .grid div.s { border-bottom: none; padding-bottom: 1px; }
+    
+    .maze .grid.invert { border: 2px solid black; }
+    .maze .grid.invert .row div { background: #fff; border: none; padding: 1px; }
+    .maze .grid.invert div.e { border-right: 1px solid black; padding-right: 0; }
+    .maze .grid.invert div.w { border-left: 1px solid black; padding-left: 0; }
+    .maze .grid.invert div.n { border-top: 1px solid black; padding-top: 0; }
+    .maze .grid.invert div.s { border-bottom: 1px solid black; padding-bottom: 0; }
+    
+    .maze .grid { border: none; }
+    
+    .small .grid.padded .row > div { width: 42px; height: 42px; }
+    .medium .grid.padded .row > div { width: 14px; height: 14px; }
+    .large .grid.padded .row > div { width: 7px; height: 7px; }
+    
+    .maze .grid.padded .row > div { border: none; padding: 0px; position: relative; background: #ccc; }
+    
+    .maze .grid.padded div.in div.c,
+    .maze .grid.padded div.in.n.u div.wp,
+    .maze .grid.padded div.in.n.u div.ep,
+    .maze .grid.padded div.in.w.u div.sp,
+    .maze .grid.padded div.in.w.u div.np,
+    .maze .grid.padded div.in.n div.np,
+    .maze .grid.padded div.in.s div.sp,
+    .maze .grid.padded div.in.e div.ep,
+    .maze .grid.padded div.in.w div.wp { background: #fff; }
+    
+    .maze .grid.padded div.f div.c,
+    .maze .grid.padded div.f.n.u div.wp,
+    .maze .grid.padded div.f.n.u div.ep,
+    .maze .grid.padded div.f.w.u div.sp,
+    .maze .grid.padded div.f.w.u div.np,
+    .maze .grid.padded div.f.n div.np,
+    .maze .grid.padded div.f.s div.sp,
+    .maze .grid.padded div.f.e div.ep,
+    .maze .grid.padded div.f.w div.wp { background: #faa; }
+    .maze .grid.padded div.cursor div.c { background: #7f7; }
+    
+    .small .grid.padded div.np { width: 30px; height: 5px; border: none; position: absolute; top: 0px; left: 5px; }
+    .small .grid.padded div.sp { width: 30px; height: 5px; border: none; position: absolute; bottom: 0px; left: 5px; }
+    .small .grid.padded div.wp { width: 5px; height: 30px; border: none; position: absolute; top: 5px; left: 0px; }
+    .small .grid.padded div.ep { width: 5px; height: 30px; border: none; position: absolute; top: 5px; right: 0px; }
+    .small .grid.padded div.c { padding: 0; width: 30px; height: 30px; border: 1px solid black; position: absolute; top: 5px; left: 5px; }
+    
+    .medium .grid.padded div.np { width: 8px; height: 2px; border: none; position: absolute; top: 0px; left: 2px; }
+    .medium .grid.padded div.sp { width: 8px; height: 2px; border: none; position: absolute; bottom: 0px; left: 2px; }
+    .medium .grid.padded div.wp { width: 2px; height: 8px; border: none; position: absolute; top: 2px; left: 0px; }
+    .medium .grid.padded div.ep { width: 2px; height: 8px; border: none; position: absolute; top: 2px; right: 0px; }
+    .medium .grid.padded div.c { padding: 0; width: 8px; height: 8px; border: 1px solid black; position: absolute; top: 2px; left: 2px; }
+    
+    .maze .grid.padded div.e,
+    .maze .grid.padded div.w,
+    .maze .grid.padded div.n,
+    .maze .grid.padded div.s { border: none; padding: 0; }
+    
+    .maze .grid.padded div.np,
+    .maze .grid.padded div.sp { padding-right: 1px; padding-left: 1px; }
+    .maze .grid.padded div.wp,
+    .maze .grid.padded div.ep { padding-top: 1px; padding-bottom: 1px; }
+    
+    .maze .grid.padded div.n.u div.ep,
+    .maze .grid.padded div.n.u div.wp,
+    .maze .grid.padded div.e div.ep,
+    .maze .grid.padded div.w div.wp { border-top: 1px solid black; border-bottom: 1px solid black; padding-top: 0px; padding-bottom: 0px; }
+    .maze .grid.padded div.w.u div.np,
+    .maze .grid.padded div.w.u div.sp,
+    .maze .grid.padded div.n div.np,
+    .maze .grid.padded div.s div.sp { border-left: 1px solid black; border-right: 1px solid black; padding-left: 0; padding-right: 0; }
+    
+    .maze .grid.padded div.n div.c { border-top: none; padding-top: 1px; }
+    .maze .grid.padded div.e div.c { border-right: none; padding-right: 1px; }
+    .maze .grid.padded div.w div.c { border-left: none; padding-left: 1px; }
+    .maze .grid.padded div.s div.c { border-bottom: none; padding-bottom: 1px; }
+    
+    .maze .operations { clear: both; text-align: center; padding-top: 5px; }
+    .maze .operations a { padding: 0px 5px; color: #00f; }
+    .maze .operations a.disabled { color: #777; }
+  </style>
+
+  <script src="Mersenne.js" type="text/javascript"></script>
+  <script src="Maze.js" type="text/javascript"></script>
+  <script src="Algorithm.js" type="text/javascript"></script>
+  <script src="createCanvasWidget.js" type="text/javascript"></script>
+
+  <script src="Eller.js" type="text/javascript"></script>
+  <script src="AldousBroder.js" type="text/javascript"></script>
+  <script src="RecursiveBacktracker.js" type="text/javascript"></script>
+  <script src="ParallelBacktracker.js" type="text/javascript"></script>
+  <script src="BinaryTree.js" type="text/javascript"></script>
+  <script src="Blobby.js" type="text/javascript"></script>
+  <script src="RecursiveDivision.js" type="text/javascript"></script>
+  <script src="SideWinder.js" type="text/javascript"></script>
+  <script src="GrowingTree.js" type="text/javascript"></script>
+  <script src="Houston.js" type="text/javascript"></script>
+  <script src="HuntAndKill.js" type="text/javascript"></script>
+  <script src="Kruskal.js" type="text/javascript"></script>
+  <script src="Prim.js" type="text/javascript"></script>
+  <script src="Wilson.js" type="text/javascript"></script>
+  <script src="GrowingBinaryTree.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    function resetMazes() {
+      for(let i = 0; i < arguments.length; i++) {
+        let id = arguments[i];
+        let element = document.getElementById(id);
+        element.mazeReset();
+      }
+    }
+
+    window.styleSets = {
+      "s0": "#fdd",
+      "s1": "#dfd",
+      "s2": "#ddf",
+      "s3": "#ffd",
+      "s4": "#fdf",
+      "s5": "#dff",
+      "s6": "#ddd",
+      "s7": "#fd9",
+      "stack-s0": "#f99",
+      "stack-s1": "#9f9",
+      "stack-s2": "#99f",
+      "stack-s3": "#ff9",
+      "stack-s4": "#f9f",
+      "stack-s5": "#9ff",
+      "stack-s6": "#999",
+      "stack-s7": "#f95" };
+  </script>
+
+  <style type="text/css">
+    * { font-family: sans-serif; }
+
+    h1 {
+      font-size: 24px;
+      margin: 20px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin: 10px 20px;
+    }
+
+    small {
+      color: #777;
+      font-size: 11px;
+    }
+
+    input { width: 50%; }
+  </style>
+</head>
+<body>
+  <h1>Recursive Backtracking</h1>
+  <div class="row">
+    <script type="text/javascript">createCanvasWidget("RecursiveBacktracker", 5, 5, { "class": "small" });</script>
+    <script type="text/javascript">createCanvasWidget("RecursiveBacktracker", 15, 15, { "class": "medium", id: "backtracker_bigger", interval: 25 });</script>
+    <script type="text/javascript">createCanvasWidget("RecursiveBacktracker", 30, 30, { "class":"large", id: "backtracker_biggest", interval: 10 });</script>
+  </div>
+  <hr />
+
+  <h1>Recursive Backtracking (Parallel Seeds)</h1>
+  <div class="row">
+    <script type="text/javascript">createCanvasWidget("ParallelBacktracker", 15, 15, { "class": "medium", "styles": { "sets": styleSets }, id: "paralleltracker_bigger", interval: 25 });</script>
+    <script type="text/javascript">createCanvasWidget("ParallelBacktracker", 30, 30, { "class":"large", "styles": { "sets": styleSets }, id: "paralleltracker_biggest", input: 5, interval: 10 });</script>
+    <script type="text/javascript">createCanvasWidget("ParallelBacktracker", 42, 42, { "class":"huge", "styles": { "sets": styleSets }, id: "paralleltracker_huge", input: 8, interval: 10 });</script>
+  </div>
+  <hr />
+
+  <h1>Eller's Algorithm</h1>
+  <div class="row">
+    <script type="text/javascript">createCanvasWidget("Eller", 5, 5, { "class": "small" });</script>
+    <script type="text/javascript">createCanvasWidget("Eller", 15, 15, { "class": "medium", id: "eller_bigger", interval: 25 });</script>
+    <script type="text/javascript">createCanvasWidget("Eller", 30, 30, { "class": "large", id: "eller_biggest", interval: 10 });</script>
+  </div>
+  <hr />
+
+  <h1>Kruskal's Algorithm</h1>
+  <div class="row">
+    <script type="text/javascript">createCanvasWidget("Kruskal", 5, 5, { "class": "small", "watch": false });</script>
+    <script type="text/javascript">createCanvasWidget("Kruskal", 15, 15, { "class": "medium", "watch": false, id: "kruskal_bigger", interval: 25 });</script>
+    <script type="text/javascript">createCanvasWidget("Kruskal", 30, 30, { "class": "large", "watch": false, id: "kruskal_biggest", interval: 10 });</script>
+  </div>
+  <hr />
+
+  <h1>Prim's Algorithm</h1>
+  <div class="row">
+    <script type="text/javascript">createCanvasWidget("Prim", 5, 5, { "class": "small", "watch": false });</script>
+    <script type="text/javascript">createCanvasWidget("Prim", 15, 15, { "class": "medium", "watch": false, id: "prim_bigger", interval: 25 });</script>
+    <script type="text/javascript">createCanvasWidget("Prim", 30, 30, { "class": "large", "watch": false, id: "prim_biggest", interval: 10 });</script>
+  </div>
+  <hr />
+
+  <h1>Recursive Division</h1>
+  <div class="row">
+    <script type="text/javascript">createCanvasWidget("RecursiveDivision", 5, 5, { "class": "small", "watch": false, wallwise: true });</script>
+    <script type="text/javascript">createCanvasWidget("RecursiveDivision", 15, 15, { "class": "medium", "watch": false, wallwise: true, id: "division_bigger", interval: 25 });</script>
+    <script type="text/javascript">createCanvasWidget("RecursiveDivision", 30, 30, { "class": "large", "watch": false, wallwise: true, id: "division_biggest", interval: 10 });</script>
+  </div>
+  <hr />
+
+  <h1>"Blobby" Recursive Subdivision Algorithm</h1>
+  <p>
+    Threshold: <select id="blobby_threshold" onchange="resetMazes('blobbydivision', 'blob_bigger', 'blob_biggest');">
+      <option value="4">Small</option>
+      <option value="10">Medium</option>
+      <option value="25">Large</option>
+    </select>
+  </p>
+  <script type="text/javascript">
+    function blobbyThreshold() {
+      let s = document.getElementById('blobby_threshold');
+      return s.options[s.selectedIndex].value;
+    }
+  </script>
+  <div class="row">
+    <script type="text/javascript">createCanvasWidget("BlobbyDivision", 5, 5, { "threshold": blobbyThreshold, "class": "small", "styles": { "f": "#ffa" } });</script>
+    <script type="text/javascript">createCanvasWidget("BlobbyDivision", 10, 10, { "id": "blob_bigger", "threshold": blobbyThreshold, "class": "small", "styles": { "f": "#ffa" } });</script>
+    <script type="text/javascript">createCanvasWidget("BlobbyDivision", 21, 21, { "id": "blob_biggest", "threshold": blobbyThreshold, "class": "small", "styles": { "f": "#ffa" } });</script>
+  </div>
+  <hr />
+
+  <h1>Aldous-Broder Algorithm</h1>
+  <div class="row">
+    <script type="text/javascript">createCanvasWidget("AldousBroder", 5, 5, { "class": "small" });</script>
+    <script type="text/javascript">createCanvasWidget("AldousBroder", 15, 15, { "class": "medium", id: "abroder_bigger", interval: 25 });</script>
+    <script type="text/javascript">createCanvasWidget("AldousBroder", 30, 30, { "class": "large", id: "abroder_biggest", interval: 10 });</script>
+  </div>
+  <hr />
+
+  <h1>Wilson's Algorithm</h1>
+  <div class="row">
+    <script type="text/javascript">createCanvasWidget("Wilson", 5, 5, { "class": "small" });</script>
+    <script type="text/javascript">createCanvasWidget("Wilson", 15, 15, { "class": "medium", id: "wilson_bigger", interval: 25 });</script>
+    <script type="text/javascript">createCanvasWidget("Wilson", 30, 30, { "class": "large", id: "wilson_biggest", interval: 10 });</script>
+  </div>
+  <hr />
+
+  <h1>Houston's Algorithm</h1>
+  <div class="row">
+    <script type="text/javascript">createCanvasWidget("Houston", 5, 5, { "class": "small" });</script>
+    <script type="text/javascript">createCanvasWidget("Houston", 15, 15, { "class": "medium", id: "houston_bigger", interval: 25 });</script>
+    <script type="text/javascript">createCanvasWidget("Houston", 30, 30, { "class": "large", id: "houston_biggest", interval: 10 });</script>
+  </div>
+  <hr />
+
+  <h1>"Hunt and Kill" Algorithm</h1>
+  <div class="row">
+    <script type="text/javascript">createCanvasWidget("HuntAndKill", 5, 5, { "class": "small" });</script>
+    <script type="text/javascript">createCanvasWidget("HuntAndKill", 15, 15, { "class": "medium", id: "huntkill_bigger", interval: 25 });</script>
+    <script type="text/javascript">createCanvasWidget("HuntAndKill", 30, 30, { "class": "large", id: "huntkill_biggest", interval: 10 });</script>
+  </div>
+  <hr />
+
+  <h1>Growing Tree Algorithm</h1>
+  <p>
+    <input type="text" id="growing_tree_input" value="random:100" onchange="resetMazes('growingtree', 'growtree_bigger', 'growtree_biggest');" /><br />
+    <small>E.g. random:50, newest:30, oldest:75, middle:100, or any comma-delimited combination of those.</small>
+  </p>
+  <script type="text/javascript">
+    function growingTreeInput() {
+      return document.getElementById("growing_tree_input").value;
+    }
+  </script>
+  <div class="row">
+    <script type="text/javascript">createCanvasWidget("GrowingTree", 5, 5, { "class": "small", "watch": false, input: growingTreeInput });</script>
+    <script type="text/javascript">createCanvasWidget("GrowingTree", 15, 15, { "class": "medium", "watch": false, id: "growtree_bigger", interval: 25, input: growingTreeInput });</script>
+    <script type="text/javascript">createCanvasWidget("GrowingTree", 30, 30, { "class": "large", id: "growtree_biggest", interval: 10, "watch": false, input: growingTreeInput });</script>
+  </div>
+  <hr />
+
+  <h1>Growing Binary Tree Algorithm</h1>
+  <p>
+    <input type="text" id="growing_btree_input" value="random:100" onchange="resetMazes('growingbinarytree', 'growbtree_bigger', 'growbtree_biggest');" /><br />
+    <small>E.g. random:50, newest:30, oldest:75, middle:100, or any comma-delimited combination of those.</small>
+  </p>
+  <script type="text/javascript">
+    function growingBinaryTreeInput() {
+      return document.getElementById("growing_btree_input").value;
+    }
+  </script>
+  <div class="row">
+    <script type="text/javascript">createCanvasWidget("GrowingBinaryTree", 5, 5, { "class": "small", "watch": false, input: growingBinaryTreeInput });</script>
+    <script type="text/javascript">createCanvasWidget("GrowingBinaryTree", 15, 15, { "class": "medium", "watch": false, id: "growbtree_bigger", interval: 25, input: growingBinaryTreeInput });</script>
+    <script type="text/javascript">createCanvasWidget("GrowingBinaryTree", 30, 30, { "class": "large", id: "growbtree_biggest", interval: 10, "watch": false, input: growingBinaryTreeInput });</script>
+  </div>
+  <hr />
+
+  <h1>Binary Tree Algorithm</h1>
+  <p>
+    Bias: <select id="binary_tree_input" onchange="resetMazes('binarytree', 'btree_bigger', 'btree_biggest');">
+      <option value="nw">Northwest</option>
+      <option value="ne">Northeast</option>
+      <option value="sw">Southwest</option>
+      <option value="se">Southeast</option>
+    </select>
+  </p>
+  <script type="text/javascript">
+    function binaryTreeInput() {
+      let s = document.getElementById('binary_tree_input');
+      return s.options[s.selectedIndex].value;
+    }
+  </script>
+  <div class="row">
+    <script type="text/javascript">createCanvasWidget("BinaryTree", 5, 5, { "class": "small", input: binaryTreeInput });</script>
+    <script type="text/javascript">createCanvasWidget("BinaryTree", 15, 15, { "class": "medium", input: binaryTreeInput, id: "btree_bigger", interval: 25 });</script>
+    <script type="text/javascript">createCanvasWidget("BinaryTree", 30, 30, { "class": "large", input: binaryTreeInput, id: "btree_biggest", interval: 10 });</script>
+  </div>
+  <hr />
+
+  <h1>Sidewinder Algorithm</h1>
+  <div class="row">
+    <script type="text/javascript">createCanvasWidget("Sidewinder", 5, 5, { "class": "small" });</script>
+    <script type="text/javascript">createCanvasWidget("Sidewinder", 15, 15, { "class": "medium", id: "sidewinder_bigger", interval: 25 });</script>
+    <script type="text/javascript">createCanvasWidget("Sidewinder", 30, 30, { "class": "large", id: "sidewinder_biggest", interval: 10 });</script>
+  </div>
+</body>
+</html>
