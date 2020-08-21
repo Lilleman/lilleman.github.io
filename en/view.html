@@ -121,7 +121,13 @@ function createFrameAroundItem(label, desc, item) {
   const legend = document.createElement('legend');
   legend.appendChild(document.createTextNode(label));
   fieldset.appendChild(legend);
-  fieldset.appendChild(document.createTextNode(desc));
+  let tokens = desc.split('\n')
+  for (let i = 0; i < tokens.length; i++) {
+    fieldset.appendChild(document.createTextNode(tokens[i]));
+    if (i < tokens.length - 1) {
+      fieldset.appendChild(document.createElement('br'));
+    }
+  }
   if (item) {
     fieldset.appendChild(item);
   }
