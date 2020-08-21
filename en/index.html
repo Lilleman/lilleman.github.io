@@ -46,12 +46,14 @@ async function init() {
   let ol = document.createElement('ol');
 
   let baseURL = 'https://raw.githubusercontent.com/ackelman/ackelman.github.io/master/en/';
-  let arr = await Promise.all([...Array(100).keys()].map(i => fetch(baseURL + (i+1) + '.json')));
-  arr = await Promise.all(arr.map(el => el.json()));
-  for (let i = 0; i < arr.length; i++) {
-    let li = document.createElement('li');
-    li.appendChild(createLink(arr[i].title, 'https://ackelman.github.io/en/view.html?lesson=' + (i+1)));
-    ol.appendChild(li);
+  for (let j = 0; j < 10; j++) {
+    let arr = await Promise.all([...Array(10).keys()].map(i => fetch(baseURL + (j*10+i+1) + '.json')));
+    arr = await Promise.all(arr.map(el => el.json()));
+    for (let i = 0; i < arr.length; i++) {
+      let li = document.createElement('li');
+      li.appendChild(createLink(arr[i].title, 'https://ackelman.github.io/en/view.html?lesson=' + (j*10+i+1)));
+      ol.appendChild(li);
+    }
   }
   document.body.appendChild(ol);
   
