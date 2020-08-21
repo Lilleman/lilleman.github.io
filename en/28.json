@@ -1,4 +1,53 @@
 {
-    "title": "TODO",
-    "content": []
+    "title": "Hair salon",
+    "content": [
+        {
+            "title": "Grammar",
+            "description": "Question tags\nIn English the question tag is formed by inverting the auxiliary verb of main sentence followed by the pronoun.\nExamples:\nThis dish is tasty, isn't it?\nYou're from London, aren't you?\nWe have an exam tomorrow, havn't we?\nYou can sing, can't you?"
+        },
+        {
+            "title": "Conversation",
+			"table": [
+				"Customer: Hello, I want a haircut.", "مشتری: سلام، می‌خواهم موهایم را کوتاه کنم.",
+				"Barber: How would you like it?", "سلمانی: چطور می‌خواهید باشد؟",
+				"Customer: Just tidy it up a bit, please.", "مشتری: فقط یک کم کوتاهش کنید.",
+				"Barber: Your hair is dry. Shall I put some oil in it?", "سلمانی: موهای شما خشک است، می‌خواهید کمی روغن به موهایتان بزنم؟",
+				"Customer: Yes thanks, Would you please trim my mustache and beard too?", "مشتری: بله ممنون. ممکن است ریش و سیبیلم هم مرتب کنید؟",
+                "Barber: Yes, sure.", "سلمانی: بله حتماً."
+			]
+        },
+        {
+            "title": "Grammar",
+            "description": "negative imperative tense\ndo not + verb\nExample: Don't go! Don't say so!"
+        },
+        {
+            "title": "Conversation",
+			"table": [
+				"Marjan: I've decided to have my hair premed.", "مرجان: من تصمیم دارم موهایم را فر کنم.",
+				"Setare: I like curly hair.", "ستاره: واقعاً؟ من موهای فر را دوست دارم.",
+				"Marjan: I should find a good hair stylist.", "مرجان: باید یک آرایشگر خوب پیدا کنم."
+			]
+        },
+        {
+			"title": "Hair salon",
+			"table": [
+				"face mask", "to colour", "epilation", "to curl", "ماسک صورت", "رنگ کردن", "اپیلاسیون", "فر کردن",
+				"nail repair", "highlights", "massage", "to cut", "ترمیم ناخن", "هایلایت", "ماساژ", "کوتاه کردن"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Common Phrases",
+			"table": [
+				"I want a skin treatment, please.", "لطفاً پوستم را تمیز کنید.",
+				"Please cut and blow-dry my hair.", "لطفاً موهای من را کوتاه کنید و سشوار بکشید.",
+				"Do you do hair removal?", "شما اپیلاسیون می‌کنید؟",
+				"How long will I have to wait?", "چه مدت باید منتظر بمانم؟"
+			]
+		},
+		{
+		    "title": "Reading",
+		    "description": "Isfahan is one of the largest cities in Iran. This city is located in central Iran. Through the center of Isfahan flows a river by the name Zayanderud. This beautiful and historical city has many historical monuments. Most of these monuments are listed by UNESCO. The city Isfahan has a large city square by name \"Naqsh-e Jahan\". This square is one of the largest city squares in the world."
+		}
+    ]
 }
