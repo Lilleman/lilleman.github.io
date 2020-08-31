@@ -1,0 +1,378 @@
+<html>
+<body>
+  <canvas id="myCanvas" width="800" height="800"></canvas>
+  <p>Press I to increase recursion level and K to decrease. Press O to draw triangles and L to draw lines.</p>
+</body>
+<script>
+var canvas = document.getElementById('myCanvas');
+var gl = canvas.getContext('webgl2');
+////////////////////////////////////////////////////////////////////////////////
+
+const vertSrc = "\
+attribute vec2 position; \
+attribute vec3 customColor; \
+varying vec3 vertexColor; \
+void main() { \
+  gl_Position = vec4(position, 0.0, 1.0); \
+  vertexColor = customColor; \
+}";
+
+const fragSrc = "\
+precision mediump float; \
+varying vec3 vertexColor; \
+void main() { \
+  gl_FragColor = vec4(vertexColor,1.0); \
+}";
+
+class Program {
+  constructor(vertSrc, fragSrc) {
+    this.id = gl.createProgram();
+    this.vshader = this.addShader(vertSrc, gl.VERTEX_SHADER);
+    this.fshader = this.addShader(fragSrc, gl.FRAGMENT_SHADER);
+    if (this.vshader) {
+      gl.attachShader(this.id, this.vshader);
+    }
+    if (this.fshader) {
+      gl.attachShader(this.id, this.fshader);
+    }
+    gl.linkProgram(this.id);
+    // Compile results
+    let status = gl.getProgramParameter(this.id, gl.LINK_STATUS);
+    if (!status) {
+      let info = gl.getProgramInfoLog(this.id);
+      console.log("ERROR linking program:");
+      console.log(info);
+    }
+  }
+
+  addShader(src, type) {
+    let shader = gl.createShader(type);
+
+    gl.shaderSource(shader, src);
+    gl.compileShader(shader);
+
+    // Compile results
+    let status = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
+    if (!status) {
+      let info = gl.getShaderInfoLog(shader);
+      console.log("ERROR compiling shader:");
+      console.log(info);
+    }
+    return shader;
+  }
+}
+
+class VertexArray {
+  constructor(c) {
+    this.id = gl.createVertexArray();
+    this.count = c;
+    this.buffers = {};
+    this.indices = {};
+  }
+
+  addBuffer(name, index, buffer) {
+    gl.bindVertexArray(this.id);
+
+    let buffer_id = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer_id);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(buffer), gl.STATIC_DRAW);
+    this.buffers[name] = buffer_id;
+    this.indices[name] = index;
+
+    let components = buffer.length / this.count;
+    gl.vertexAttribPointer(index, components, gl.FLOAT, gl.FALSE, 0, 0);
+    gl.enableVertexAttribArray(index);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, null);
+    gl.bindVertexArray(null);
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+class Matrix {
+  genCurveData(targetDetail) {
+    this.data = this.genCurveDataRec(targetDetail);
+    let greenColorValue;
+    //Color curve
+    for (let i = 0; i < this.data.length; ++i) {
+      this.data[i].push(Math.sin(1-((this.data.length-(i+0.5))/(this.data.length/1.05))));
+      greenColorValue=(i/(this.data.length));
+      if(greenColorValue<0.5){
+        this.data[i].push(greenColorValue*1.5);
+      } else{
+        this.data[i].push((0.9-greenColorValue*1.05)*1.75);
+      }
+      this.data[i].push(Math.sin(1-(i/(this.data.length/1.5))));
+    }
+  }
+
+  getCurve() {
+    let curveData = [];
+    for (let i = 0; i < this.data.length; ++i) {
+      curveData.push([this.data[i][0],this.data[i][1],this.data[i][2],this.data[i][3],this.data[i][4]]);
+      if (i > 0 && i < (this.data.length-1)){
+        curveData.push([this.data[i][0],this.data[i][1],this.data[i][2],this.data[i][3],this.data[i][4]]);
+      }
+    }
+    return curveData;
+  }
+
+  getTris(lineSize) {
+    let trisPointDataRaw = this.points2tris(lineSize);
+    let trisPointData = [];
+
+    for (let j = 0; j < trisPointDataRaw.length; ++j) {
+      trisPointData.push(trisPointDataRaw[j]);
+
+      if (j > 2){
+        trisPointData.push(trisPointDataRaw[j-1]);
+        trisPointData.push(trisPointDataRaw[j-2]);
+      }
+      //"clever" (aka horrific) workaround to draw multiple triangles ontop of each other
+      // so you don't have to worry about the order in which the vertices might end up in
+      if (j > 4 && j % 2 != 0){
+        trisPointData.push(trisPointDataRaw[j]);
+        trisPointData.push(trisPointDataRaw[j-1]);
+        trisPointData.push(trisPointDataRaw[j-3]);
+      }
+    }
+    return trisPointData;
+  }
+
+  genCurveDataRec(counter) {
+    if (counter > 1){
+      let curve1 = this.genCurveDataRec(--counter);
+
+      //All the maths to put points in correct spots and having them in order
+      curve1 = this.shrink(curve1);
+      let curve2 = curve1;
+      let curve3 = curve1;
+      curve1 = this.spin(curve1);
+      let curve4 = curve1;
+      curve1 = this.mirror(curve1,false,true);
+      curve4 = this.mirror(curve4,true,false);
+      curve3 = this.move(curve3,0.5,0.5);
+      curve2 = this.move(curve2,-0.5,0.5);
+      curve1 = this.move(curve1,-0.5,-0.5);
+      curve4 = this.move(curve4,0.5,-0.5);
+
+      //concatenate the vectors
+      return [curve1, curve2, curve3, curve4].flat();
+    } else{ //base case return 4 points
+      return [[-0.5, -0.5],[-0.5,0.5],[0.5,0.5],[0.5,-0.5]];
+    }
+  }
+
+  move(verts, x, y) {
+    let res = [];
+    for (let i = 0; i < verts.length; ++i) {
+      res.push([verts[i][0] + x, verts[i][1] + y]);
+    }
+    return res;
+  }
+
+  shrink(verts) {
+    let scaleValue = 0.5;
+    let res = [];
+    for (let i = 0; i < verts.length; ++i) {
+      res.push([verts[i][0] * scaleValue, verts[i][1] * scaleValue]);
+    }
+    return res;
+  }
+
+  spin(verts) {
+    const r = -Math.PI / 2;
+    let res = [];
+    for (let i = 0; i < verts.length; ++i) {
+      res.push([
+        verts[i][0] * Math.cos(r) - verts[i][1] * Math.sin(r),
+        verts[i][0] * Math.sin(r) + verts[i][1] * Math.cos(r)
+      ]);
+    }
+    return res;
+  }
+
+  mirror(verts, x, y) {
+    let res = [];
+    for (let i = 0; i < verts.length; ++i) {
+      res.push([verts[i][0], verts[i][1]]);
+    }
+    if (x){
+      for (let i = 0; i < res.length; ++i) {
+        res[i][0] = -res[i][0];
+      }
+    }
+    if (y){
+      for (let i = 0; i < res.length; ++i) {
+        res[i][1] = -res[i][1];
+      }
+    }
+    return res;
+  }
+
+  points2tris(lineSize) {
+    let trisPointData = [];
+    let slope;
+    for (let i = 0; i < this.data.length; ++i) {
+      if (i > 0 && i < (this.data.length - 1)) {
+        if ((this.data[i + 1][1] - this.data[i - 1][1]) == 0) { //0 slope
+          trisPointData.push([this.data[i][0],this.data[i][1] + lineSize,
+                                   this.data[i][2],this.data[i][3],this.data[i][4]]);
+          trisPointData.push([this.data[i][0],this.data[i][1] - lineSize,
+                                   this.data[i][2],this.data[i][3],this.data[i][4]]);
+        } else if ((this.data[i + 1][0] - this.data[i - 1][0]) == 0) { //Infinite slope
+            trisPointData.push([this.data[i][0] - lineSize,
+                                     this.data[i][1],this.data[i][2],this.data[i][3],this.data[i][4]]);
+            trisPointData.push([this.data[i][0] + lineSize,
+                                     this.data[i][1],this.data[i][2],this.data[i][3],this.data[i][4]]);
+        } else{ //compute slope of the points around the point of interest and flip it
+          slope= -((this.data[i + 1][1] - this.data[i - 1][1])/(this.data[i + 1][0] - this.data[i - 1][0]));
+          if (slope < 0) {
+            //Negative slope
+            trisPointData.push([this.data[i][0] - lineSize,this.data[i][1] + lineSize,
+                                     this.data[i][2],this.data[i][3],this.data[i][4]]);
+            trisPointData.push([this.data[i][0] + lineSize,this.data[i][1] - lineSize,
+                                     this.data[i][2],this.data[i][3],this.data[i][4]]);
+          } else { //Positive slope
+            trisPointData.push([this.data[i][0] + lineSize,this.data[i][1] + lineSize,
+                                     this.data[i][2],this.data[i][3],this.data[i][4]]);
+            trisPointData.push([this.data[i][0] - lineSize,this.data[i][1] - lineSize,
+                                     this.data[i][2],this.data[i][3],this.data[i][4]]);
+          }
+        }
+      } else if ((i == 0) && (this.data[i][0]) != (this.data[i + 1][0])){ //slop == 0
+        trisPointData.push([this.data[i][0],this.data[i][1] + lineSize,
+                                 this.data[i][2],this.data[i][3],this.data[i][4]]);
+        trisPointData.push([this.data[i][0],this.data[i][1] - lineSize,
+                                this.data[i][2],this.data[i][3],this.data[i][4]]);
+      } else if ((i == (this.data.length - 1)) && (this.data[i - 1][0]) != (this.data[i][0])){ //Infinite slope
+        trisPointData.push([this.data[i][0],this.data[i][1] - lineSize,
+                                 this.data[i][2],this.data[i][3],this.data[i][4]]);
+        trisPointData.push([this.data[i][0],this.data[i][1] + lineSize,
+                                 this.data[i][2],this.data[i][3],this.data[i][4]]);
+      } else if (i == 0){ //infinite slope
+        trisPointData.push([this.data[i][0] - lineSize,this.data[i][1],
+                                 this.data[i][2],this.data[i][3],this.data[i][4]]);
+        trisPointData.push([this.data[i][0] + lineSize,this.data[i][1],
+                                 this.data[i][2],this.data[i][3],this.data[i][4]]);
+      } else { //infinite slope
+        trisPointData.push([this.data[i][0] + lineSize,this.data[i][1],
+                                 this.data[i][2],this.data[i][3],this.data[i][4]]);
+        trisPointData.push([this.data[i][0] - lineSize,this.data[i][1],
+                                 this.data[i][2],this.data[i][3],this.data[i][4]]);
+      }
+    }
+    return trisPointData;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+let shouldClose = false;
+
+const lineSize = 0.0025;
+let targetDetail = 1;
+let drawingMode = gl.TRIANGLES;
+let drawTriangles = true;
+let recalculate = true;
+let redraw = true;
+
+function getVertsOnly(matrixData){
+    let vertData = [];
+    for (let i = 0; i < matrixData.length; ++i) {
+      vertData.push(matrixData[i][0]);
+      vertData.push(matrixData[i][1]);
+    }
+    return vertData;
+}
+function getColorsOnly(matrixData){
+    let colorData = [];
+    for (let i = 0; i < matrixData.length; ++i) {
+      colorData.push(matrixData[i][2]);
+      colorData.push(matrixData[i][3]);
+      colorData.push(matrixData[i][4]);
+    }
+    return colorData;
+}
+
+function render(prog, va) {
+  gl.clearColor(0.15, 0.15, 0.15, 1.0);
+  gl.clear(gl.COLOR_BUFFER_BIT);
+
+  gl.useProgram(prog.id);
+  gl.bindVertexArray(va.id);
+  gl.drawArrays(drawingMode, 0, va.count);
+
+  gl.bindVertexArray(null);
+  gl.useProgram(null);
+}
+
+let prog = new Program(vertSrc, fragSrc);
+
+let vertData = new Matrix();
+vertData.genCurveData(targetDetail);
+
+function loopRender() {
+  if (shouldClose) {
+    return;
+  }
+
+  if (!redraw) {
+    return;
+  }
+  
+  if (recalculate) {
+    vertData.genCurveData(targetDetail);
+    recalculate = false;
+  }
+
+  let vertexColorMatrix;
+  if (drawTriangles) {
+    vertexColorMatrix = vertData.getTris(lineSize);
+  } else {
+    vertexColorMatrix = vertData.getCurve();
+  }
+  let vertexMatrix = getVertsOnly(vertexColorMatrix);
+  let colorMatrix = getColorsOnly(vertexColorMatrix);
+
+  let verts = new VertexArray(vertexMatrix.length/2);
+  verts.addBuffer("v", 0, vertexMatrix);
+  verts.addBuffer("c", 1, colorMatrix);
+
+  render(prog, verts);
+
+  redraw = false;
+}
+
+let intervalID = window.setInterval(loopRender, 50);
+
+document.onkeypress = function(e) {
+  e = e || window.event;
+  console.log(e);
+  if (e.code == 'KeyO' && !drawTriangles) {
+    drawingMode = gl.TRIANGLES;
+    drawTriangles = true;
+    redraw = true;
+  }
+  if (e.code == 'KeyL' && drawTriangles) {
+    drawingMode = gl.LINES;
+    drawTriangles = false;
+    redraw = true;
+  }
+  if (e.code == 'KeyI' && targetDetail < 9) {
+    targetDetail++;
+    recalculate = true;
+    redraw = true;
+  }
+  if (e.code == 'KeyK' && targetDetail > 1) {
+    targetDetail--;
+    recalculate = true;
+    redraw = true;
+  }
+  if (e.code == 'KeyQ') {
+    shouldClose = true;
+    window.clearInterval(intervalID);
+  }
+};
+</script>
+</html>
