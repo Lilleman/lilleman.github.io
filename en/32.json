@@ -1,4 +1,64 @@
 {
-    "title": "TODO",
-    "content": []
+    "title": "Clothes",
+    "content": [
+        {
+            "title": "Grammar",
+            "description": "Also, Too: هم، نیز\nExamples:\nWe will also go on a vacation\nThey also came to the cinema."
+        },
+        {
+            "title": "Conversation",
+			"table": [
+				"Seller: Welcome, what do you need?",
+				"Customer: I want a suit in size 44.",
+				"Seller: Our suits are in that section, look you can try whichever one you want.",
+				"Customer: Thanks, do you have this blue suit?",
+				"Seller: No, if you like blue you can take this one.",
+				"Customer: No thanks, I don't like this model.",
+				"Seller: You can look in this magazine too and see the models on the mannequins."
+			],
+            "numTableColumns": 1
+        },
+        {
+            "title": "Grammar",
+            "description": "Also: usually comes in the first part of the sentence.\nI went to university and I also met my professor.\nI am learning Persian and I am also becoming acquainted with Iranian culture.\nWe went on vacation and we also learned many things."
+        },
+        {
+			"title": "Common Phrases",
+			"table": [
+				"This is too expensive.", "این خیلی گران است.",
+				"It is loose.", "گشاد است.",
+				"Do you have this in any other size?", "این به سایز دیگری دارید؟",
+				"This doesn't fit.", "این اندازه نیست."
+			]
+		},
+        {
+			"title": "Clothing",
+			"table": [
+			    "دیراهم", "شلوار", "شلوار جین", "کلاه", "کت",
+				"shirt", "pants", "jeans", "hat", "coat",
+				"کراوات", "شال گردن", "دستکش", "جوراب", "دامن",
+				"tie", "scarf", "gloves", "socks", "skirt",
+				"دوسری", "زیرپوش", "جلیقه", "لباس مردانه", "لباس زنانه",
+				"scarf", "underwear", "vest", "menswear", "ladieswear"
+			],
+			"numTableColumns": 5
+		},
+		{
+            "title": "Conversation",
+			"table": [
+				"Shabnam: Which clothes will you wear for tomorrows party?",
+				"Pooya: I'll wear a t-shirt with jeans. What will you wear?",
+				"Shabnam: I want to wear a long red coloured shirt.",
+				"Pooya: Red colour really suits you, You'll be really beautiful.",
+				"Shabnam: Thanks, I don't know which colour of shoes to wear, red or black?",
+				"Pooya: Both colours suits you.",
+				"Shabnam: Yes, I'll probably wear black shoes and bag."
+			],
+            "numTableColumns": 1
+        },
+		{
+		    "title": "Reading",
+		    "description": "Tabriz marketplace is the largest marketplace in Iran and Asia. This marketplace is located in the northern part of the city Tabriz. Tabriz marketplace is considered to be the largest indoor marketplace in the world. This marketplace has several schools and mosques.\nTabriz marketplace is very old and it is on UNESCOs world heritage list.\nThe architecture of this marketpalce is very beautilful. Every year many tourists visit this historic marketplace."
+		}
+    ]
 }
