@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background-color: #fc9;
+      background: transparent url(https://i.ganjoor.net/pbk.jpg) top center repeat scroll;
+    }
+    h1 {
+      margin-top: -100px;
+      margin-bottom: 0;
+      text-align: center;
+    }
+    a {
+      color: black;
+    }
+    ol {
+      columns: 2;
+      -webkit-columns: 2;
+      -moz-columns: 2;
+    }
+    </style>
+  </head>
+<body>
+</body>
+</html>
+<script>
+async function init() {
+  document.body = document.createElement('body');
+  document.body.style.cursor = 'wait';
+
+  const createLink = (txt, link) => {
+    let a = document.createElement('a');
+    a.setAttribute('href', link);
+    a.appendChild(document.createTextNode(txt));
+    return a;
+  }
+  
+  let params = (new URL(document.location)).searchParams;
+  let folder = params.get('folder');
+
+  let ol = document.createElement('ol');
+
+  let baseURL = 'https://raw.githubusercontent.com/ackelman/ackelman.github.io/master/persian_poems/forough_farrokhzad/' + folder + '/';
+  let ok = true;
+  for (let i = 1; i < 40 && ok; i++) {
+    let el = null;
+    try {
+      el = await fetch(baseURL + i + '.json');
+      el = await el.json();
+    let li = document.createElement('li');
+    li.appendChild(createLink(el.title, 'https://ackelman.github.io/persian_poems/forough_farrokhzad/view.html?folder=' + folder + '&poem=' + i));
+    ol.appendChild(li);
+    } catch (e) {
+      ok = false;
+      //console.log(e);
+    }
+  }
+  document.body.appendChild(ol);
+  
+  document.body.style.cursor = 'auto';
+}
+
+init();
+</script>

@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    body{margin:auto !important;padding:20px;text-align:justify;line-height:140%; -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-smoothing:antialiased;color:#222;font-family:Palatino,Georgia,"Times New Roman",serif;font-size:1.5em;direction:rtl;background-color: #fc9;background:transparent url(https://i.ganjoor.net/pbk.jpg) top center repeat scroll}
+    div{margin: 16px 0 16px 0}
+    div.title{font-size:26px;font-weight:800;line-height:120%;text-align:center}
+    div.title,contents,h1{font-family:Verdana,Helvetica,Arial,sans-serif;margin:13.4px 0 13.4px;padding:15px 0 3px;border-top:none;clear:both}
+    h1{border-bottom:3px solid;font-size:2em;font-weight:bold;}
+    h1::before {margin-right:10px}
+    div.row {flex-wrap: initial;margin-block-start: 0;margin-block-end: 0;}
+    div.col-sm {margin-top: 0;margin-bottom: 0;}
+    a{color: blue; text-decoration: underline;}
+    a:hover{cursor: pointer}
+    </style>
+  </head>
+<body>
+</body>
+</html>
+<script>
+function createFrameAroundItem(desc) {
+  let tokens = desc.split('\n')
+  for (let i = 0; i < tokens.length; i++) {
+    document.body.appendChild(document.createTextNode(tokens[i]));
+    if (i < tokens.length - 1) {
+      document.body.appendChild(document.createElement('br'));
+    }
+  }
+}
+
+async function init() {
+  document.body = document.createElement('body');
+
+  let params = new URLSearchParams(document.location.search.substring(1));
+  let folder = params.get('folder');
+  let poem = params.get('poem');
+  if (!poem) {
+    console.log('Error, no poem specified.');
+  } else {
+    let res = await fetch('https://raw.githubusercontent.com/ackelman/ackelman.github.io/master/persian_poems/forough_farrokhzad/' + folder + '/' + poem + '.json');
+    res = await res.json();
+    console.log(res);
+    const title = document.createElement('h1');
+    title.innerText = res.title;
+    document.body.appendChild(title);
+    createFrameAroundItem(res.fa);
+  }
+}
+
+init();
+</script>
