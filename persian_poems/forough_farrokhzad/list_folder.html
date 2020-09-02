@@ -45,23 +45,19 @@ async function init() {
   let folder = params.get('folder');
 
   let ol = document.createElement('ol');
+  document.body.appendChild(ol);
 
   let baseURL = 'https://raw.githubusercontent.com/ackelman/ackelman.github.io/master/persian_poems/forough_farrokhzad/' + folder + '/';
-  let ok = true;
-  for (let i = 1; i < 40 && ok; i++) {
-    let el = null;
-    try {
-      el = await fetch(baseURL + i + '.json');
+  for (let i = 1; i < 40; i++) {
+    try{
+      let el = await fetch(baseURL + i + '.json');
       el = await el.json();
-    let li = document.createElement('li');
-    li.appendChild(createLink(el.title, 'https://ackelman.github.io/persian_poems/forough_farrokhzad/view.html?folder=' + folder + '&poem=' + i));
-    ol.appendChild(li);
+      let li = document.createElement('li');
+      li.appendChild(createLink(el.title, 'https://ackelman.github.io/persian_poems/forough_farrokhzad/view.html?folder=' + folder + '&poem=' + i));
+      ol.appendChild(li);
     } catch (e) {
-      ok = false;
-      //console.log(e);
     }
   }
-  document.body.appendChild(ol);
   
   document.body.style.cursor = 'auto';
 }
