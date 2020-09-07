@@ -22,6 +22,9 @@
     a{color: blue; text-decoration: underline;}
     a:hover{cursor: pointer}
     </style>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-storage.js"></script>
   </head>
 <body>
 </body>
@@ -37,16 +40,24 @@ function playAudio(url) {
   })
 }
 
-let pronunciation_links = {}
+const firebaseConfig = {
+  apiKey: "AIzaSyARQ6GCYcZ2Td4ACW6v9aZbF72hV9zm4kU",
+  authDomain: "swedish-word-pronunciation.firebaseapp.com",
+  databaseURL: "https://swedish-word-pronunciation.firebaseio.com",
+  projectId: "swedish-word-pronunciation",
+  storageBucket: "swedish-word-pronunciation.appspot.com",
+  messagingSenderId: "435901397395",
+  appId: "1:435901397395:web:c9c239d6c0cff7a0781066"
+};
+firebase.initializeApp(firebaseConfig);
+var storage = firebase.storage();
+var storageRef = storage.ref()
+
 function getLinkToSound(word) {
-  return 'https://isolve-so-service.appspot.com/pronounce?id=' + pronunciation_links[word.toLowerCase()] + '_1.mp3'
+  return storageRef.child(word.toLowerCase() + '.mp3').getDownloadURL()
 }
 
-function popFirstThree(arr) {
-  return arr.splice(0, 3)
-}
-
-function createTable(rows, numPerRow = 0) {
+async function createTable(rows, numPerRow = 0) {
   if (!rows) {
     return null
   }
@@ -66,7 +77,7 @@ function createTable(rows, numPerRow = 0) {
     a.appendChild(document.createTextNode(txt))
     return a
   }
-  const createTDWithTxtAndLink = (txt) => {
+  const createTDWithTxtAndLink = async function(txt) {
     const td = document.createElement('td')
     let words = txt.split(' ')
     for (let j = 0; j < words.length; j++) {
@@ -74,7 +85,12 @@ function createTable(rows, numPerRow = 0) {
       if (word.includes('<a>')) {
         const s = word.indexOf('<a>')
         let word2 = word.substr(s+3, word.indexOf('</a>')-(s+3))
-        td.appendChild(createLink(word2, getLinkToSound(word2)));
+        try {
+          let url = await getLinkToSound(word2)
+          td.appendChild(createLink(word2, url));
+        } catch (e) {
+          td.appendChild(document.createTextNode(word2))
+        }
       } else {
         td.appendChild(document.createTextNode(word))
       }
@@ -87,9 +103,11 @@ function createTable(rows, numPerRow = 0) {
   while (rows.length > 0) {
     const tr = document.createElement('tr');
     numPerRow = numPerRow || 2;
-    rows.splice(0, numPerRow).forEach(row => {
-      tr.appendChild(createTDWithTxtAndLink(row));
-    });
+    let arr = rows.splice(0, numPerRow)
+    for (let i = 0; i < arr.length; i++) {
+      let td = await createTDWithTxtAndLink(arr[i])
+      tr.appendChild(td);
+    }
     
     tbody.appendChild(tr);
   }
@@ -127,27 +145,22 @@ async function fetchVocab(lesson) {
 async function init() {
   document.body.style.cursor = 'wait'
   document.body = document.createElement('body');
-  
-  let res = await fetch('https://raw.githubusercontent.com/ackelman/ackelman.github.io/master/fa_to_sv/pronunciation_links.csv');
-  res = await res.text()
-  res.split('\n').forEach(e => {
-    let e2 = e.split(',')
-    pronunciation_links[e2[0]] = e2[1]
-  });
 
   let params = new URLSearchParams(document.location.search.substring(1));
   let lesson = params.get('lesson');
   if (!lesson) {
     console.log('Error, no lesson specified.');
   } else {
-    res = await fetch('https://raw.githubusercontent.com/ackelman/ackelman.github.io/master/fa_to_sv/' + lesson + '.json');
+    let res = await fetch('https://raw.githubusercontent.com/ackelman/ackelman.github.io/master/fa_to_sv/' + lesson + '.json');
     res = await res.json();
     const title = document.createElement('h1');
     title.innerText = 'درس ' + lesson + ': ' + res.title;
     document.body.appendChild(title);
-    res.content.forEach(elem => {
-      createFrameAroundItem(elem.title, elem.description || "", createTable(elem.table, elem.numTableColumns));
-    });
+    for (let i = 0; i < res.content.length; i++) {
+      let elem = res.content[i]
+      let table = await createTable(elem.table, elem.numTableColumns)
+      createFrameAroundItem(elem.title, elem.description || "", table);
+    }
     fetchVocab(lesson);
   }
 
