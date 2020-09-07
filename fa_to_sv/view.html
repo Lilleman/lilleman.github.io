@@ -77,6 +77,14 @@ async function createTable(rows, numPerRow = 0) {
     a.appendChild(document.createTextNode(txt))
     return a
   }
+  const createLinkIfAvailable = async function(word) {
+    try {
+      let url = await getLinkToSound(word)
+      return createLink(word, url)
+    } catch (e) {
+      return document.createTextNode(word)
+    }
+  }
   const createTDWithTxtAndLink = async function(txt) {
     const td = document.createElement('td')
     let words = txt.split(' ')
@@ -85,12 +93,7 @@ async function createTable(rows, numPerRow = 0) {
       if (word.includes('<a>')) {
         const s = word.indexOf('<a>')
         let word2 = word.substr(s+3, word.indexOf('</a>')-(s+3))
-        try {
-          let url = await getLinkToSound(word2)
-          td.appendChild(createLink(word2, url));
-        } catch (e) {
-          td.appendChild(document.createTextNode(word2))
-        }
+        td.appendChild(await createLinkIfAvailable(word2))
       } else {
         td.appendChild(document.createTextNode(word))
       }
@@ -102,11 +105,44 @@ async function createTable(rows, numPerRow = 0) {
   }
   while (rows.length > 0) {
     const tr = document.createElement('tr');
-    numPerRow = numPerRow || 2;
-    let arr = rows.splice(0, numPerRow)
-    for (let i = 0; i < arr.length; i++) {
-      let td = await createTDWithTxtAndLink(arr[i])
-      tr.appendChild(td);
+    if (Array.isArray(rows[0]) && rows[0].length > 1) {
+      let arr = rows.splice(0, 3)
+      for (let i = 0; i < arr.length; i++) {
+        let row = arr[i]
+        let td = document.createElement('td');
+        if (row[0].includes('/')) {
+          let phrases = row[0].split('/');
+          for (let i = 0; i < phrases.length; i++) {
+            let words = phrases[i].split(' ');
+            for (let j = 0; j < words.length; j++) {
+              td.appendChild(await createLinkIfAvailable(words[j]));
+              if (j + 1 < words.length) {
+                td.appendChild(document.createTextNode(' '));
+              }
+            }
+            if (i + 1 < phrases.length) {
+              td.appendChild(document.createTextNode('/'));
+            }
+          }
+        } else {
+          let words = row[0].split(' ');
+          for (let j = 0; j < words.length; j++) {
+            td.appendChild(await createLinkIfAvailable(words[j]));
+            if (j + 1 < words.length) {
+              td.appendChild(document.createTextNode(' '));
+            }
+          }
+        }
+        tr.appendChild(td);
+        tr.appendChild(createTDWithTxt(row[1]));
+      }
+    } else {
+      numPerRow = numPerRow || 2;
+      let arr = rows.splice(0, numPerRow)
+      for (let i = 0; i < arr.length; i++) {
+        let td = await createTDWithTxtAndLink(arr[i])
+        tr.appendChild(td);
+      }
     }
     
     tbody.appendChild(tr);
@@ -127,19 +163,18 @@ function createFrameAroundItem(label, desc, item) {
   document.body.appendChild(fieldset);
 }
 
-const BASE_URL = 'https://api.mongolab.com/api/1/databases/fa_sv_deck/collections/words'
+const BASE_URL = 'https://api.mongolab.com/api/1/databases/persian_deck/collections/words'
 const KEY = 'apiKey=9ROoRY8i79_40JLlPIsUiCWBZUHuNMo_'
 
 async function fetchVocab(lesson) {
-  /*
   let condition = 'q={"tags":"Lesson ' + lesson + '"}'
   let res = await fetch(BASE_URL + '?' + condition + '&' + KEY);
   res = await res.json();
   res = res.map(elem => {
-    return [elem.english, elem.arabic];
+    return [elem.swedish, elem.persian];
   });
-  createFrameAroundItem("Ordlista", "", createTable(res));
-  */
+  let table = await createTable(res)
+  createFrameAroundItem("Ordlista", "", table);
 }
 
 async function init() {
