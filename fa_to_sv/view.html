@@ -15,12 +15,15 @@
     table{border-collapse:collapse;line-height:140%;page-break-inside:avoid;margin:auto;direction: ltr;}
     table th{color:#FFF;background-color:#8080d4;border:1px solid #888;padding:8px 15px 8px 15px}
     table td{padding:5px 15px 5px 15px;border:1px solid #888}
-    table tr:nth-child(even){background:#e6e6f7}
+    table tr:nth-child(odd){background:transparent url(https://ganjoor.net/img/cbk.jpg) top center repeat scroll}
     h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {margin-right:10px}
     div.row {flex-wrap: initial;margin-block-start: 0;margin-block-end: 0;}
     div.col-sm {margin-top: 0;margin-bottom: 0;}
     a{color: blue; text-decoration: underline;}
     a:hover{cursor: pointer}
+    fieldset{direction: ltr;}
+    fieldset> p{direction: rtl;margin:0;}
+    legend:after{content: attr(data-value);position: absolute;right: 36px;background: transparent url(https://i.ganjoor.net/pbk.jpg) top center repeat scroll;}
     </style>
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js"></script>
@@ -151,12 +154,15 @@ async function createTable(rows, numPerRow = 0) {
   return table;
 }
 
-function createFrameAroundItem(label, desc, item) {
+function createFrameAroundItem(label, label2, desc, item) {
   const fieldset = document.createElement('fieldset');
   const legend = document.createElement('legend');
   legend.appendChild(document.createTextNode(label));
+  legend.setAttribute('data-value', label2);
   fieldset.appendChild(legend);
-  fieldset.appendChild(document.createTextNode(desc));
+  const p = document.createElement('p')
+  p.textContent = desc;
+  fieldset.appendChild(p);
   if (item) {
     fieldset.appendChild(item);
   }
@@ -174,7 +180,7 @@ async function fetchVocab(lesson) {
     return [elem.swedish, elem.persian];
   });
   let table = await createTable(res)
-  createFrameAroundItem("Ordlista", "", table);
+  createFrameAroundItem("Ordlista", "کلمات جدید", "", table);
 }
 
 async function init() {
@@ -194,7 +200,7 @@ async function init() {
     for (let i = 0; i < res.content.length; i++) {
       let elem = res.content[i]
       let table = await createTable(elem.table, elem.numTableColumns)
-      createFrameAroundItem(elem.title, elem.description || "", table);
+      createFrameAroundItem(elem.title, elem.title2, elem.description || "", table);
     }
     fetchVocab(lesson);
   }
