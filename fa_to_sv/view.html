@@ -71,6 +71,9 @@ async function createTable(rows, numPerRow = 0) {
 
   const createTDWithTxt = (txt) => {
     const td = document.createElement('td')
+    if (/[\u0600-\u06FF]/.test(txt) && !(/[\u0061-\u007A]/.test(txt))) {
+      td.style.direction = 'rtl'
+    }
     td.appendChild(document.createTextNode(txt))
     return td
   }
@@ -90,6 +93,9 @@ async function createTable(rows, numPerRow = 0) {
   }
   const createTDWithTxtAndLink = async function(txt) {
     const td = document.createElement('td')
+    if (/[\u0600-\u06FF]/.test(txt) && !(/[\u0061-\u007A]/.test(txt))) {
+      td.style.direction = 'rtl'
+    }
     let words = txt.split(' ')
     for (let j = 0; j < words.length; j++) {
       let word = words[j]
@@ -107,6 +113,7 @@ async function createTable(rows, numPerRow = 0) {
     return td
   }
   while (rows.length > 0) {
+    // TODO: Den här loopen måste kunna städas upp.
     const tr = document.createElement('tr');
     if (Array.isArray(rows[0]) && rows[0].length > 1) {
       let arr = rows.splice(0, 3)
