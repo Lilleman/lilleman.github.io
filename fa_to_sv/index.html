@@ -9,10 +9,11 @@
       justify-content: center;
       flex-direction: column;
       direction: rtl;
+      background-color: #fc9;
+      background: transparent url(https://i.ganjoor.net/pbk.jpg) top center repeat scroll;
     }
     h1 {
       margin-top: -100px;
-      margin-bottom: 0;
       text-align: center;
     }
     a {
@@ -46,9 +47,8 @@ async function init() {
 
   let ol = document.createElement('ol');
 
-  let baseURL = 'https://raw.githubusercontent.com/ackelman/ackelman.github.io/master/fa_to_sv/';
-  let arr = await Promise.all([...Array(100).keys()].map(i => fetch(baseURL + (i+1) + '.json')));
-  arr = await Promise.all(arr.map(el => el.json()));
+  let baseURL = 'https://ackelman.github.io/fa_to_sv/';
+  let arr = await Promise.all([...Array(100).keys()].map(i => fetch(baseURL + (i+1) + '.json').then(el => el.json())));
   for (let i = 0; i < arr.length; i++) {
     let li = document.createElement('li');
     li.appendChild(createLink(arr[i].title, 'https://ackelman.github.io/fa_to_sv/view.html?lesson=' + (i+1)));
