@@ -209,7 +209,22 @@ async function init() {
       let table = await createTable(elem.table, elem.numTableColumns)
       createFrameAroundItem(elem.title, elem.title2, elem.description || "", table);
     }
-    fetchVocab(lesson);
+    await fetchVocab(lesson);
+    
+    let a = document.createElement('a')
+    let obj = {
+      "questionSide": "swedish",
+      "answerSide": "persian",
+      "alternateSides": true,
+      "tagFilter": "Lesson " + lesson,
+      "evaluation":"TYPING",
+      "algorithm":"SPACED_REPETITION"
+    }
+    a.href = "https://persian-flashcards.herokuapp.com?studyOptions=" + JSON.stringify(obj)
+    a.title = 'Study these words'
+    a.target="_blank"
+    a.appendChild(document.createTextNode('Study these words'))
+    document.body.appendChild(a)
   }
 
   document.body.style.cursor = 'auto'
