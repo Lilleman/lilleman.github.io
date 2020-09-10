@@ -1,42 +1,4 @@
 {
-    "title": "‌Desserts",
-    "content": [
-        {
-            "title": "Conversation",
-			"table": [
-				"Behrad: I want something sweet after dinner.", "بهراد: من بعد از شام یک چیز شیرین می‌خواهم.",
-				"Mahsa: What exactly do you want?", "مهسا: دقیقاً چه چیزی می‌خواهی؟",
-				"Behrad: A good dessert.", "بهراد: یک دسر خوب.",
-				"Mahsa: What kind of dessert do you want?", "مهسا: چه نوع دسری می‌خواهی؟",
-				"Behrad: I like apple pie a lot.", "بهراد: من پای سیب خیلی دوست دارم.",
-				"Mahsa: I love it too.", "مهسا: من هم آن را خیلی دوست دارم."
-			]
-        },
-        {
-			"title": "Desserts",
-			"table": [
-				"biscuits", "بیسکویت",
-				"apple pie", "پای سیب",
-				"chocolate cake", "کیک شکلاتی",
-				"ice cream", "بستنی",
-				"pancake", "کلوچه",
-				"profiterole", "نان خامه‌ای",
-				"danish pastry", "شیرینی دانمارکی",
-				"walnut cake", "کیک گردویی"
-			],
-			"numTableColumns": 8
-		},
-		{
-			"title": "Common Phrases",
-			"table": [
-				"I'd like to have cream on top of my cake.", "می‌خواهم روی کیکم خامه باشد.",
-				"That big cake looks very tempting.", "آن کیک بزرگ خیلی وسوسه انگیز است.",
-				"We have a large collection of pastries.", "انواع زیادی از شیرینی‌ها را داریم."
-			]
-		},
-		{
-		    "title": "Reading",
-		    "description": "The weather in Sweden is very varied. In spring and summer the climate in southern and central Sweden is warm and sunny. In the northern part of Sweden, the climate is colder and more pleasant. Autumn is beautiful in most parts of Sweden. In winter the northern half of the country is cold and covered by snow, while the sourthern half is rainy and slightly warmer."
-		}
-    ]
+    "title": "‌TODO",
+    "content": []
 }

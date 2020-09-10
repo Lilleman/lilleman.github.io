@@ -1,47 +1,4 @@
 {
-    "title": "‌Drinks",
-    "content": [
-        {
-            "title": "Conversation",
-			"table": [
-				"Farshad: I'm so thirsty.", "فرشاد: من خیلی تشنه هستم.",
-				"Keyvan: Let's go get something to drink.", "کیوان: بیا برویم یه نوشیدنی بگیریم.",
-				"Farshad: That's a good idea.", "فرشاد: فکر خوبی است.",
-				"Keyvan: What drink do you want?", "کیوان: چه نوشیدنی می‌خواهی؟",
-				"Farshad: I want a soda.", "فرشاد: من نوشابه می‌خواهم.",
-				"Keyvan: I shouldn't drink soda when you're really thirsty.", "کیوان: وقتی خیلی تشنه هستی نباید نوشابه بخوری.",
-				"Farshad: What do you suggest?", "فرشاد: شما چه پیشنهاد می‌کنید؟",
-				"Keyvan: Water is what's best for you.", "کیوان: آب بهترین چیز برای شما است."
-			]
-        },
-        {
-			"title": "Drinks",
-			"table": [
-				"tea", "چای",
-				"hot chocolate", "شکلات داغ",
-				"juice", "آب میوه",
-				"orange juice", "آب پرتقال",
-				"wine", "شراب",
-				"mineral water", "آب معدنی",
-				"lemonade", "لیموناد",
-				"coffee", "قهوه"
-			],
-			"numTableColumns": 8
-		},
-		{
-			"title": "Common Phrases",
-			"table": [
-				"It's midnight", "نصف شب است",
-				"It's on time", "به موقع است",
-				"It's late", "دیر است",
-				"Have a nice trip!", "سفر خوبی داشته باشید!",
-				"Good luck!", "موفق باشید!",
-				"It's early", "زود است"
-			]
-		},
-		{
-		    "title": "Reading",
-		    "description": "Shakespear was a famous British poet. He is famous all over the world. Shakespear lived in the city Stratford-upon-Avon. Shakespears poems have been translated into many different languages. Shakespears grave is located in Stratford-upon-Avon. Every year on the 23 April, a commemoration is held."
-		}
-    ]
+    "title": "‌TODO",
+    "content": []
 }
