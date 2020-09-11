@@ -56,11 +56,12 @@ firebase.initializeApp(firebaseConfig);
 var storage = firebase.storage();
 var storageRef = storage.ref()
 
+let audioLinks = {}
 function getLinkToSound(word) {
   return storageRef.child(word.toLowerCase() + '.mp3').getDownloadURL()
 }
 
-async function createTable(rows, numPerRow = 0) {
+function createTable(rows, numPerRow = 0) {
   if (!rows) {
     return null
   }
@@ -83,15 +84,15 @@ async function createTable(rows, numPerRow = 0) {
     a.appendChild(document.createTextNode(txt))
     return a
   }
-  const createLinkIfAvailable = async function(word) {
+  const createLinkIfAvailable = function(word) {
     try {
-      let url = await getLinkToSound(word)
+      let url = audioLinks[word]
       return createLink(word, url)
     } catch (e) {
       return document.createTextNode(word)
     }
   }
-  const createTDWithTxtAndLink = async function(txt) {
+  const createTDWithTxtAndLink = function(txt) {
     const td = document.createElement('td')
     if (/[\u0600-\u06FF]/.test(txt) && !(/[\u0061-\u007A]/.test(txt))) {
       td.style.direction = 'rtl'
@@ -102,7 +103,7 @@ async function createTable(rows, numPerRow = 0) {
       if (word.includes('<a>')) {
         const s = word.indexOf('<a>')
         let word2 = word.substr(s+3, word.indexOf('</a>')-(s+3))
-        td.appendChild(await createLinkIfAvailable(word2))
+        td.appendChild(createLinkIfAvailable(word2))
       } else {
         td.appendChild(document.createTextNode(word))
       }
@@ -125,7 +126,7 @@ async function createTable(rows, numPerRow = 0) {
           for (let i = 0; i < phrases.length; i++) {
             let words = phrases[i].split(' ');
             for (let j = 0; j < words.length; j++) {
-              td.appendChild(await createLinkIfAvailable(words[j]));
+              td.appendChild(createLinkIfAvailable(words[j]));
               if (j + 1 < words.length) {
                 td.appendChild(document.createTextNode(' '));
               }
@@ -137,7 +138,7 @@ async function createTable(rows, numPerRow = 0) {
         } else {
           let words = row[0].split(' ');
           for (let j = 0; j < words.length; j++) {
-            td.appendChild(await createLinkIfAvailable(words[j]));
+            td.appendChild(createLinkIfAvailable(words[j]));
             if (j + 1 < words.length) {
               td.appendChild(document.createTextNode(' '));
             }
@@ -150,7 +151,7 @@ async function createTable(rows, numPerRow = 0) {
       numPerRow = numPerRow || 2;
       let arr = rows.splice(0, numPerRow)
       for (let i = 0; i < arr.length; i++) {
-        let td = await createTDWithTxtAndLink(arr[i])
+        let td = createTDWithTxtAndLink(arr[i])
         tr.appendChild(td);
       }
     }
@@ -181,13 +182,60 @@ const KEY = 'apiKey=9ROoRY8i79_40JLlPIsUiCWBZUHuNMo_'
 
 async function fetchVocab(lesson) {
   let condition = 'q={"tags":"Lesson ' + lesson + '"}'
-  let res = await fetch(BASE_URL + '?' + condition + '&' + KEY);
-  res = await res.json();
-  res = res.map(elem => {
+  let res = await fetch(BASE_URL + '?' + condition + '&' + KEY).then(e => e.json());
+  return res.map(elem => {
     return [elem.swedish, elem.persian];
-  });
-  let table = await createTable(res)
-  createFrameAroundItem("Ordlista", "کلمات جدید", "", table);
+  })
+}
+
+function collectWordsFromLesson(content) {
+  let arr = []
+  for (let i = 0; i < content.length; i++) {
+    let elem = content[i]
+    if (!elem.table) {
+      continue
+    }
+    for (let j = 0; j < elem.table.length; j++) {
+      let words = elem.table[j].split(' ')
+      for (let j = 0; j < words.length; j++) {
+        let word = words[j]
+        if (word.includes('<a>')) {
+          const s = word.indexOf('<a>')
+          let word2 = word.substr(s+3, word.indexOf('</a>')-(s+3))
+          arr.push(word2)
+        }
+      }
+    }
+  }
+  return arr;
+}
+
+function collectWordsFromVocab(row) {
+  let arr = []
+  for (let i = 0; i < row.length; i++) {
+    if (row[i][0].includes('/')) {
+      let phrases = row[i][0].split('/');
+      for (let i = 0; i < phrases.length; i++) {
+        let words = phrases[i].split(' ');
+        for (let j = 0; j < words.length; j++) {
+          arr.push(words[j])
+        }
+      }
+    } else {
+      let words = row[i][0].split(' ');
+      for (let j = 0; j < words.length; j++) {
+        arr.push(words[j])
+      }
+    }
+  }
+  return arr
+}
+
+async function prefetchLinksToWords(words) {
+  let res = await Promise.all(words.map(e => getLinkToSound(e)))
+  words.forEach((e, i) => {
+    audioLinks[e] = res[i]
+  })
 }
 
 async function init() {
@@ -197,34 +245,48 @@ async function init() {
   let params = new URLSearchParams(document.location.search.substring(1));
   let lesson = params.get('lesson');
   if (!lesson) {
-    console.log('Error, no lesson specified.');
-  } else {
-    let res = await fetch('https://raw.githubusercontent.com/ackelman/ackelman.github.io/master/fa_to_sv/' + lesson + '.json');
-    res = await res.json();
     const title = document.createElement('h1');
-    title.innerText = 'درس ' + lesson + ': ' + res.title;
+    title.innerText = 'Error, no lesson specified.'
     document.body.appendChild(title);
-    for (let i = 0; i < res.content.length; i++) {
-      let elem = res.content[i]
-      let table = await createTable(elem.table, elem.numTableColumns)
-      createFrameAroundItem(elem.title, elem.title2, elem.description || "", table);
-    }
-    await fetchVocab(lesson);
+  } else {
+    let lessonPromise = fetch('https://raw.githubusercontent.com/ackelman/ackelman.github.io/master/fa_to_sv/' + lesson + '.json').then(e => e.json()).then(res => {
+      prefetchLinksToWords(collectWordsFromLesson(res.content)).then(() => {
+        const title = document.createElement('h1');
+        title.innerText = 'درس ' + lesson + ': ' + res.title;
+        document.body.appendChild(title);
+      
+        for (let i = 0; i < res.content.length; i++) {
+          let elem = res.content[i]
+          let table = createTable(elem.table, elem.numTableColumns)
+          createFrameAroundItem(elem.title, elem.title2, elem.description || "", table);
+        }
+      })
+    })
     
-    let a = document.createElement('a')
-    let obj = {
-      "questionSide": "swedish",
-      "answerSide": "persian",
-      "alternateSides": true,
-      "tagFilter": "Lesson " + lesson,
-      "evaluation":"TYPING",
-      "algorithm":"SPACED_REPETITION"
-    }
-    a.href = "https://persian-flashcards.herokuapp.com?studyOptions=" + JSON.stringify(obj)
-    a.title = 'Study these words'
-    a.target="_blank"
-    a.appendChild(document.createTextNode('Study these words'))
-    document.body.appendChild(a)
+    let vocabPromise = fetchVocab(lesson).then(res => {
+      prefetchLinksToWords(collectWordsFromVocab(res)).then(() => {
+        let table = createTable(res)
+        createFrameAroundItem("Ordlista", "کلمات جدید", "", table);
+    
+        let a = document.createElement('a')
+        let obj = {
+          "questionSide": "swedish",
+          "answerSide": "persian",
+          "alternateSides": true,
+          "tagFilter": "Lesson " + lesson,
+          "evaluation":"TYPING",
+          "algorithm":"SPACED_REPETITION"
+        }
+        a.href = "https://persian-flashcards.herokuapp.com?studyOptions=" + JSON.stringify(obj)
+        a.title = 'Study these words'
+        a.target="_blank"
+        a.appendChild(document.createTextNode('Study these words'))
+        document.body.lastChild.appendChild(a)
+      })
+    })
+    
+    await lessonPromise;
+    await vocabPromise;
   }
 
   document.body.style.cursor = 'auto'
