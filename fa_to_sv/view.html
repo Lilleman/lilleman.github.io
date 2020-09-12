@@ -58,7 +58,7 @@ var storageRef = storage.ref()
 
 let audioLinks = {}
 function getLinkToSound(word) {
-  return storageRef.child(word.toLowerCase() + '.mp3').getDownloadURL()
+  return storageRef.child(word.toLowerCase() + '.mp3').getDownloadURL().catch((e) => {})
 }
 
 function createTable(rows, numPerRow = 0) {
