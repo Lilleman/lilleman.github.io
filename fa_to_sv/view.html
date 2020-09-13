@@ -61,6 +61,20 @@ function getLinkToSound(word) {
   return storageRef.child(word.toLowerCase() + '.mp3').getDownloadURL().catch((e) => {})
 }
 
+function splitAtSlash(txt) {
+  let arr = [''];
+  let j = 0;
+  for (let i = 0; i < txt.length; i++) {
+    if (txt.charAt(i) === '/' && txt.charAt(i-1) !== '<') {
+      j++
+      arr.push('')
+    } else {
+      arr[j] += txt.charAt(i)
+    }
+  }
+  return arr
+}
+
 function createTable(rows, numPerRow = 0) {
   if (!rows) {
     return null
@@ -97,18 +111,24 @@ function createTable(rows, numPerRow = 0) {
     if (/[\u0600-\u06FF]/.test(txt) && !(/[\u0061-\u007A]/.test(txt))) {
       td.style.direction = 'rtl'
     }
-    let words = txt.split(' ')
-    for (let j = 0; j < words.length; j++) {
-      let word = words[j]
-      if (word.includes('<a>')) {
-        const s = word.indexOf('<a>')
-        let word2 = word.substr(s+3, word.indexOf('</a>')-(s+3))
-        td.appendChild(createLinkIfAvailable(word2))
-      } else {
-        td.appendChild(document.createTextNode(word))
+    let phrases = splitAtSlash(txt)
+    for (let i = 0; i < phrases.length; i++) {
+      let words = phrases[i].split(' ')
+      for (let j = 0; j < words.length; j++) {
+        let word = words[j]
+        if (word.includes('<a>')) {
+          const s = word.indexOf('<a>')
+          let word2 = word.substr(s+3, word.indexOf('</a>')-(s+3))
+          td.appendChild(createLinkIfAvailable(word2))
+        } else {
+          td.appendChild(document.createTextNode(word))
+        }
+        if (j + 1 < words.length) {
+          td.appendChild(document.createTextNode(' '));
+        }
       }
-      if (j + 1 < words.length) {
-        td.appendChild(document.createTextNode(' '));
+      if (i + 1 < phrases.length) {
+        td.appendChild(document.createTextNode('/'));
       }
     }
     return td
@@ -123,15 +143,15 @@ function createTable(rows, numPerRow = 0) {
         let td = document.createElement('td');
         if (row[0].includes('/')) {
           let phrases = row[0].split('/');
-          for (let i = 0; i < phrases.length; i++) {
-            let words = phrases[i].split(' ');
-            for (let j = 0; j < words.length; j++) {
-              td.appendChild(createLinkIfAvailable(words[j]));
-              if (j + 1 < words.length) {
+          for (let j = 0; j < phrases.length; j++) {
+            let words = phrases[j].split(' ');
+            for (let k = 0; k < words.length; k++) {
+              td.appendChild(createLinkIfAvailable(words[k]));
+              if (k + 1 < words.length) {
                 td.appendChild(document.createTextNode(' '));
               }
             }
-            if (i + 1 < phrases.length) {
+            if (j + 1 < phrases.length) {
               td.appendChild(document.createTextNode('/'));
             }
           }
@@ -196,13 +216,16 @@ function collectWordsFromLesson(content) {
       continue
     }
     for (let j = 0; j < elem.table.length; j++) {
-      let words = elem.table[j].split(' ')
-      for (let j = 0; j < words.length; j++) {
-        let word = words[j]
-        if (word.includes('<a>')) {
-          const s = word.indexOf('<a>')
-          let word2 = word.substr(s+3, word.indexOf('</a>')-(s+3))
-          arr.push(word2)
+      let phrases = splitAtSlash(elem.table[j]);
+      for (let k = 0; k < phrases.length; k++) {
+        let words = phrases[k].split(' ')
+        for (let l = 0; l < words.length; l++) {
+          let word = words[l]
+          if (word.includes('<a>')) {
+            const s = word.indexOf('<a>')
+            let word2 = word.substr(s+3, word.indexOf('</a>')-(s+3))
+            arr.push(word2)
+          }
         }
       }
     }
@@ -215,10 +238,10 @@ function collectWordsFromVocab(row) {
   for (let i = 0; i < row.length; i++) {
     if (row[i][0].includes('/')) {
       let phrases = row[i][0].split('/');
-      for (let i = 0; i < phrases.length; i++) {
-        let words = phrases[i].split(' ');
-        for (let j = 0; j < words.length; j++) {
-          arr.push(words[j])
+      for (let j = 0; j < phrases.length; j++) {
+        let words = phrases[j].split(' ');
+        for (let k = 0; k < words.length; k++) {
+          arr.push(words[k])
         }
       }
     } else {
