@@ -1,4 +1,57 @@
 {
-	"title": "TODO",
-	"content": []
+	"title": "Hälsningar",
+	"content": [
+		{
+			"title": "Grammatik",
+			"description": "Personliga pronomen",
+			"table": [
+				"<a>jag</a>", "من",
+				"<a>vi</a>", "ما",
+				"<a>du</a>", "تو",
+				"<a>ni</a>", "شما",
+				"<a>han</a>/<a>hon</a>/<a>den</a>/<a>det</a>", "او",
+				"<a>de</a>", "آنها"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Konversation",
+			"table": [
+				"Adam: Hej", "آدَم: سلام",
+				"Lina: Hej, hur mår du?", "لینَ: سلام، چطوری؟",
+				"Adam: Jag mår bra, och du?", "آدَم: خوبم، و تو؟",
+				"Line: Jag mår bra, tack.", "لینَ: عالی هستم، ممنون"
+			]
+		},
+		{
+			"title": "Grammatik",
+			"description": "Simpel nutid av verbet \"att vara\"",
+			"table": [
+				"jag är", "هستم",
+				"vi är", "هستیم",
+				"du är", "هستی",
+				"ni är", "هستید",
+				"han/hon/den/det är", "هست",
+				"de är", "هستند"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Vanliga fraser",
+			"table": [
+				"Hur mår du?", "چطوری؟",
+				"God kväll!", "عصر بخیر",
+				"Vad händer?", "چه خبر؟",
+				"Varsågod", "خواهش می‌کنم",
+				"Är det bra?", "خوبی؟",
+				"Tack så mycket!", "خیلی ممنون",
+				"God morgon!", "صبح بخیر",
+				"Tack!", "مرسی"
+			]
+		},
+		{
+			"title": "Läsning",
+			"description": "Jag är student.\nDu är ingenjör.\nVi är professorer.\nDe är doktorer.\nHon är student.\nDu är glad.\nHan är glad.\nVi mår bra.\nJag mår bra.\nDe är studenter."
+		}
+	]
 }
