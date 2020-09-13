@@ -2,7 +2,7 @@
 	"title": "Hälsningar",
 	"content": [
 		{
-			"title": "Grammatik",
+			"title": "Grammatik", "title2": "دستور زبان",
 			"description": "Personliga pronomen",
 			"table": [
 				"<a>jag</a>", "من",
@@ -15,7 +15,7 @@
 			"numTableColumns": 4
 		},
 		{
-			"title": "Konversation",
+			"title": "Konversation", "title2": "گفتگو",
 			"table": [
 				"Adam: Hej", "آدَم: سلام",
 				"Lina: Hej, hur mår du?", "لینَ: سلام، چطوری؟",
@@ -24,7 +24,7 @@
 			]
 		},
 		{
-			"title": "Grammatik",
+			"title": "Grammatik", "title2": "دستور زبان",
 			"description": "Simpel nutid av verbet \"att vara\"",
 			"table": [
 				"jag är", "هستم",
@@ -37,7 +37,7 @@
 			"numTableColumns": 4
 		},
 		{
-			"title": "Vanliga fraser",
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
 			"table": [
 				"Hur mår du?", "چطوری؟",
 				"God kväll!", "عصر بخیر",
@@ -50,7 +50,7 @@
 			]
 		},
 		{
-			"title": "Läsning",
+			"title": "Läsning", "title2": "خواندن",
 			"description": "Jag är student.\nDu är ingenjör.\nVi är professorer.\nDe är doktorer.\nHon är student.\nDu är glad.\nHan är glad.\nVi mår bra.\nJag mår bra.\nDe är studenter."
 		}
 	]
