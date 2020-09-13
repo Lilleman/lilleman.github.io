@@ -1,0 +1,81 @@
+<html>
+<body style="font-size: 2em;">
+<div>
+<input id="a" value="cycling"></input>
+<input id="b" value="cykling"></input>
+<br>
+<canvas id="canvas" width="500" height="500"></canvas><br>
+<a id="download" style="display: inline-block;cursor: pointer;border-radius: 3px;border: 1px solid transparent;padding: .4em;box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.4);background-color: #0095FF;color:#fff">Download image</a>
+</div>
+<script src="diff.js"></script>
+<script defer>
+const fontSize = 16 * 5;
+var a = document.getElementById('a');
+var b = document.getElementById('b');
+let canvas = document.getElementById('canvas');
+let ctx = canvas.getContext('2d');
+
+function changed() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.font = fontSize + 'px monospace';
+  let metrics = ctx.measureText(a.value);
+  canvas.width = Math.max(metrics.width, ctx.measureText(b.value).width);
+  canvas.height = 2 * (metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent);
+  ctx.font = fontSize + 'px monospace';
+  ctx.lineWidth = fontSize / 10.0;
+  ctx.textBaseline = "alphabetic";
+
+  let diff = new Diff().diff(a.value, b.value);
+
+  let x = 0;
+  let y = metrics.actualBoundingBoxAscent;
+  for (var i = 0; i < diff.length; i++) {
+    let metrics = ctx.measureText(diff[i].value);
+    if (diff[i].removed) {
+      ctx.fillStyle = ctx.strokeStyle = 'red';
+      ctx.fillText(diff[i].value, x, y);
+      ctx.beginPath();
+      ctx.moveTo(x, y - ctx.measureText('c').actualBoundingBoxAscent/2.0);
+      ctx.lineTo(x + metrics.width, y - ctx.measureText('c').actualBoundingBoxAscent/2.0);
+      ctx.stroke();
+      x += metrics.width;
+	  } else if (diff[i].added) {
+	  } else {
+      ctx.fillStyle = ctx.strokeStyle = 'black';
+      ctx.fillText(diff[i].value, x, y);
+      x += metrics.width;
+	  }
+  }
+
+  y += metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent
+  x = 0;
+  for (var i = 0; i < diff.length; i++) {
+    let metrics = ctx.measureText(diff[i].value);
+	  if (diff[i].removed) {
+	  } else if (diff[i].added) {
+      ctx.fillStyle = ctx.strokeStyle = 'green';
+      ctx.fillText(diff[i].value, x, y);
+      ctx.beginPath();
+      ctx.moveTo(x, y + fontSize / 8.0);
+      ctx.lineTo(x + metrics.width, y + fontSize / 8.0);
+      ctx.stroke();
+      x += metrics.width;
+	  } else {
+		  ctx.fillStyle = ctx.strokeStyle = 'black';
+      ctx.fillText(diff[i].value, x, y);
+      x += metrics.width;
+	  }
+  }
+}
+
+window.onload = a.onpaste = a.onchange = b.onpaste = b.onchange = changed;
+a.oninput = b.oninput = a.onkeyup = b.onkeyup = changed;
+
+var link = document.getElementById('download');
+link.addEventListener('click', function(ev) {
+  link.href = canvas.toDataURL();
+  link.download = "mypainting.png";
+}, false);
+</script>
+</body>
+</html>
