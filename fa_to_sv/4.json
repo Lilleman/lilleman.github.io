@@ -37,6 +37,15 @@
 			"numTableColumns": 4
 		},
 		{
+			"title": "Siffror", "title2": "اعداد",
+			"table": [
+				"<a>ett</a>", "<a>två</a>", "<a>tre</a>", "<a>fyra</a>", "<a>fem</a>", "<a>sex</a>", "<a>sju</a>", "<a>åtta</a>", "<a>nio</a>", "<a>tio</a>",
+				"یک", "دو", "سه", "چهار", "پنج", "شش", "هفت", "هشت", "نه", "ده",
+				"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"
+			],
+			"numTableColumns": 10
+		},
+		{
 			"title": "Vanliga fraser", "title2": "عبارات رایج",
 			"table": [
 				"Hur mår du?", "چطوری؟",
