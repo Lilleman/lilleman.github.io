@@ -1,4 +1,69 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "شما سوئدی حرف می‌زنید؟",
+	"content": [
+		{
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "Negativ form av verbet \"att vara\" i presens.",
+			"table": [
+				"jag är inte", "نیستم",
+				"vi är inte", "نیستیم",
+				"du är inte", "نیستی",
+				"ni är inte", "نیستید",
+				"han/hon/den/det är inte", "نیست",
+				"de är inte", "نیستند"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Adam: Pratar du Svenska?", "آدَم: تو سوئدی حرف می‌زنی؟",
+				"Lina: Lite", "لینَ: کمی",
+				"Adam: Hur länge har du bott i Sverige?", "آدَم: چه مدت است که در سوئد زندگی می‌کنی؟",
+				"Lina: Två år", "لینَ: دو سال",
+				"Adam: Vad gör du?", "آدَم: چه کار می‌کنی؟",
+				"Lina: Jag är student", "لینَ: دانشجو هستم"
+			]
+		},
+		{
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "Simpel nutid av verbet \"att ha\".\nExempel:\nJag har en penna.\nDu har en bok.\nDe har en väska.",
+			"table": [
+				"jag har", "دارم",
+				"vi har", "داریم",
+				"du har", "داری",
+				"ni har", "دارید",
+				"han/hon/den/det har", "دارد",
+				"de har", "دارند"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Siffror", "title2": "اعداد",
+			"table": [
+				"<a>elva</a>", "<a>tolv</a>", "<a>tretton</a>", "<a>fjorton</a>", "<a>femton</a>", "<a>sexton</a>", "<a>sjutton</a>", "<a>arton</a>", "<a>nitton</a>", "<a>tjugo</a>",
+				"یازده", "دوازده", "سیزده", "چهارده", "پنزده", "شانزده", "هفده", "هجده", "نوزده", "بیست",
+				"11", "12", "13", "14", "15", "16", "17", "18", "19", "20"
+			],
+			"numTableColumns": 10
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+				"Hej då", "خداحافظ",
+				"Ta hand om dig!", "مواظب خودت باش!",
+				"God natt", "شب بخیر",
+				"Ses imorgon", "فردا می‌بینمت",
+				"Ingång", "ورود",
+				"Inga problem", "اشکالی ندارد",
+				"Utgång", "خروج",
+				"Efter dig", "اول شما"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Jag heter Chris.\nJag och Adam är i skolan.\nRichard är inte i skolan. Han frånvarande.\nI skolan finns stolar och bord."
+		}
+	]
 }
