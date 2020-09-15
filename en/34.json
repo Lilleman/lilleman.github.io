@@ -1,4 +1,63 @@
 {
-    "title": "TODO",
-    "content": []
+    "title": "Weather",
+    "content": [
+        {
+            "title": "Grammar",
+            "description": "Prefixes:\nAnti: antisocial, antigravity, antibiotic\nDis: dislike, dishonest, disagree, disappear\nIn: incorrect, inaccurate, incomplete\nMis: misinterpret, mistake, misunderstand"
+        },
+        {
+            "title": "Conversation",
+			"table": [
+				"Mehrad: How is the weather today?",
+				"Navid: It's very cold. It's snowing the whole day.",
+				"Mehrad: Now it's five degrees but it was colder in the morning.",
+				"Navid: The schools are probably closed tomorrow.",
+				"Mehrad: Probably. I don't like winter at all. I prefer summer.",
+				"Navid: I like playing in the snow and skiing. I hate summer.",
+				"Mehrad: I love swimming in the ocean on a warm summer day.",
+				"Navid: But if school is closed tomorrow, we can go skiing. What do you think?",
+				"Mehrad: No, I prefer to stay at home.",
+			],
+            "numTableColumns": 1
+        },
+        {
+            "title": "Grammar",
+            "description": "Suffixes:\n-ful: playful, hopeful, thankful\n-ive: informative, active\n-less: meaningless, hopeless, homeless\n-ly: softly, slowly, happily"
+        },
+        {
+			"title": "Common Phrases",
+			"table": [
+				"How is the weather today?", "امروز هوا چطوره؟",
+				"The weather today is good.", "امروز هوا خوبه.",
+				"The weather today is bad.", "امروز هوا بده.",
+				"It's sunny today!", "امروز هوا آفتابیه!"
+			]
+		},
+        {
+			"title": "Weather",
+			"table": [
+			    "ابری", "آفتابی", "بارانی", "برفی",
+				"cloudy", "sunny", "rainy", "snowy",
+				"باد", "مه", "رعد و برق", "طوفانی",
+				"wind", "fog", "thunderstorms", "stormy"
+			],
+			"numTableColumns": 4
+		},
+		{
+            "title": "Conversation",
+			"table": [
+				"Shahrzad: The weather is very good today, I wish it will rain.",
+				"Farhad: The weather forecast said it would rain today.",
+				"Shahrzad: Really? how nice I love walking around in the rain.",
+				"Farhad: I also like rain but I prefer to look at it through the window.",
+				"Shahrzad: You will feel good if you take a walk in the rain.",
+				"Farhad: But I am afraid of catching a cold."
+			],
+            "numTableColumns": 1
+        },
+		{
+		    "title": "Reading",
+		    "description": ""
+		}
+    ]
 }
