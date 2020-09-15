@@ -21,8 +21,8 @@
     div.col-sm {margin-top: 0;margin-bottom: 0;}
     a{color: blue; text-decoration: underline;}
     a:hover{cursor: pointer}
-    fieldset{direction: ltr;}
-    fieldset> p{direction: rtl;margin:0;}
+    fieldset{direction: ltr}
+    fieldset> p{margin:0}
     legend:after{content: attr(data-value);position: absolute;right: 36px;background: transparent url(https://i.ganjoor.net/pbk.jpg) top center repeat scroll;}
     </style>
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
@@ -188,9 +188,17 @@ function createFrameAroundItem(label, label2, desc, item) {
   legend.appendChild(document.createTextNode(label));
   legend.setAttribute('data-value', label2);
   fieldset.appendChild(legend);
-  const p = document.createElement('p')
-  p.textContent = desc;
-  fieldset.appendChild(p);
+  
+  let tokens = desc.split('\n')
+  for (let i = 0; i < tokens.length; i++) {
+    const p = document.createElement('p')
+    if (/[\u0600-\u06FF]/.test(tokens[i])) {
+      p.style.direction = 'rtl'
+    }
+    p.textContent = tokens[i];
+    fieldset.appendChild(p);
+  }
+  
   if (item) {
     fieldset.appendChild(item);
   }
