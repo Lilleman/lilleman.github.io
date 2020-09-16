@@ -1,4 +1,56 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "اسم شما چیست؟",
+	"content": [
+		{
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "Negativ form av verbet \"att ha\" i nutid.",
+			"table": [
+				"jag har inte", "ندارم",
+				"vi har inte", "نداریم",
+				"du har inte", "نداری",
+				"ni har inte", "ندارید",
+				"han/hon/den/det har inte", "ندارد",
+				"de har inte", "ندارند"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Adam: Vad heter du?", "آدَم: اسم شما چیست؟",
+				"Lina: Jag heter Lina, och du?", "لینَ: اسم من لینَ است، و تو؟",
+				"Adam: Jag är Adam.", "آدَم: من آدَم هستم.",
+				"Lina: Trevligt att träffas!", "لینَ: از دیدن شما خوشبختم.",
+				"Adam: Du pratar väldigt bra Svenska.", "آدَم: شما سوئدی را خیلی خوب صحبت می‌کنید.",
+				"Lina: Tack.", "لینَ: ممنون."
+			]
+		},
+		{
+			"title": "Siffror", "title2": "اعداد",
+			"table": [
+				"<a>tio</a>", "<a>tjugo</a>", "<a>trettio</a>", "<a>fyrtio</a>", "<a>femtio</a>", "<a>sextio</a>", "<a>sjuttio</a>", "<a>åttio</a>", "<a>nittio</a>", "<a>hundra</a>",
+				"ده", "بیست", "سی", "چهل", "پنجاه", "شصت", "هفتاد", "هشتاد", "نود", "صد",
+				"10", "20", "30", "40", "50", "60", "70", "80", "90", "100"
+			],
+			"numTableColumns": 10
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+				"Ha en bra dag!", "روز خوبی داشته باشی!",
+				"Jag förstår inte.", "نمی‌فهمم",
+				"Trevligt att träffas!", "از دیدن شما خوشبختم!",
+				"Hur lång tid tar det?", "چقدر طول می‌کشد؟",
+				"Titta!", "ببین!",
+				"Tryck", "فشار دهید",
+				"Vem ska jag fråga?", "از کی باید بپرسم؟",
+				"Dra", "بکشید"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Mitt namn är Chris. Mitt efternamn är Andersson\nJag har en syster och en bror.\nMin syster bor i Göteborg. Min bror bor i Stockholm."
+		}
+	]
 }
