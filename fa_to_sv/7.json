@@ -1,4 +1,74 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "خانواده",
+	"content": [
+		{
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "ضمیرِ دارایى",
+			"table": [
+				"min penna", "مداد من",
+				"din väska", "کیف تو",
+				"hans/hennes sko", "کفش او",
+				"vår bok", "کتاب ما",
+				"er cykel", "دوچرخه شما",
+				"deras bil", "ماشین آنها"
+			],
+			"numTableColumns": 6
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Adam: Har du barn?", "آدَم: تو بچه داری؟",
+				"Lina: Ja", "لینَ: بله",
+				"Adam: Hur många barn har du?", "آدَم: چند تا بچه داری؟",
+				"Lina: Jag har två barn. En pojke och en tjej.", "لینَ: دو تا بچه دارم. یک پسر و یک دختر.",
+				"Adam: Vad heter de?", "آدَم: اسم آنها چیست؟",
+				"Lina: Alice och Lukas", "لینَ: اَلیسه و لوکَس"
+			]
+		},
+		{
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "ضمیرِ دارایى\nExempel:\nVårt hus är stort.\nMitt barns namn är Martin.",
+			"table": [
+				"mitt äpple", "سیب من",
+				"ditt hus", "خانه تو",
+				"hans/hennes finger", "انگشت او",
+				"vårt hus", "خانه ما",
+				"ert barn", "بچه شما",
+				"deras bord", "میز آنها"
+			],
+			"numTableColumns": 6
+		},
+		{
+			"title": "Familj", "title2": "خانواده",
+			"table": [
+				"<a>morfar</a>", "<a>farfar</a>", "<a>farmor</a>", "<a>mormor</a>",
+				"پدربزرگ", "پدربزرگ", "مادربزرگ", "مادربزرگ",
+				"<a>moster</a>", "<a>morbror</a>", "<a>faster</a>", "<a>farbror</a>",
+				"خاله", "دایی", "عمه", "عمو",
+				"<a>fader</a>", "<a>moder</a>", "<a>dotter</a>", "<a>son</a>",
+				"پدر", "مادر", "دختر", "پسر",
+				"<a>broder</a>", "<a>syster</a>", "", "",
+				"برادر", "خواهر", "", ""
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+				"Ja", "بله",
+				"Hur långt?", "چقدر راه است؟",
+				"Nej", "نه",
+				"Hur mycket?", "چقدر؟",
+				"Jag förstår", "می‌دانم",
+				"Varför?", "چرا؟",
+				"Hur många?", "چند تا؟",
+				"Vem?", "کی؟"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Mitt namn är Chris. Jag har en syster och en broder.\nMin systers namn är Lina. Min broders namn är Adam.\nJag och Rasmus är vänner. Rasmus är min klasskompis."
+		}
+	]
 }
