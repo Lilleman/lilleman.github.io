@@ -1,4 +1,67 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "چند سال داری؟",
+	"content": [
+		{
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "Vad är ...",
+			"table": [
+				"vad är det?", "این چیست؟",
+				"vad är ditt namn?", "اسم شما چیست؟"
+			]
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Lina: Vem är det här?", "لینَ: این کیست؟",
+				"Adam: Det är min bror.", "آدَم: برادرم است.",
+				"Lina: Hur gammal är han?", "لینَ: چند سال دارد؟",
+				"Adam: Han är 15 år gammal.", "آدَم: بیست و پنج سال دارد.",
+				"Lina: Vad heter han?", "لینَ: اسم او چیست؟",
+				"Adam: Han heter Alex.", "آدَم: اسم او اَلِکس است.",
+				"Lina: Är han gift?", "لینَ: او متاهله؟",
+				"Adam: Nej, han är singel.", "آدَم: نه، او مجرده."
+			]
+		},
+		{
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "در سوئدی، برای ایجاد سوال کلمه ترتیب را تغییر می‌دهید. معمولاً کلمه اول و دوم جمله عوض می‌شود.",
+			"table": [
+				"Är det ditt anteckningsblock?", "این دفتر شما است؟",
+				"Det är ditt anteckningsblock.", "این دفتر شما است.",
+				"Är han din lärare?", "او استاد شما است؟",
+				"Han är din lärare.", "او استاد شما است.",
+				"Heter du Neda?", "اسم شما نِدا است؟",
+				"Du heter Neda.", "اسم شما نِدا است."
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Family", "title2": "اعضای خانواده",
+			"table": [
+				"<a>kusin</a>", "<a>barnbarn</a>", "<a>svärmor</a>", "<a>svärfar</a>", "<a>svärson</a>",
+				"دختر/پسر عمو/عمه/دایی/خاله", "نوه", "مادرشوهر/مادرزن", "پدرشوهر/پدرزن", "داماد",
+			"<a>svärdotter</a>", "<a>systerson</a>", "<a>systerdotter</a>", "<a>brorson</a>", "<a>brorsdotter</a>",
+							"عروس", "پسر خواهر", "دختر خواهر", "پسر برادر", "دختر برادر"
+			],
+			"numTableColumns": 5
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+			    "Jag är gift.", "من ازدواج کردم.",
+				"Jag är ensam.", "من تنها هستم.",
+				"Jag är singel.", "من مجرد هستم.",
+				"Jag är här med min fiancee.", "من اینجا با نامزدم هستم.",
+				"Vem är du med?", "همراه شما کیست؟",
+				"Jag är skild.", "من طلاق گرفتم.",
+				"Jag är här med min familj.", "من اینجا با خانواده‌ام هستم.",
+				"Jag är här på affärsresa.", "من اینجا برای کار آمدم."
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Min systers namn är Lina. Min broders namn är Adam.\nMin broder är tjugofem år gammal. Min syster är nitton år gammal.\nLina är singel. Adam är gift."
+		}
+	]
 }
