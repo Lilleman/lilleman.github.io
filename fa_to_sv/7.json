@@ -3,7 +3,7 @@
 	"content": [
 		{
 			"title": "Grammatik", "title2": "دستور زبان",
-			"description": "ضمیرِ دارایى",
+			"description": "ضمیرِ ملکیت",
 			"table": [
 				"min penna", "مداد من",
 				"din väska", "کیف تو",
@@ -27,7 +27,7 @@
 		},
 		{
 			"title": "Grammatik", "title2": "دستور زبان",
-			"description": "ضمیرِ دارایى\nExempel:\nVårt hus är stort.\nMitt barns namn är Martin.",
+			"description": "ضمیرِ ملکیت\nExempel:\nVårt hus är stort.\nMitt barns namn är Martin.",
 			"table": [
 				"mitt äpple", "سیب من",
 				"ditt hus", "خانه تو",
@@ -61,7 +61,7 @@
 				"Hur mycket?", "چقدر؟",
 				"Jag förstår", "می‌دانم",
 				"Varför?", "چرا؟",
-				"Hur många?", "چند تا؟",
+				"Hur många?", "چه تعداد؟",
 				"Vem?", "کی؟"
 			],
 			"numTableColumns": 4
