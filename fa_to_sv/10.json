@@ -1,4 +1,58 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "شغل‌ها",
+	"content": [
+		{
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "فعل 'بودن' در حال ساده",
+			"table": [
+				"Jag är lärare.", "من استاد هستم.",
+				"Mitt namn är Sara.", "اسم من سارا است.",
+				"Du är student.", "تو دانشجو هستی."
+			]
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Adam: Var är du från?", "آدَم: تو اهل کجا هستی؟",
+				"Lina: Jag är från Kiruna.", "لینَ: من اهل کیرونا هستم.",
+				"Adam: Vad är ditt job?", "آدَم: شغل تو چیست؟",
+				"Lina: Jag är ingenjör inom computer science.", "لینَ: من مهندس کامپیوتر هستم.",
+				"Adam: Hur många timmar arbetar du varje dag?", "آدَم: چند ساعت در روز کار می‌کنی؟",
+				"Lina: Åtta timmar.", "لینَ: هشت ساعت."
+			]
+		},
+		{
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "قیدهای رایج",
+			"table": [
+			    "<a>aldrig</a>", "اصلا", "<a>troligtvis</a>", "احتمالا", "<a>snälla</a>", "لطفا",
+			    "<a>ofta</a>", "غالبا", "<a>omedelbart</a>", "فورا", "<a>vanligtvis</a>", "معمولا",
+			    "<a>riktigt</a>", "واقعا", "<a>totalt</a>", "کاملا", "<a>till</a> <a>exempel</a>", "مثلا"
+			],
+			"numTableColumns": 6
+		},
+		{
+			"title": "Jobb", "title2": "شغل‌ها",
+			"table": [
+				"<a>pilot</a>", "<a>doktor</a>", "<a>ingenjör</a>", "<a>revisor</a>", "<a>lärare</a>",
+				"خلبان", "پزشک", "مهندس", "حسابدار", "معلم",
+			"<a>författare</a>", "<a>skådespelare</a>", "<a>sjuksköterska</a>", "<a>arbetare</a>", "<a>kock</a>",
+			"نویسنده", "هنرپیشه", "پرستار", "کارگر", "آشپز",
+			"<a>arbetstagare</a>", "<a>snickare</a>", "<a>slaktare</a>", "<a>bagare</a>", "<a>assistent</a>",
+			"کارمند", "نجار", "قصاب", "نانوا", "دستیار"
+			],
+			"numTableColumns": 5
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+			    "Jag kommer gå nästa vecka.", "من هفته‌ی بعد می‌روم.",
+				"Jag kommer stanna här en vecka.", "من برای یک هفته اینجا می‌مانم."
+			]
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Adam är en ingenjör inom computer science. Han jobbar på ett elektronikföretag.\nAdam sa att han jobbar åtta timmar varje dag.\nAdam och Alex är arbetskamrater. De äter alltid lunch tillsammans."
+		}
+	]
 }
