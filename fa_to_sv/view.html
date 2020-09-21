@@ -99,12 +99,10 @@ function createTable(rows, numPerRow = 0) {
     return a
   }
   const createLinkIfAvailable = function(word) {
-    try {
-      let url = audioLinks[word]
-      return createLink(word, url)
-    } catch (e) {
-      return document.createTextNode(word)
+    if (audioLinks[word]) {
+      return createLink(word, audioLinks[word])
     }
+    return document.createTextNode(word)
   }
   const createTDWithTxtAndLink = function(txt) {
     const td = document.createElement('td')
