@@ -1,4 +1,61 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "کجا کار می‌کنی؟",
+	"content": [
+		{
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "سوئدی زمان حال اخباری ندارد، فقط زمان حال ساده دارد، و زمان حال ساده با افزودن 'r' به مصدر ایجاد می‌شود:",
+			"table": [
+				"Vi går till universitetet.", "ما به دانشگاه می‌رویم.",
+				"Du studerar.", "تو درس می‌خوانی.",
+				"De pratar med läraren.", "آنها با استاد صحبت می‌کنند.",
+				"Jag skriver ett brev.", "من نامه می‌نویسم."
+			]
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Adam: Var arbetar du?", "آدَم: کجا کار می‌کنی؟",
+				"Lina: Jag jobbar för ett tillverkningsföretag, och du?", "لینَ: برای یک شرکت تولیدی کار می‌کنم، و تو؟",
+				"Adam: Jag jobber för regeringen. Hur många dagar i veckan jobbar du?", "آدَم: من کارمند دولت هستم. در هفته چند روز کار می‌کنی؟",
+				"Lina: Jag jobbar varannan dag.", "لینَ: من یک روز در میان کار می‌کنم.",
+				"Adam: Det är bra. Jag jobbar heltid.", "آدَم: خوبه. من تمام وقت کار می‌کنم."
+			]
+		},
+		{
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "زمان حال منفی با اضافه کردن کلمه 'نه' بعد از فعل ایجاد می‌شود:",
+			"table": [
+			    "Jag går inte till skolan.", "Vi äter inte mat.",
+			    "Du pratar inte med honom.", "Ni studerar inte."
+			]
+		},
+		{
+			"title": "Jobb", "title2": "شغل‌ها",
+			"table": [
+				"<a>dansare</a>", "<a>kock</a>", "<a>barberare</a>", "<a>bankman</a>",
+				"رقاص", "سرآشپز", "آرایشگر", "بانکدار",
+			"<a>översättare</a>", "<a>musiker</a>", "<a>advokat</a>", "<a>tandläkare</a>",
+			"مترجم", "موسیقیدان", "وکبل", "دندانپزشک"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+			    "Spelar roll.", "مهم نیست.",
+			    "Du är verkligen snäll.", "واقعا لطف دارید.",
+				"Toppen!", "عالیه!",
+				"Jag menade inte det.", "منظوری نداشتم.",
+				"Intressant!", "جالبه!",
+				"Jag ber om ursäkt.", "معذرت خواهی.",
+				"Ledsen!", "متاسفم!",
+				"Det är mitt fel.", "تقصیر من است."
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Adam är en ingenjör inom telekommunikation. Han jobbar på ett elektronikföretag. Han gör sig redo för jobbet tidigt på morgonen.\nAdam och hans arbetskamrat promenerar på kvällarna. De äter middag tillsammans."
+		}
+	]
 }
