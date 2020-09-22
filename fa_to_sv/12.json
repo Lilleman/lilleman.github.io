@@ -1,4 +1,49 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "در رستوران",
+	"content": [
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Adam: Hej Lina, hur mår du?", "آدَم: سلام اینَ، چطوری؟",
+				"Lina: Jag mår bra, och du?", "لینَ: خوبم، و تو؟",
+				"Adam: Jag mår inte dåligt. Vad vill du göra?", "آدَم: بد نیستم، چه کار می‌خواهی بکنی؟",
+				"Lina: Jag är hungrig. Jag vill äta något.", "لینَ: گرسنه هستم. می‌خوهام چیزی بخورم.",
+				"Adam: Vart vill du gå?", "آدَم: کجا می‌خواهی بروی؟",
+				"Lina: Jag vill gå till en Persisk restaurang.", "لینَ: می‌خواهم بروم به یک رستوران ایرانی."
+			]
+		},
+		{
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "سوئدی دیگر حال التزامی ندارد ، از یک کلمه شرطی مثل 'kanske'، 'borde' یا 'måste' قبل از حال اخباری استفاده کنید:",
+			"table": [
+			    "Jag kanske går till skolan.", "شاید به مدرسه بروم.",
+			    "Han måste studera.", "او باید درس بخواند."
+			]
+		},
+		{
+			"title": "Maträtter", "title2": "غذاها",
+			"table": [
+				"<a>gryta</a>", "<a>kebab</a>", "<a>hamburgare</a>", "<a>cheeseburgare</a>",
+				"قورمه", "کباب", "همبرگر", "چیزبرگر",
+			"<a>soppa</a>", "<a>sallad</a>", "<a>ris</a>", "<a>pizza</a>",
+			"سوپ", "سلاد", "برنج", "پیتزا"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"description": "هشدار! اگر به زبان سوئدی یا انگلیسی فقط «نوشیدنی» بگویید، این نوشیدنی الکلی است. اگر منظورت یک نوشیدنی بدون الکل است، باید آن را بگویید.",
+			"table": [
+			    "Vill du gå ut och äta?", "دوست دارید برای غذا برویم بیرون؟",
+			    "Det var trevligt idag, tack.", "امروز به من خوش گذشت، مرسی.",
+				"Vill du gå och ta en drink?", "دوست دارید برویم نوشیدنی بخوریم؟",
+				"Jag bjuder på en drink.", "من شما را به یک نوشیدنی دعوت می‌کنم."
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Miss Lina är en revisor. Hon måste vakna tidigt på morgonen. Hon måste ge barnen mat. På torsdagar går Miss Lina med barnen till en restaurang. Barnen älskar kebab. De äter alltid kebab på restaurang."
+		}
+	]
 }
