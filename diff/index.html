@@ -3,29 +3,32 @@
 <div>
 <input id="a" value="cycling"></input>
 <input id="b" value="cykling"></input>
+<input type="checkbox" id="arrow" name="arrow" checked>
+<label for="arrow">Draw arrow</label>
 <br>
 <canvas id="canvas" width="500" height="500"></canvas><br>
 <a id="download" style="display: inline-block;cursor: pointer;border-radius: 3px;border: 1px solid transparent;padding: .4em;box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.4);background-color: #0095FF;color:#fff">Download image</a>
 </div>
 <script src="diff.js"></script>
 <script defer>
-const fontSize = 16 * 5;
-var a = document.getElementById('a');
-var b = document.getElementById('b');
-let canvas = document.getElementById('canvas');
-let ctx = canvas.getContext('2d');
+const fontSize = 16 * 5
+let a = document.getElementById('a')
+let b = document.getElementById('b')
+let arrow = document.getElementById("arrow")
+let canvas = document.getElementById('canvas')
+let ctx = canvas.getContext('2d')
 
 function changed() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  let diff = new Diff().diff(a.value, b.value);
+
   ctx.font = fontSize + 'px monospace';
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   let metrics = ctx.measureText(a.value);
-  canvas.width = Math.max(metrics.width, ctx.measureText(b.value).width);
-  canvas.height = 2 * (metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent);
+  canvas.width = diff.reduce((acc, e) => acc + ctx.measureText(e.value).width, 0)
+  canvas.height = (2 + Number(arrow.checked)) * (metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent);
   ctx.font = fontSize + 'px monospace';
   ctx.lineWidth = fontSize / 10.0;
   ctx.textBaseline = "alphabetic";
-
-  let diff = new Diff().diff(a.value, b.value);
 
   let x = 0;
   let y = metrics.actualBoundingBoxAscent;
@@ -40,6 +43,10 @@ function changed() {
       ctx.stroke();
       x += metrics.width;
 	  } else if (diff[i].added) {
+      x += metrics.width;
+      if (i > 0 && diff[i-1].removed) {
+        x -= ctx.measureText(diff[i-1].value).width;
+      }
 	  } else {
       ctx.fillStyle = ctx.strokeStyle = 'black';
       ctx.fillText(diff[i].value, x, y);
@@ -47,11 +54,39 @@ function changed() {
 	  }
   }
 
+  if (arrow.checked) {
+    y += metrics.actualBoundingBoxDescent;
+
+    let r = fontSize / 5.0
+    ctx.fillStyle = ctx.strokeStyle = 'black';
+    let cx = canvas.width / 2
+    let to_y = y + metrics.actualBoundingBoxAscent - r
+    ctx.beginPath();
+    ctx.moveTo(cx, y);
+    ctx.lineTo(cx, to_y);
+    ctx.stroke();
+
+    ctx.beginPath()
+    let angle = Math.atan2(to_y - y, 0)
+    ctx.moveTo(r * Math.cos(angle) + cx, r * Math.sin(angle) + to_y)
+    angle += (1.0/3.0) * (2 * Math.PI)
+    ctx.lineTo(r * Math.cos(angle) + cx, r * Math.sin(angle) + to_y)
+    angle += (1.0/3.0) * (2 * Math.PI)
+    ctx.lineTo(r * Math.cos(angle) + cx, r * Math.sin(angle) + to_y)
+    ctx.closePath()
+    ctx.fill()
+
+    y += metrics.actualBoundingBoxAscent
+  }
+
   y += metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent
   x = 0;
   for (var i = 0; i < diff.length; i++) {
     let metrics = ctx.measureText(diff[i].value);
 	  if (diff[i].removed) {
+      if (i < diff.length-1 && !diff[i+1].added) {
+        x += metrics.width;
+      }
 	  } else if (diff[i].added) {
       ctx.fillStyle = ctx.strokeStyle = 'green';
       ctx.fillText(diff[i].value, x, y);
@@ -69,7 +104,7 @@ function changed() {
 }
 
 window.onload = a.onpaste = a.onchange = b.onpaste = b.onchange = changed;
-a.oninput = b.oninput = a.onkeyup = b.onkeyup = changed;
+a.oninput = b.oninput = a.onkeyup = b.onkeyup = arrow.oninput = arrow.onkeyup = changed;
 
 var link = document.getElementById('download');
 link.addEventListener('click', function(ev) {
