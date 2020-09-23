@@ -1,4 +1,63 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "عذاها",
+	"content": [
+	    {
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "برای ایجاد منفی حال اخباری در سوئدی، از یک کلمه شرطی مثل 'kanske'، 'borde' یا 'måste' و کلمه 'inte' قبل از حال اخباری استفاده کنید:",
+			"table": [
+			    "Jag vill inte gå.", "نمی‌خواهم بروم",
+			    "Jag borde inte sova.", "من نباید بخوابم",
+			    "Ni kan inte hjälpa till.", "شما نمی‌توانید کمک کنید"
+			]
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Adam: Jag är väldigt hungrig. Det är dags för middag.", "آدَم: من خیلی گرسنه هستم، وقت شام است.",
+				"Lina: Vad sägs om att gå till en hamburgarrestaurang?", "لینَ: نظرت چیست به یک همبرگر فروشی برویم؟",
+				"Adam: Ok, men jag bjuder.", "آدَم: باشه، ولی مهمان من.",
+				"Lina: Nej du bjöd mig på lunch förra veckan också.", "لینَ: نه تو هفته‌ی قبل هم ناهار را حساب کردی.",
+				"Adam: Vill du att alla betalar för sig?", "آدَم: می‌خواهی هر کسی پول خودش را حساب کند؟",
+				"Lina: Okej.", "لینَ: باشه."
+			]
+		},
+		{
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "ضمیرِ ملکیت",
+			"table": [
+				"min/mitt _", "ــِ من",
+				"din/ditt _", "ــِ تو",
+				"hans/hennes _", "ــِ او",
+				"vår/vårt _", "ــِ ما",
+				"er/ert _", "ــِ شما",
+				"deras _", "ــِ آنها"
+			],
+			"numTableColumns": 6
+		},
+		{
+			"title": "Maträtter", "title2": "غذاها",
+			"table": [
+				"<a>kycklingbröst</a>", "<a>cheeseburgare</a>", "<a>bringa</a>", "<a>biff</a> <a>Stroganoff</a>",
+				"سینه‌ی مرغ", "چیزبرگر", "گوشت سینه", "بیف استراگانُف",
+			"<a>njure</a>", "<a>cornflakes</a>", "<a>kotlett</a>", "<a>kycklingvingar</a>",
+			"قلوه", "برشتوک", "گوشت با استخوان", "بال جوجه",
+			"<a>kalkonbröst</a>", "<a>grillad</a> <a>kyckling</a>", "<a>pannkaka</a>", "<a>nudlar</a>",
+				"سینه‌ی بوقلمون", "جوجه کباب", "پنکیک", "رشته فرنگی"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+			    "Ledsen att jag är sen.", "ببخشید که دیر آمدم.",
+			    "Nästa gång kommer jag göra rätt.", "دفعه‌ی بعد جبران می‌کنم.",
+				"Du är väldigt trevlig.", "تو خیلی با محبت هستی."
+			],
+			"numTableColumns": 2
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Landet Sverige ligger mellan två hav, Östersjön och Nordsjön. Nordsjön är till väster om Sverige. Östersjön ligger till öster om Sverige. Sverige har många berg. Det högsta heter Kebnekaise.\nMer än 90% av Sveriges befolkning pratar Svenska. Mer än 85% av Sveriges befolkning pratar Engelska. Sverige är granne med länderna Finland, Norde och Danmark."
+		}
+	]
 }
