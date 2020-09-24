@@ -1,4 +1,53 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "سبزیجات",
+	"content": [
+	    {
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "برای ساختن حال گذشته در سوئدی، معمولاً 'de' را به مصدر اضافه می‌کنید.",
+			"table": [
+			    "مصدر", "حال گذشته", "معنی",
+			    "(att) arbeta", "arbetade", "کار کردن",
+			    "(att) ha", "hade", "داشتن",
+			    "(att) prata", "pratade",  "گفتن"
+			],
+			"numTableColumns": 3
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Lina: Den här maten luktar gott.", "لینَ: بوی این غذا اشتها را باز می‌کند.",
+				"Adam: Ja, det luktar gott.", "آدَم: بله، بوی خوبی دارد.",
+				"Lina: Innehåller den här maten basilika?", "لینَ: این غذا ریحان دارد؟",
+				"Adam: Ja, basilika och persilja.", "آدَم: بله، ریحان و جعفری.",
+				"Lina: Den här maten är verkligen god.", "لینَ: این غذا واقعا خوشمزه است.",
+				"Adam: Jag äter sällan fet mat. Jag vill inte gå upp mer i vikt.", "آدَم: من به ندرت غذاهای پرچرب می‌خورم. نمی‌خواهم بیشتر از این وزنم زیاد شود."
+			]
+		},
+		{
+			"title": "Grönsaker", "title2": "سبزیجات",
+			"table": [
+				"<a>gurka</a>", "<a>tomat</a>", "<a>morot</a>", "<a>kål</a>",
+				"خیار", "گوجه", "هویج", "کلم",
+			"<a>aubergine</a>", "<a>spenat</a>", "<a>lök</a>", "<a>potatis</a>",
+			"بادمجان", "اسفناج", "پیاز", "سیب زمینی",
+			"<a>lime</a>", "<a>blåbär</a>", "<a>blomkål</a>", "<a>avokado</a>",
+				"لیمو ترش", "زغال اخته", "گل کلم", "آوکادو"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+			    "Gud jul!", "عید کریسمس مبارک!",
+			    "Grattis på födelsedagen!", "تولد مبارک!",
+				"Ha det bra!", "اوقات خوبی داشته باشید!",
+				"Bon appetit!", "نوش جان!"
+			],
+			"numTableColumns": 2
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Svenska är det vanligaste språket i Sverige. Svenska pratas även i Finland. Ungefär 9 miljoner människor i världen pratar Svenska. Svenska, Norska och Danska är väldigt lika. Svenskar, Norskar och Danskar förstår varandra."
+		}
+	]
 }
