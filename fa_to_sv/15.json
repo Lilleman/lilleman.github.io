@@ -1,4 +1,55 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "رزرو کردن هتل",
+	"content": [
+	    {
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "فعل امر در سوئدی همان مصدر است.",
+			"table": [
+			    "Ta den!", "آن ببرید!",
+			    "Titta!", "ببین!",
+			    "Säg!", "بگویید!",
+			    "Gå!", "برو!"
+			]
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Lina: Hej, hotell Sunlight?", "لینَ: سلام، هتل سانلیگت؟",
+				"Receptionist: Ja, varsågod?", "مسئول پذیرش: بله، بفرمایید؟",
+				"Lina: Har ni något ledigt rum?", "لینَ: اتاق خالی دارید؟",
+				"Receptionist: Vilket datum?", "مسئول پذیرش: برای چه تاریخی؟",
+				"Lina: Jag vill göra en reservation nästa vecka.", "لینَ: می‌هواهم برای هفته‌ی آینده یک اتاق رزرو کنم.",
+				"Receptionist: Okej, vad är ditt namn?", "مسئول پذیرش: باشه، اسم شما چیست؟",
+				"Lina: Lina Andersson.", "لینَ: لینَ اَندِرسُن."
+			]
+		},
+		{
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "سوئدی گذشته‌ی استمراری ندارد، فقط گذشته‌ی ساده. نمی‌توانید 'می‌گفتم' به سوئدی بگویید، فقط 'گفتم'."
+		},
+		{
+			"title": "På hotell", "title2": "در هتل",
+			"table": [
+				"<a>chef</a>", "<a>reception</a>", "<a>betala</a> <a>av</a>", "<a>enkelrum</a>",
+				"مدیر", "پذیرش", "تسویه کردن", "اتاق یک تخته",
+			"<a>betjänt</a>", "<a>reservera</a>", "<a>hyra</a>", "<a>dubbelrum</a>",
+			"خدمتکار", "رزرو کردن", "کرایه کردن", "اتاق دو تخته"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+			    "Kan du visa mig vägen till hotellet?", "ممکنه راه هتل را به من نشان بدهید؟",
+			    "Kan du säga mig hur jag tar mig till det här hotellet?", "ممکنه به من بگویید چطور به این هتل بروم؟",
+				"Snälla ta mig till det här hotellet.", "لطفا من را به این هتل ببرید.",
+				"Snälla skicka mitt bagage till mitt hotell.", "لطفا چمدان‌های من را به هتلم بفرستید؟"
+			],
+			"numTableColumns": 2
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Förra året reste jag till Göteborg. Jag bodde på ett hotell. Jag var där en vecka. Mitt rum hade en säng.\nGöteborg är en vacker stad. Jag såg många platser. Göteborg har en stor bro. Namnet på den bron är Älvsborgsbron."
+		}
+	]
 }
