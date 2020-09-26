@@ -16,7 +16,7 @@
 			"table": [
 				"Adam: Var arbetar du?", "آدَم: کجا کار می‌کنی؟",
 				"Lina: Jag jobbar för ett tillverkningsföretag, och du?", "لینَ: برای یک شرکت تولیدی کار می‌کنم، و تو؟",
-				"Adam: Jag jobber för regeringen. Hur många dagar i veckan jobbar du?", "آدَم: من کارمند دولت هستم. در هفته چند روز کار می‌کنی؟",
+				"Adam: Jag jobbar för regeringen. Hur många dagar i veckan jobbar du?", "آدَم: من کارمند دولت هستم. در هفته چند روز کار می‌کنی؟",
 				"Lina: Jag jobbar varannan dag.", "لینَ: من یک روز در میان کار می‌کنم.",
 				"Adam: Det är bra. Jag jobbar heltid.", "آدَم: خوبه. من تمام وقت کار می‌کنم."
 			]
@@ -35,7 +35,7 @@
 				"<a>dansare</a>", "<a>kock</a>", "<a>barberare</a>", "<a>bankman</a>",
 				"رقاص", "سرآشپز", "آرایشگر", "بانکدار",
 			"<a>översättare</a>", "<a>musiker</a>", "<a>advokat</a>", "<a>tandläkare</a>",
-			"مترجم", "موسیقیدان", "وکبل", "دندانپزشک"
+			"مترجم", "موسیقیدان", "وکیل", "دندانپزشک"
 			],
 			"numTableColumns": 4
 		},

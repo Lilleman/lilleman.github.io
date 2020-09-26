@@ -7,7 +7,7 @@
 				"Adam: Hej Lina, hur mår du?", "آدَم: سلام اینَ، چطوری؟",
 				"Lina: Jag mår bra, och du?", "لینَ: خوبم، و تو؟",
 				"Adam: Jag mår inte dåligt. Vad vill du göra?", "آدَم: بد نیستم، چه کار می‌خواهی بکنی؟",
-				"Lina: Jag är hungrig. Jag vill äta något.", "لینَ: گرسنه هستم. می‌خوهام چیزی بخورم.",
+				"Lina: Jag är hungrig. Jag vill äta något.", "لینَ: گرسنه هستم. می‌خواهم چیزی بخورم.",
 				"Adam: Vart vill du gå?", "آدَم: کجا می‌خواهی بروی؟",
 				"Lina: Jag vill gå till en Persisk restaurang.", "لینَ: می‌خواهم بروم به یک رستوران ایرانی."
 			]
@@ -26,7 +26,7 @@
 				"<a>gryta</a>", "<a>kebab</a>", "<a>hamburgare</a>", "<a>cheeseburgare</a>",
 				"قورمه", "کباب", "همبرگر", "چیزبرگر",
 			"<a>soppa</a>", "<a>sallad</a>", "<a>ris</a>", "<a>pizza</a>",
-			"سوپ", "سلاد", "برنج", "پیتزا"
+			"سوپ", "سالاد", "برنج", "پیتزا"
 			],
 			"numTableColumns": 4
 		},

@@ -5,7 +5,7 @@
 			"title": "Grammatik", "title2": "دستور زبان",
 			"description": "فعل امر در سوئدی همان مصدر است.",
 			"table": [
-			    "Ta den!", "آن ببرید!",
+			    "Ta den!", "آن را ببرید!",
 			    "Titta!", "ببین!",
 			    "Säg!", "بگویید!",
 			    "Gå!", "برو!"
@@ -18,14 +18,14 @@
 				"Receptionist: Ja, varsågod?", "مسئول پذیرش: بله، بفرمایید؟",
 				"Lina: Har ni något ledigt rum?", "لینَ: اتاق خالی دارید؟",
 				"Receptionist: Vilket datum?", "مسئول پذیرش: برای چه تاریخی؟",
-				"Lina: Jag vill göra en reservation nästa vecka.", "لینَ: می‌هواهم برای هفته‌ی آینده یک اتاق رزرو کنم.",
+				"Lina: Jag vill göra en reservation nästa vecka.", "لینَ: می‌خواهم برای هفته‌ی آینده یک اتاق رزرو کنم.",
 				"Receptionist: Okej, vad är ditt namn?", "مسئول پذیرش: باشه، اسم شما چیست؟",
 				"Lina: Lina Andersson.", "لینَ: لینَ اَندِرسُن."
 			]
 		},
 		{
 			"title": "Grammatik", "title2": "دستور زبان",
-			"description": "سوئدی گذشته‌ی استمراری ندارد، فقط گذشته‌ی ساده. نمی‌توانید 'می‌گفتم' به سوئدی بگویید، فقط 'گفتم'."
+			"description": "سوئدی گذشته‌ی استمراری ندارد، فقط گذشته‌ی ساده. نمی‌توانید به سوئدی بگویید 'می‌گفتم'، فقط 'گفتم'."
 		},
 		{
 			"title": "På hotell", "title2": "در هتل",
