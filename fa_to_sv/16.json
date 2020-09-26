@@ -1,4 +1,59 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "پول - مال",
+	"content": [
+	    {
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "منفی گذشته‌\ndåtid + inte:",
+			"table": [
+			    "De studerade inte", "آنها درس نمی‌خواندند",
+			    "Hon såg inte mig", "او من را نمی‌دید"
+			]
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Lina: Hej, hur är det?", "لینَ: سلام، چطوری؟",
+				"Adam: Inte dåligt, vad händer?", "آدَم: بد نیستم، چه خبر؟",
+				"Lina: Kan då låna mig lite pengar?", "لینَ: ممکنه مقداری پول به من قرض بدهید؟",
+				"Adam: Hur mycket behöver du?", "آدَم: چقدر لازم داری؟",
+				"Lina: 100 Kronor.", "لینَ: صد کرون.",
+				"Adam: Ledsen, jag har inga pengar på mig just nu.", "آدَم: متاسفم، الان هیچ پولی همراه ندارم."
+			]
+		},
+		{
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "در سوئدی و انگلیسی، صفت‌ها قبل از اسم قرار می‌گیرند.",
+			"table": [
+			    "fina kläder", "لباس قشنگ",
+			    "stor stad", "شهر بزرگ",
+			    "vacker trädgård", "باغ زیبا",
+			    "snälla barn", "بچه‌های مهربان",
+			    "stilig pojke", "پسر خوشتیپ",
+			    "vacker flicka", "بختر زیبا"
+			]
+		},
+		{
+			"title": "Finans", "title2": "مال - پول",
+			"table": [
+				"<a>kommission</a>", "<a>mynt</a>", "<a>cash</a>", "<a>växla</a>",
+				"حق کمیسیون", "سکه", "پول نقد", "صرافی",
+			"<a>krona</a>", "<a>dollar</a>", "<a>kreditkort</a>", "<a>resecheck</a>",
+			"کرون", "دلار", "کارت اعتباری", "چک مسافرتی"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+			    "Var är närmsta växelkontor?", "نزدیکترین دفتر صرافی کجاست؟",
+			    "Var är närmsta bankomat?", "نزدیکترین خودپرداز کجاست؟",
+				"Här är mitt ID.", "این کارت شناسایی من است."
+			],
+			"numTableColumns": 2
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Midsommar firas mitt i sommaren. Midsommar är en av äldsta högtiderna i Sverige. På Midsommar äter man traditionellt potatis med sill, gräslök och gräddfil. På kvällen brukar folk i Sverige festa och dricka alkohol. Den tjugoförsta Juni är det Midsommar enligt FNs lista över internationella högtider."
+		}
+	]
 }
