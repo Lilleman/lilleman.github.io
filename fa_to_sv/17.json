@@ -1,4 +1,59 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "مسافرت رفتن",
+	"content": [
+	    {
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "Framtid: فعل آینده\nska + verb",
+			"table": [
+			    "De ska gå till festen.",
+			    "Jag ska prata med läraren.",
+			    "Hon ska åka på semester.",
+			    "Du ska uppmuntra barnen."
+			]
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Lina: Jag flyger till New York imorgon.", "لینَ: فردا با هواپیما به نیویورک می‌روم.",
+				"Adam: Har du reserverat en biljett?", "آدَم: بلیط رزرو کردی؟",
+				"Lina: Ja. Jag har en biljett tur och retur men lämnade returdatumet öppet.", "لینَ: بله، بلیط دو طرفه گرفتم اما تاریخ برگشت را باز گذاشتم.",
+				"Adam: Ha en trevlig resa!", "آدَم: سفر خوبی داشته باشی!",
+				"Lina: Tack!", "لینَ: ممنون!"
+			]
+		},
+		{
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "Negativ framtid: منفی فعل آینده\nska + inte + verb",
+			"table": [
+			    "De ska inte gå till festen.",
+			    "Jag ska inte prata med läraren.",
+			    "Hon ska inte åka på semester.",
+			    "Du ska inte uppmuntra barnen."
+			]
+		},
+		{
+			"title": "Landskap", "title2": "حومه",
+			"table": [
+				"<a>sjö</a>", "<a>vattenfall</a>", "<a>by</a>", "<a>skog</a>/<a>djungel</a>",
+				"دریاچه", "آبشار", "روستا", "جنگل",
+			"<a>ö</a>", "<a>öken</a>", "<a>berg</a>", "<a>strand</a>",
+			"جزیره", "بیابان", "کوه", "ساحل"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+			    "Vilka platser är intressanta att se?", "جاهای دیدنی اصلی کجا هستند؟",
+			    "Var kan jag köpa en stadskarta?", "از کجا می‌توانم نقشه‌ی شهر را بخرم؟",
+				"Kan du säga mig hur jag tar mig till detta hotel?", "می‌شود به من بگویید چطور به این هتل بروم؟",
+				"Kan du säga mig vilka museum som finns här?", "ممکنه به من بگویید چه موزه‌هایی اینجا هستند؟"
+			],
+			"numTableColumns": 2
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Julafton är en av Sveriges äldsta högtider. Förr firades Julafton på samma datum som Yalda, den längsta dagen på året.\nPå Julafton samlas Svenska familjer och firar tillsammans. Traditionellt äter man potatis med sill och skinka, och dricker olika sorters alkohol, till exempel öl och snaps.\nEn tradition på julafton är att ta in en gran i huset, dekorera granen och dansa runt den."
+		}
+	]
 }
