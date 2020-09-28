@@ -1,4 +1,59 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "ساعت چنده؟",
+	"content": [
+	    {
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "حرف اضافه 'till'\nاین حرف اضافه برای زمان، مکان و شمارش استفاده می‌شود.",
+			"table": [
+			    "Igår jobbade jag från morgon till kväll.", "دیروز از صبح تا شب کار کردم.",
+			    "Jag gick hemifrån till universitetet.", "از خانه تا دنشگاه را پیاده رفتم."
+			]
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Lina: Vad är klockan? Vi kommer bli sena!", "لینَ: ساعت چنده؟ دیر خواهیم شد!",
+				"Adam: Klockan är kvart över sex. Vi är i tid, oroa dig inte.", "آدَم: شش و ربع است. نگران نباش به موقع می‌رسیم.",
+				"Lina: Festen börjar vid sju.", "لینَ: مهمانی ساعت هفت شروع می‌شود.",
+				"Adam: Nej, den börjar vid halv åtta.", "آدَم: نه ساعت هفت و نیم شروع می‌شود."
+			]
+		},
+		{
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "صفت‌های غیرقابل مقایسه",
+			"table": [
+			  "gråtande", "hörd",
+			  "läsande", "vunnen",
+			  "kunnande", "tagen",
+			  "skrattande", "läst"
+			],
+			"numTableColumns": 3
+		},
+		{
+			"title": "Landskap", "title2": "حومه",
+			"table": [
+				"<a>kvart</a> <a>över</a> <a>ett</a>", "<a>fem</a> <a>i</a> <a>ett</a>", "<a>tio</a> <a>i</a> <a>två</a>", "<a>tjugo</a> <a>i</a> <a>tolv</a>",
+				"یک و ربع", "پنج دقیقه به یک", "ده دقیقه به دو", "بیست دقیقه به یازده",
+			"<a>fem</a>", "<a>tio</a>", "<a>kvart</a> <a>i</a> <a>tio</a>", "<a>fem</a> <a>över</a> <a>fyra</a>",
+			"پنج", "ده", "یک ربع به ده", "چهار و پنج دقیقه"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+			    "Till när?", "تا چه ساعتی؟",
+			    "Från när?", "از چه ساعتی؟",
+				"Vad är klockan?", "ساعت چنده؟",
+				"Om en timme.", "یک ساعت دیگر.",
+				"Är det sent?", "دیر است؟",
+				"Det är middag.", "ظهر است."
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Valborgsmässoafton är en av Sveriges högtider. Denna högtid är väldigt gammal. Valborgsmässoafton firas på kvällen den sista April. På denna dag krattar folk ihop grenar på trädgården. På kvällen tänds stora eldar, och runt dem står folk och sjunger. Ibland skjuter man fyrverkerier."
+		}
+	]
 }
