@@ -12,7 +12,7 @@
 		{
 			"title": "Konversation", "title2": "گفتگو",
 			"table": [
-				"Lina: Vad är klockan? Vi kommer bli sena!", "لینَ: ساعت چنده؟ دیر خواهیم شد!",
+				"Lina: Vad är klockan? Vi kommer bli sena!", "لینَ: ساعت چنده؟ دیرمون میشه!",
 				"Adam: Klockan är kvart över sex. Vi är i tid, oroa dig inte.", "آدَم: شش و ربع است. نگران نباش به موقع می‌رسیم.",
 				"Lina: Festen börjar vid sju.", "لینَ: مهمانی ساعت هفت شروع می‌شود.",
 				"Adam: Nej, den börjar vid halv åtta.", "آدَم: نه ساعت هفت و نیم شروع می‌شود."
@@ -20,14 +20,13 @@
 		},
 		{
 			"title": "Grammatik", "title2": "دستور زبان",
-			"description": "صفت‌های غیرقابل مقایسه",
+			"description": "صفت‌های غیرقابل مقایسه صفت‌های هستند که حالت تفضیلی (تر) و عالی (ترین) ندارند.\nمعمولاً اسم یا فعل + 'ande'",
 			"table": [
-			  "gråtande", "hörd",
-			  "läsande", "vunnen",
-			  "kunnande", "tagen",
-			  "skrattande", "läst"
-			],
-			"numTableColumns": 3
+			  "gråtande", "lyssnande",
+			  "läsande", "vinnande",
+			  "kunnande", "tagande",
+			  "skrattande", "sjungande"
+			]
 		},
 		{
 			"title": "Landskap", "title2": "حومه",
