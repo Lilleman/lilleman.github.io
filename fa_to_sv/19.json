@@ -1,4 +1,68 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "در بانک",
+	"content": [
+	    {
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "گذشته نقلی\nمعمولاً کلمه 'har' سپس فعل + 't'",
+			"table": [
+			    "Han har gått till skolan.",
+			    "Vi har tränat idag.",
+			    "Jag har levt i Sverige.",
+			    "De har hjälp den fattiga mannen."
+			]
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Bankman: Hej, hur mår du?", "کارمند بانک: سلام، چطورید؟",
+				"Kund: Jag mår bra, tack.", "مشتری: خوبم ممنون.",
+				"Bankman: Vad kan jag göra för dig?", "کارمند بانک: چه کاری می‌توانم برای شما انجام بدهم؟",
+				"Kund: Jag har en fråga.", "مشتری: یک سوال دارم.",
+				"Bankman: Vad är din fråga?", "کارمند بانک: سوال شما چیست؟",
+				"Kund: Hur kan jag ta ut cash?", "مشتری: چطور می‌توانم پول نقد برداشت کنم؟",
+				"Bankman: Gå runt hörnet, där finns en bankmat.", "کارمند بانک: این نبش را دور بزنی یک خودپرداز آنجا وجود دارد."
+			]
+		},
+		{
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "معمولاً صفت‌های‌ برتر با افزودن 're' و صفت‌های‌ برترین با افزودن 'ste' ایجاد می‌شوند. اگر صفت به حرف بی‌صدا ختم می‌شود ، ابتدا یک 'a' را اضافه کنید.",
+			"table": [
+			  "صفت", "صفت برتر", "صفت برترین",
+			  "fina kläder", "finare kläder", "finaste kläderna",
+			  "vackra kläder", "vackrare kläder", "vackraste kläderna",
+			  "fula kläder", "fulare kläder", "fulaste kläderna",
+			  "god mat", "godare mat", "godaste maten",
+			  "äcklig mat", "äckligare mat", "äckligaste maten",
+			  "dyr bil", "dyrare bil", "dyraste bilen",
+			  "billig bil", "billigare bil", "billigaste bilen",
+			  "varm dag", "varmare dag", "varmaste dagen",
+			  "kall dag", "kallare dag", "kallaste dagen",
+			  "lätt prov", "lättare prov", "lättaste provet"
+			],
+			"numTableColumns": 3
+		},
+		{
+			"title": "På Banken", "title2": "در بانک",
+			"table": [
+				"<a>insättning</a>", "<a>räkning</a>", "<a>ränta</a>", "<a>mastercard</a>",
+				"واریز", "اسکناس", "نرخ بهره", "مسترکارت",
+			"<a>uttag</a>", "<a>kvitto</a>", "<a>växling</a>", "<a>resecheck</a>",
+			"برداشت", "رسید", "صرافی", "چک مسافرتی"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+			    "Jag vill öppna ett sparkonto.", "می‌خواهم یک حساب پس انداز باز کنم.",
+			    "Jag vill öppna ett lönekonto.", "می‌خواهم یک حساب جاری باز کنم.",
+				"Jag vill ta ut lite cash.", "می‌خواهم مقداری پول برداشت کنم.",
+				"Jag vill ha ett uttagskvitto.", "یک قبض برداشت می‌خواهم."
+			]
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Staden Stockholm ligger i östra Sverige. Stockholm är sveriges huvudstad. Den här staden är Sveriges största stad. Vädret i östra Sverige är ofta lite kallt och regnigt.\nSöder om Stockholm är vädret varmare. Viktiga symboler för Stockholm är området 'Gamla Stan' och museumet 'Skansen'. De flesta människorna i Stockholm pratar både Svenska och Engelska."
+		}
+	]
 }
