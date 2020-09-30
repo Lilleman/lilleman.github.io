@@ -1,4 +1,63 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "خرید گوشت",
+	"content": [
+	    {
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "منفی گذشته نقلی\nمعمولاً کلمه 'har inte' سپس فعل + 't'",
+			"table": [
+			    "Jag har inte läst den här boken.",
+			    "Du har inte sett den här filmen.",
+			    "Han har inte berättat hemligheten för mig.",
+			    "De har inte ätit den här maträtten."
+			]
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Kund: Jag vill ha lite kött.", "مشتری: من مقداری گوشت می‌خواهم.",
+				"Försäljare: Vilken sorts kött vill du ha?", "فروشنده: چه نوع گوشتی می‌خواهید؟",
+				"Kund: Jag vill ha lite köttfärs.", "مشتری: مقداری گوشت چرخ کرده می‌خواهم.",
+				"Försäljare: Hur mycket behöver du?", "فروشنده: چقدر لازم دارید؟",
+				"Kund: Jag vill ha ett kilo köttfärs.", "مشتری: یک کیلو گوشت چرخ کرده می‌خواهم.",
+				"Försäljare: Låt mig slå in det åt dig.", "فروشنده: اجازه بدهید برای شما آن را بسته بندی کنم.",
+				"Kund: Tack!", "مشتری: ممنون."
+			]
+		},
+		{
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "حرف اضافه\nExempel: Hon gick med sin kompis från huset till universitetet.",
+			"table": [
+			  "<a>under</a>", "زیر", "<a>över</a>", "فوق", "<a>i</a>", "در",
+			  "<a>till</a>", "به", "<a>från</a>", "از", "<a>om</a>", "درباره",
+			  "<a>innan</a>", "قبل از", "<a>efter</a>", "بعد از", "<a>före</a>", "قبل از",
+			  "<a>på</a>", "روی", "<a>av</a>", "از", "<a>mellan</a>", "بین",
+			  "<a>framför</a>", "جلوی", "<a>bakom</a>", "پشت", "<a>bredvid</a>", "در كنار",
+			  "<a>för</a>", "برای", "<a>med</a>", "با", "<a>utan</a>", "بدون"
+			],
+			"numTableColumns": 6
+		},
+		{
+			"title": "Kött", "title2": "گوشت",
+			"table": [
+				"<a>lammkött</a>/<a>lamm</a>", "<a>anka</a>", "<a>kyckling</a>", "<a>nötkött</a>/<a>nöt</a>",
+				"گوشت بره", "اردک", "جوجه", "گوشت گاو",
+			"<a>schnitzel</a>", "<a>fläskkött</a>/<a>fläsk</a>", "<a>höna</a>", "<a>köttfärs</a>",
+			"شنیسل", "گوشت خوک", "مرغ", "گوشت چرخ کرده",
+			"<a>stek</a>", "<a>kalkon</a>", "<a>hare</a>", "<a>kalvkött</a>/<a>kalv</a>",
+			"استیک", "بوقلمون", "خرگوش", "گوشت گوساله"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+			    "Vart skriver jag på?", "کجا را باید امضا کنم؟",
+			    "Hur mycket är kommissionen?", "حق کمیسیون چند است؟"
+			]
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Runskrift var ett alfabet som användes för länge sedan i Sverige, Norge och Danmark.\nRunskrift hade bara raka linjer och inga cirklar. Det var lättare att göra raka linjer på runorna (stenarna).\nMånga bokstäver i runskrift liknar bokstäverna i det latinska alfabetet."
+		}
+	]
 }
