@@ -1,4 +1,40 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "علاقه مندی‌ها",
+	"content": [
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Elisabet: Min favoritmusik är rockmusik.", "الیزابت: موسیقی مورد علاقه من موسیقی راک است.",
+				"Rasmus: Kan du spela någåt instrument?", "راسموس: سازی می‌توانی بنوازی؟",
+				"Elisabet: Ja, jag kan spela gitarr.", "الیزابت: آره، می‌توانم گیتار بنوازم.",
+				"Rasmus: Jag har en sammling av skivor.", "راسموس: من یک مجموعه از صفحه‌های موسیقی دارم.",
+				"Elisabet: Verkligen? Intressant!", "الیزابت: واقعا؟ جالب است.",
+				"Rasmus: Jag älskar alla verk av Beatles och jag har alla dera skivor.", "راسموس: من عاشق کارهای بیتلز هستم و همه آلبوم‌های بیتلز را دارم."
+			]
+		},
+		{
+			"title": "Färger", "title2": "رنگ‌ها",
+			"table": [
+				"<a>vit</a>", "<a>gul</a>", "<a>grön</a>", "<a>blå</a>",  "<a>röd</a>",
+				"سفید", "زرد", "سبز", "آبی", "قرمز",
+			"<a>svart</a>", "<a>grå</a>", "<a>lila</a>", "<a>orange</a>", "<a>brun</a>",
+			"سیاه", "جاکستری", "بنفش", "نارنجی", "قهوه‌ای"
+			],
+			"numTableColumns": 5
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+			    "Kan vi ses idag?", "می‌توانیم امروز همدیگر را ببینیم؟",
+			    "Har du tid ikväll?", "امشب وقت شما آراد است؟",
+			    "Vill du gå ut och äta?", "دوست دارید برای غذا برویم بیرون؟",
+			    "Vill du följa med?", "دوست دارید با من/ما بیاید؟",
+			    "Har du tid imorgon?", "شما فردا وقت دارید؟"
+			]
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Vadstena är namnet på en av Sveriges äldsta städer och ligger mitt i Sverige. Grundaren av Vadstena kloster var heliga Birgitta. In denna historiska stad har många inskriptioner hittats.\nÅr 1545 byggde Gustav Vasa ett slott i staden, och stängde klostret. Idag är klostret ett museum, precis som de flesta andra kyrkor i Sverige."
+		}
+	]
 }
