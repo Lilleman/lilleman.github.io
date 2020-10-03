@@ -3,9 +3,9 @@
 	"content": [
 	    {
 			"title": "Grammatik", "title2": "دستور زبان",
-			"description": "در سوئدی، معمولا مفعول جمله با 'en' (برای کلمات بدون جنسیت) یا 'et' (برای کلمات با جنسیت) بعد از کلمه نشان داده می‌شود.",
+			"description": "در سوئدی، معمولا مفعول شناس با 'en' (برای کلمات بدون جنسیت) یا 'et' (برای کلمات با جنسیت) بعد از کلمه نشان داده می‌شود.",
 			"table": [
-			    "", "مفعول",
+			    "", "مفعول شناس",
 			    "Jag tog boken och gav den till Sanna.", "boken",
 			    "Vi satt vid bordet och såg bilen.", "bordet, bilen"
 			]
