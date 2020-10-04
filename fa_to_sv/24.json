@@ -1,4 +1,45 @@
 {
-    "title": "‌TODO",
-    "content": []
+	"title": "نوشیدنی‌ها",
+	"content": [
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Fredrik: Jag är väldigt törstig.", "فرِدریک: من خیلی تشنه هستم.",
+				"Karl: Då går vi och tar något att dricka.", "کارل: بیا برویم یه نوشیدنی بگیریم.",
+				"Fredrik: Bra ide.", "فرِدریک: فکر خوبی است.",
+				"Karl: Vilken dryck vill du ha?", "کارل: چه نوشیدنی می‌خواهی؟",
+				"Fredrik: Jag vill ha öl.", "فرِدریک: من آبجو می‌خواهم.",
+				"Karl: Du borde inte dricka öl när du är väldigt törstig.", "کارل: وقتی خیلی تشنه هستی نباید آبجو بخوری.",
+				"Fredrik: Vad föreslår du?", "فرِدریک: تو چه پیشنهاد می‌کنی؟",
+				"Karl: Vatten är bäst för dig haha.", "کارل: آب بهترین چیز برات است، هاها.",
+				"Fredrik: Haha, håll käften Karl.", "فرِدریک: هاها، خفه شو کارل."
+			]
+		},
+		{
+			"title": "Drycker", "title2": "نوشیدنی‌ها",
+			"table": [
+				"<a>apelsinjuice</a>", "<a>juice</a>", "<a>varm</a> <a>choklad</a>", "<a>te</a>",
+				"آب پرتقال", "آبمیوه", "شکلات داغ", "چای",
+			"<a>kaffe</a>", "<a>öl</a>", "<a>mineralvatten</a>", "<a>vin</a>",
+			"قهوه", "آبجو", "آب معدنی", "شراب"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+			    "Ha en trevlig resa!", "سفر خوبی داشته باشید!",
+			    "Det är midnatt.", "نصف شب است.",
+			    "Lycka till!", "موفق باشید!",
+			    "Det är i tid.", "به موقع است.",
+			    "Det är tidigt.", "زود است.",
+			    "Det är sent.", "دیر است."
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Karin Boye var en Svensk poet. Karin Boye levde i staden Göteborg. Karin Boyes dikter har översatts till många olika språk.\nKarin Boyes staty står på avenyn mitt i Göteborg. Karin Boyes dikter kan läsas online på hennes hemsida: https://www.karinboye.se/verk/dikter/index.shtml"
+		}
+	]
 }
