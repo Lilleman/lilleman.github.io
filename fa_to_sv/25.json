@@ -1,4 +1,41 @@
 {
-    "title": "‌TODO",
-    "content": []
+	"title": "مراجعه به پزشک",
+	"content": [
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Patient: Jag har ont i magen.", "بیمار: من دل درد دارم.",
+				"Doktor: Är det relaterat till något du åt?", "دکتر: مربوط به چیزی میشه که خوردید؟",
+				"Patient: Kanske, jag är inte säker.", "بیمار: شاید، مطمئن نیستم.",
+				"Doktor: Vad åt du till frukost?", "دکتر: صبحانه چی خورده‌اید؟",
+				"Patient: Ägg med mjölk och banan.", "بیمار: تخم مرغ با شیر و موز.",
+				"Doktor: Mjölken kanske var gammal.", "دکتر: ممکنه شیر خراب بوده باشد.",
+				"Patient: Den luktade inte dåligt.", "بیمار: آن بوی بدی نمی‌داد.",
+				"Doktor: Jag kommer skriva ut en smärtstillande tablett till dig.", "دکتر: من یک قرص مسکن برای شما تجویز می‌کنم."
+			]
+		},
+		{
+			"title": "Träffa en doktor", "title2": "مراجعه به پزشک",
+			"table": [
+				"<a>allergi</a>", "<a>analys</a>", "<a>recept</a>", "<a>undersökning</a>", "<a>illamående</a>",
+				"حساسیت", "آزمایش", "نسخه", "معاینه", "حالت تهوع",
+			"<a>artros</a>", "<a>infektion</a>", "<a>behandling</a>", "<a>tid</a>", "<a>prov</a>",
+			"آرتروز", "عفونت", "درمان", "وقت تعیین شده", "نمونه آزمایش"
+			],
+			"numTableColumns": 5
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+			    "Jag vill träffa en doktor.", "می‌خواهم پزشک من را ببیند.",
+			    "Jag vill boka en tid.", "می‌خواهم یک وقت بگیرم.",
+			    "Jag behöver medicinsk rådgivning.", "من به مشاوره پزشکی نیاز دارم.",
+			    "Vilka tider är rådgivningen öppen?", "مشاوره در چه ساعتی باز است؟"
+			]
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Gustaf de Laval föddes år 1845 i staden Orsa. Han var en Svensk ingenjör och uppfinnare. Gustaf de Laval uppfann separatorn, en maskin som separerar grädde och mjölk. Hans maskin används idag på alla stora mejerier i världen. Laval gjorde även många försättringar av ångturbinen (en motor som drivs av att vatten kokar och blir ånga). Laval anses vara en av de största svenska uppfinnarna."
+		}
+	]
 }
