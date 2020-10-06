@@ -1,4 +1,70 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "کجا زندگی می‌کنی؟",
+	"content": [
+	    {
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "جملات شرطی ممکن\n'om' شرط 'så' نتیجه\nدر سوئدی اگر بخواهیم شرط را قبل از نتیجه بیان کنیم از 'om' در ابتدای شرط (جزء پیرو) و از 'så' در ابتدای نتیجه (جزء پایه) استفاده می‌کنیم. 'om' به معنی 'اگر' و 'så' به معنی 'در این صورت' است. اما اگر بخواهیم نتیجه را قبل از شرط بیان کنیم، دیگر به 'så' نیاز نداریم و فقط در ابتدای شرط (جزء پیرو) از 'om' استفاده می‌کنیم.\nاگر در نتیجه (جزء پایه) از 'så' استفاده کردید، در این صورت باید فعل را بلافاصله بعد از 'så' آورده و فاعل را بعد از فعل بیاورید.",
+			"table": [
+			    "Om Sara går så går jag också.", "اگر سارا برود من هم می‌روم.",
+			    "Jag gör det om jag kan.", "اگر بتوانم انجام می‌دهم.",
+			    "Om de kan så kan du också.", "اگر آنها بتوانند تو هم می‌توانی.",
+			    "Ring mig om du kan.", "اگر می‌توانی زنگ بزن."
+			]
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Anna: Var bor du?", "اَنَ: کجا زندگی می‌کنی؟",
+				"Björn: Jag bor i Ronneby.", "بیورن: من در رُنِبی زندگی می‌کنم.",
+				"Anna: Var ligger Ronneby?", "اَنَ: رُنِبی کجاست؟",
+				"Björn: Det är i Sverige.", "بیورن: در سوئد است.",
+				"Anna: Är det i norra Sverige?", "اَنَ: آیا آن در شمال سوئد است؟",
+				"Björn: Nej, det är i södra Sverige.", "بیورن: نه، آن در جنوب سوئد است.",
+				"Anna: Är Ronneby en stor stad?", "اَنَ: آیا رُنِبی یک شهر بزرگ است؟",
+				"Björn: Ja, det är en stor stad.", "بیورن: بله، آن یک شهر بزرگ است.",
+				"Anna: Hur stor?", "اَنَ: چطور؟",
+				"Björn: Befolkningen är runt 13 000.", "بیورن: جمعیت حدود ۱۳۰۰۰ نفر است."
+			]
+		},
+		{
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "جملات شرطی غیر ممکن",
+			"table": [
+			    "Om jag kunnat så hade jag hjälpt till.", "اگر می‌توانستم کمک کرده بودم.",
+			    "Om jag haft tid så hade jag hjälpt till.", "اگر وقت داشتم کمک کرده بودم."
+			]
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Susan: Var i Sverige är du från?", "سوسَن: اهل کجای سوئد هستی؟",
+				"Nadiya: Jag är från Stockholm.", "نادیا: اهل استوکهولم هستم.",
+				"Susan: Vilken sorts stad är din stad?", "سوسَن: شهر تو چگونه شهری است؟",
+				"Nadiya: Den är överbefolkad och högljudd.", "نادیا: پرجمعیت و پر سروصدا است."
+			]
+		},
+		{
+			"title": "Veckodagar", "title2": "روزهای هفته",
+			"table": [
+				"<a>Måndag</a>", "<a>Tisdag</a>", "<a>Onsdag</a>", "<a>Torsdag</a>", "<a>Fredag</a>", "<a>Lördag</a>", "<a>Söndag</a>",
+				"دوشنبه", "سه‌شنبه", "چهارشنبه", "پنج‌شنبه", "جمعه", "شنبه", "یکشنبه"
+			],
+			"numTableColumns": 7
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+			    "Vad menar du?", "منظور شما چیست؟",
+			    "Vad frågade du?", "شما چه سوالی کردید؟",
+			    "Vad säger du?", "شما چه می‌گویید؟",
+			    "Vad vill du?", "شما چه می‌خواهید؟",
+			    "Vad sa du?", "شما چه گفتید؟",
+			    "Hur?", "چطور؟"
+			]
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Astrid Lindgren är en av Sveriges mest kända författare. Hon föddes år 1907 i Vimmerby, Småland. Hon skrev över 180 böcker och hennes böcker har översatts till 107 olika språk. Den 14 november är Astrid Lindgrens födelsedag och minnesdag."
+		}
+	]
 }
