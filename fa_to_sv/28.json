@@ -1,4 +1,55 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "آرایشگاه",
+	"content": [
+	    {
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "برچسب سوال",
+			"table": [
+			    "Du har lektion imorgon, eller hur?", "تو فردا کلاس داری، مگر نه؟",
+			    "Vi har prov imorgon, eller hur?", "ما فردا امتحان داریم، مگر نه؟"
+			]
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Kund: Hej, jag vill klippa håret.", "مشتری: سلام، می‌خواهم موهایم را کوتاه کنم.",
+				"Frisör: Hur vill du ha det?", "آرایشگر: چطور می‌خواهید باشد؟",
+				"Kund: Korta bara ner det lite.", "مشتری: فقط یک کم کوتاهش کنید.",
+				"Frisör: Ditt hår är torrt. Ska jag ha i lite olja?", "آرایشگر: موهای شما خشک است، می‌هواهید کمی روغن به موهایتان بزنم؟",
+				"Kund: Ja tack, kan du trimma min mustasch och skägg också?", "مشتری: بله ممنون، ممکن است ریش و سیبیلم هم مرتب کنید؟",
+				"Frisör: Ja visst.", "آرایشگر: بله حتما."
+			]
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Maria: Jag har beslutat att locka mitt håret.", "مَریَ: تصمیم دارم موهایم را فر کنم.",
+				"Susan: Verkligen? Jag gillar lockigt hår.", "سوسَن: واقعا؟ موهای فر را دوست دارم.",
+				"Maria: Jag borde leta upp en bra frisör.", "مَریَ: باید یک آرایشگر خوب پیدا کنم."
+			]
+		},
+		{
+			"title": "Hos frisören", "title2": "در آرایشگاه",
+			"table": [
+				"<a>ansiktsmask</a>", "<a>färga</a>", "<a>hårborttagning</a>", "<a>locka</a>",
+				"ماسک صورت", "رنگ کردن", "اپیلاسیون", "فر کردن",
+				"<a>nagel</a> <a>reparation</a>", "<a>highlights</a>", "<a>massage</a>", "<a>klippa</a>",
+				"ترمیم ناخن", "هایلایت", "ماساژ", "کوتاه کردن"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+			    "Kan du snälla rengöra mitt hår?", "لطفا می‌توانید موهایم را تمیز کنید؟",
+			    "Snälla klipp och hårtorka mitt hår.", "لطفا موهای من را کوتاه کنید و سشوار بکشید.",
+			    "Gör ni hårborttagning?", "شما اپیلاسیون می‌کنید؟",
+			    "Hur länge måste jag vänta?", "چه مدت باید منتظر بمانم؟"
+			]
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Jönköping är en av de största städerna i Sverige. Denna stad ligger mitt i Sverige, bredvid sjön Vättern. I Jönköping finns en liten sjö vid namn Munksjön. Genom Jönköping går Sveriges största motorväg, E4. Denna stad har en mycket vacker park med ett utomhusmuseum."
+		}
+	]
 }
