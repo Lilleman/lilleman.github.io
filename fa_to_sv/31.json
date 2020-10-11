@@ -1,4 +1,83 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "خريد كردن",
+	"content": [
+	    {
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "اعداد ترتیبی\nاگر عدد بیشتر از ۱۲ است، 'nde' را اضافه کنید. اعداد کمتر از 13 کمی بی‌قاعده هستند.",
+			"table": [
+			    "عدد", "عدد ترتیبی",
+			    "<a>ett</a>", "<a>första</a>",
+			    "<a>två</a>", "<a>andra</a>",
+			    "<a>tre</a>", "<a>tredje</a>",
+			    "<a>fyra</a>", "<a>fjärde</a>",
+			    "<a>fem</a>", "<a>femte</a>",
+			    "<a>sex</a>", "<a>sjätte</a>",
+			    "<a>sju</a>", "<a>sjunde</a>",
+			    "<a>åtta</a>", "<a>åttonde</a>",
+			    "<a>nio</a>", "<a>nionde</a>",
+			    "<a>tio</a>", "<a>tionde</a>",
+			    "<a>elva</a>", "<a>elfte</a>",
+			    "<a>tolv</a>", "<a>tolfte</a>",
+			    "<a>tretton</a>", "<a>trettonde</a>",
+			    "<a>fjorton</a>", "<a>fjortonde</a>",
+			    "...", "...",
+			    "<a>tjugo</a>", "<a>tjugonde</a>",
+			    "<a>tjugoett</a>", "tjugoförsta",
+			    "...", "...",
+			    "<a>trettio</a>", "<a>trettionde</a>",
+			    "...", "..."
+			]
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Sara: Vad är ditt schema idag?",
+				"Björn: Jag har beslutat att åka till affären och köpa lite mat.",
+				"Sara: Kan du köpa två paket pasta till mig?",
+				"Björn: Visst, behöver du något mer?",
+				"Sara: Nej, har du med dig tillräckligt med pengar?",
+				"Björn: Jag tror att jag har det, jag har ungefär 500 kronor.",
+				"Sara: Jag tycker det verkar lite.",
+				"Björn: Det tycker inte jag, jag har ett kreditkort också.",
+				"Sara: Låt mig ge dig 100 kronor för pastan.",
+				"Björn: Tack."
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+			    "Var är shoppingcentrumet?", "مرکز خرید کجاست؟",
+			    "Var är närmsta skoaffär?", "نزدیکترین مغازه کفش فروشی کجاست؟"
+			]
+		},
+		{
+			"title": "Shopping", "title2": "خرید",
+			"table": [
+				"<a>juvelerare</a>", "<a>köpcentrum</a>", "<a>affär</a>/<a>butik</a>", "<a>supermarket</a>",
+				"جواهر فروشی", "مرکز خرید", "مغازه", "سوپرمارکت",
+				"<a>rea</a>", "<a>bokaffär</a>", "<a>antikvariat</a>", "<a>klädaffär</a>",
+				"حراج", "کتاب فروشی", "مغازه عتیقه فروشی", "فروشگاه پوشاک"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Nils: Gillar du att åka och handla på kvällen?",
+				"Anna: Ja, jag gillar det väldigt mycket. Jag har hört att butiken IKEA har rea.",
+				"Nils: Verkligen, så bra. Jag behöver en skjorta till festen i helgen.",
+				"Anna: Jag behöver en väska, skor och kjol.",
+				"Nils: Vi åker till juveleraren också.",
+				"Anna: Visst, vad behöver du?",
+				"Nils: Jag vill köpa en ring till min vän.",
+				"Anna: Vi kan åka till juveleraren i köpcentrumet eftersom deras priser är lägre."
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Nordiska Kompaniet är ett av Sveriges äldsta köpcentrum. Detta köpcentrum ligger i centrala Stockholm. Folk från hela Stockholm och även andra städer i närheten åker till detta köpcentrum. Vissa dagar innan Jul är köpcentrumet fullt med folk och det är svårt att åka dit. Detta stora köpcentrum har många olika sorters varor, till exempel kläder, skor, möbler, utrustning till hemmet och annat."
+		}
+	]
 }
