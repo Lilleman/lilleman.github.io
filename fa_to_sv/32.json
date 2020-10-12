@@ -1,4 +1,75 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "لباس‌ها",
+	"content": [
+	    {
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "också هم، نیز",
+			"table": [
+			    "Vi ska också åka på semester.",
+			    "De ska också komma hit."
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Försäljare: Välkommen, vad behöver du?",
+				"Kund: Jag vill ha en kostym i storlek 44.",
+				"Försäljare: Våra kostymer är i denna avdelning, du kan prova och se vilken du vill ha.",
+				"Kund: Tack, har ni denna kostym i blått?",
+				"Försäljare: Nej, om du gillar blått kan du köpa denna.",
+				"Kund: Nej tack, jag gillar inte den modellen.",
+				"Försäljare: Du kan också kolla modellerna i detta magasin och på skyltdockorna."
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "även همچنین",
+			"table": [
+			    "Jag åkte till universitetet och träffade även läraren.",
+			    "Jag lärde mig Svenska och bekantade mig även med deras kultur.",
+			    "Vi åkte på semester och lärde oss även mycket."
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+			    "Den här är för dyr.", "این خیلی گران است.",
+			    "Den sitter löst.", "گشاد است.",
+			    "Har du några andra storlekar?", "سایز دیگری دارید؟",
+			    "Den här passar inte.", "این اندازه نیست."
+			]
+		},
+		{
+			"title": "Shopping", "title2": "خرید",
+			"table": [
+				"<a>skjorta</a>", "<a>byxa</a>", "<a>jeans</a>", "<a>hatt</a>", "<a>rock</a>",
+				"پیراهن", "شلوار", "شلوار جین", "کلاه", "کت",
+				"<a>slips</a>", "<a>sjal</a>", "<a>handske</a>", "<a>strumpa</a>", "<a>kjol</a>",
+				"کراوات", "شال گردن", "دستکش", "جوراب",  "دامن",
+				"<a>scarf</a>", "<a>underkläder</a>", "<a>väst</a>", "<a>herrkläder</a>", "<a>damkläder</a>",
+				"روسری", "زیرپوش", "جلیقه", "لباس مردانه",  "لباس زنانه"
+			],
+			"numTableColumns": 5
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Susann: Vad ska du ha på dig på festen imorgon?",
+				"Per: T-shirt och jeans, vad ska du ha på dig?",
+				"Susann: Jag ska ha på mig en långärmad röd skjorta.",
+				"Per: Rött passar dig, du kommer vara väldigt snygg.",
+				"Susann: Tack, jag vet inte vilken färg jag ska ha på skorna, röda eller svarta?",
+				"Per: Båda två passar dig.",
+				"Susann: Ja, jag har troligtvis på mig svarta skor."
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Fiskekyrka är en av Sveriges äldsta marknader. Denna marknad ligger i centrala Göteborg. Fiskekyrka anses vara Sveriges mest ikoniska marknad. På denna marknad fäljs fisk. Marknadens arkitektur är väldigt vacker och byggnaden ser ut som en kyrka. Varje år besöker många turister denna marknad."
+		}
+	]
 }
