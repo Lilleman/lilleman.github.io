@@ -1,4 +1,81 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "آب و هوا",
+	"content": [
+	    {
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "پیشوند‌ها",
+			"table": [
+			    "Inter: intervall, internationell, internet",
+			    "O: oseriös, olämplig, omöjlig, orolig, ovanlig",
+			    "Post: postmodernism, postfix",
+			    "Pre: preliminär, prefix",
+			    "Re: reaktion, reagera, redogöra, repetera",
+			    "Trans: transaktion, transfer, transport"
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Myr: Hur är vädret idag?",
+				"Niklas: Väldigt kallt. Det snöar hela dagen.",
+				"Myr: Nu är det fem grader men imorse var det kallare.",
+				"Niklas: Skolan är troligtvis stängd imorgon.",
+				"Myr: Troligtvis, jag gillar verkligen inte vintern. Jag föredrar sommaren.",
+				"Niklas: Jag gillar att leka i snön och åka skidor. Jag hatar sommaren, det är för varmt.",
+				"Myr: Jag älskar att simma i poolen på en varm sommardag.",
+				"Niklas: Om skolan är stängd imorgon kan vi åka skidor. Vad tycker du?",
+				"Myr: Nej, jag föredrar att stanna hemma i värmen."
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "پسوند‌ها",
+			"table": [
+			    "aktig: delaktig, felaktig, fördelaktig, tvivelaktig",
+			    "ande: deltagande, erbjudande, frånvarande, följande, givande, imponerande, närvarande, omfattande, ordförande",
+			    "artad: elakartad, godartad, likartad",
+			    "ing: avdelning, forskning, fortsättning, främling, förkylning, förpackning, galning, parkering, ritning",
+			    "ism: alkoholism, buddism, egoism, feminism, kapitalism, kommunism, modernism, socialism, turism",
+			    "skap: budskap, egenskap, kunskap, redskap, vetenskap, vänskap, äktenskap"
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+			    "Hur är vädret idag?", "امروز هوا جطوره؟",
+			    "Det är bra väder idag.", "امروز هوا خوب است.",
+			    "Det är dåligt väder idag.", "امروز هوا بد است.",
+			    "Det är soligt idag!", "امروز هوا آفتابی است."
+			]
+		},
+		{
+			"title": "Väder", "title2": "آب و هوا",
+			"table": [
+				"<a>molnig</a>", "<a>solig</a>", "<a>regnig</a>", "<a>snöig</a>",
+				"ابری", "آفتابی", "بارانی", "برفی",
+				"<a>vind</a>", "<a>dimma</a>", "<a>åska</a>", "<a>stormig</a>",
+				"باد", "مه", "رعد و برق", "طوفانی"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Sanna: Det är väldigt bra väder idag, jag hoppas att det regnar.",
+				"Felix: Väderleksrapporten sa att det skulle regna idag.",
+				"Sanna: Verkligen? Vad bra, jag älskar att promenera i regnet..",
+				"Felix: Jag gillar också regn men föredrar att titta på det från min balkong.",
+				"Sanna: Prova att promenera i regnet någon gång, det känns bra efter.",
+				"Felix: Men jag är rädd att bli förkyld."
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Staden Ystad ligger i södra Sverige. Staden har många stenlagda trottoarer. Arkitekturer i denna stad är gammaldags och vacker, och vädret i södra Sverige är varmt och trevligt.\nYstad har ett forntida kloster. Klostret är en mycket vacker byggnad som ligger bredvid havet."
+		}
+	]
 }
