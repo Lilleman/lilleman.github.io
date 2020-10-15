@@ -1,4 +1,58 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "درد",
+	"content": [
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Doktor: ٰVad är ditt problem?",
+				"Hanna: Jag har ont i huvudet och hjärtat.",
+				"Doktor: Från och med när?",
+				"Hanna: Igår kväll.",
+				"Doktor: Du tror inte att du blivit förkylt?",
+				"Hanna: Jag vet inte, jag tror inte det.",
+				"Doktor: Okej, låt mig se din hals. Öppna munnen. Aha, det verkar inflammerat.",
+				"Hanna: Verkligen?",
+				"Doktor: Ja, jag skriver ut tabletter till dig.",
+				"Hanna: Tack.",
+				"Doktor: Du måste vila väl och ta medicinen i tid.",
+				"Hanna: Visst, tack doktorn."
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+			    "Kan du ge mig något för att stoppa smärtan?", "ممکن است چیزی برای قطع شدن درد به من بدهید؟",
+			    "Hur länge tar det att bli bra igen?", "چقدر طول می‌کشد تا دوباره خوب شوم؟",
+			    "Jag använder denna medicin.", "من از این دارو استفاده می‌کنم."
+			]
+		},
+		{
+			"title": "Smärta", "title2": "دردها",
+			"table": [
+				"<a>brännskada</a>", "<a>fraktur</a>", "<a>huvudvärk</a>", "<a>magont</a>", "<a>halsont</a>",
+				"سوختگی", "شکستگی", "سردرد", "شکم درد", "گلو درد",
+				"<a>svullnad</a>", "<a>insektsbett</a>", "<a>skärsår</a>", "<a>hosta</a>", "<a>förkylning</a>",
+				"ورم", "نیش حشره", "بریدگی", "سرفه", "سرماخوردگی"
+			],
+			"numTableColumns": 5
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Adam: Hej Sanna hur mår du?",
+				"Sanna: Jag mår bra tack, vart ska du?",
+				"Adam: Jag ska till doktorn. Jag har haft ont i hjärtat sedan igår kväll.",
+				"Sanna: Varför? Du kanske har blivit matförgiftad?",
+				"Adam: Jag tror inte det eftersom jag inte åt något särskilt.",
+				"Sanna: Vill du att jag ska följa med till sjukhuset?",
+				"Adam: Nej tack, jag tar taxi."
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Gripsholms slott är ett av Sveriges mest kända och historiska slott för turister. Slottet byggdes år 1537 av Gustav Vasa. Slottet ligger på en liten ö utanför staden Mariefred. Runt omkring slottet fanns en vik som heter Gripsholmsfjärden. Norr om slottet finns några runstenar. På dessa runstenar står det lite historia från vikingarnas tid. Norr om slottet finns även andra byggnader som tillhörde slottet."
+		}
+	]
 }
