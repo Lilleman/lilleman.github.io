@@ -1,4 +1,55 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "راه‌های ارتباطی",
+	"content": [
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Peter: ٰSkulle inte du gå till posten idag?",
+				"Sara: Posten? Nej, men om du är upptagen kan jag åka dit åt dig.",
+				"Peter: Nej, jag vill inte besvära dig, jag åker dit själv imorgon.",
+				"Sara: Det är inga problem posten är nära affären som jag ska åka till.",
+				"Peter: Verkligen? Vilken affär?",
+				"Sara: Elektronikaffären, jag ska köpa en laptop.",
+				"Peter: Bra, vet du vilket märke som är bäst?",
+				"Sara: Jag forskade mycket om det, men jag vet fortfarande inte vilket märke som är bäst.",
+				"Peter: Min bror kan mycket om detta, jag frågar honom.",
+				"Sara: Tack, snälla gör det."
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+			    "Jag vill skicka ett mail.", "می‌خواهم یک پیغام با ایمیل بفرستم.",
+			    "Jag vill skicka ett fax.", "می‌خواهم یک پیغام با بکس بفرستم."
+			]
+		},
+		{
+			"title": "Möbler", "title2": "وسایل خانه",
+			"table": [
+				"<a>soffa</a>", "<a>matta</a>", "<a>säng</a>", "<a>airkondition</a>",
+				"کاناچه", "فرش", "تخت خواب", "کولر",
+				"<a>kudde</a>", "<a>fläkt</a>", "<a>gardin</a>", "<a>garderob</a>",
+				"بالش", "پنکه", "پرده", "کمد"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Rasmus: Kan du ge mig bildena du tog på festen?",
+				"Anna: Visst, men imorgon åker jag på semester i two veckor.",
+				"Rasmus: Oh! då måste jag vänta två veckor innan jag får se bilderna.",
+				"Anna: Nej om du har email kan jag maila dem till dig.",
+				"Rasmus: Ja, det har jag. Antecknar du?",
+				"Anna: Okej, jag skickar dem till dig ikväll.",
+				"Rasmus: Vad bra! Tack."
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Rök och eld var de första sätten att kommunicera på. Eld användes på natten och rök på dagen. Förr användes duvor för att skicka meddelanden.\nEn gammal metod att skicka meddelanden är genom posten. Telefon och TV är nya uppfinningar som används för att kommunicera. Idag har datorer och mobiler också utökat sätten att kommunicera på."
+		}
+	]
 }
