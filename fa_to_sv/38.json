@@ -1,4 +1,80 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "دوست‌ها",
+	"content": [
+	    {
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "حرف ربط «som»، «för att»",
+			"table": [
+				"Killen som gick förbi är min klasskamrat.",
+				"Tjejen som sitter där är min arbetskamrat.",
+				"Jag gick för att träffa honom.",
+				"Vi gick för att han kom."
+			]
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Daniel: Har du vänner här i staden?",
+				"Minna: Självklart, jag har många vänner. Både från universitetet och från andra miljöer.",
+				"Daniel: Verkligen? Hur många vänner har du?",
+				"Minna: Jag vet inte, tio kanske.",
+				"Daniel: Vad bra, det är väldigt många. Har du nära vänner?",
+				"Minna: Ja, jag har många nära vänner.",
+				"Daniel: Jag har bara en nära vän.",
+				"Minna: Det var inte bra.",
+				"Daniel: Jag har endast några få vänner.",
+				"Minna: Jag kan introducera dig för mina vänner.",
+				"Daniel: Det vore väldigt snällt av dig."
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "حرف ربط «till»، «tills»",
+			"table": [
+				"Vi stannar tills professorn kommer.",
+				"Jag studerar från morgon till kväll.",
+				"Jag satt där tills affären öppnade.",
+				"Hon gick från huset till skolan.",
+				"Försök tills du inte kan längre.",
+				"Jag drömde tills jag vaknade."
+			]
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+			    "Har du flickvän?", "آیا تو دوست دختر داری؟",
+			    "Hur träffade du din make?", "چطور با شوهرت آشنا شدی؟"
+			]
+		},
+		{
+			"title": "Årstider", "title2": "فصل‌ها",
+			"table": [
+				"<a>sparv</a>", "<a>örn</a>", "<a>duva</a>", "<a>kanariefågel</a>",
+				"<a>پرستو</a>", "<a>عقاب</a>", "<a>کبوتر</a>", "<a>قناری</a>",
+				"<a>papegoja</a>", "<a>struts</a>", "<a>kalkon</a>", "<a>svala</a>",
+				"<a>طوطی</a>", "<a>شترمرغ</a>", "<a>بوقلمون</a>", "<a>گنجشک</a>",
+				"<a>anka</a>", "<a>uggla</a>", "<a>påfågel</a>", "<a>kråka</a>",
+				"<a>اردک</a>", "<a>جغد</a>", "<a>طاووس</a>", "<a>کلاغ</a>"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Anna: Är du och Sara nära vänner?",
+				"Minna: Ja, vi har varit vänner i några år.",
+				"Anna: Hur träffades ni?",
+				"Minna: Sara var min klasskamrat. Vi har varit vänner sedan gymnasiet.",
+				"Anna: Vad bra! Jag har också två nära vänner.",
+				"Minna: Bra! Jag tror att jag har träffat en av dem.",
+				"Anna: Ja, hon kom till min födelsedagsfest förra helgen."
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Midsommarafton är en av de officiella helgdagarna i Sverige. På denna dag går Svenskarna ut och samlas utomhus i parker. Midsommar har speciella traditioner och ritualer. Som exempel på dessa ritualer kan nämnas: knyta midsommarkrans av blommor, dansa bansliga danser runt en stång, äta sill och dricka snaps (en sorts alkohol), laga och äta jordgubbstårta. Unga fortsätter gärna festa tills sent på natten."
+		}
+	]
 }
