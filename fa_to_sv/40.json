@@ -1,4 +1,74 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "در هتل",
+	"content": [
+	    {
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "فعل‌های کمکی\nska",
+			"table": [
+				"Jag ska gå.",
+				"Du ska studera."
+			]
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Receptionist: Hej, välkommen, hur kan jag hjälpa dig?",
+				"Niklas: Hur mycket kostar ett rum?",
+				"Receptionist: Våra rum börjar på 1000 kronor.",
+				"Niklas: Jag vill ha ett dubbelrum.",
+				"Receptionist: Hur många nätter stannar ni?",
+				"Niklas: Fyra nätter.",
+				"Receptionist: Vi förbereder rum 78 åt er.",
+				"",
+				"Laleh: Hej jag har bokat ett rum.",
+				"Receptionist: Vad är ditt namn?",
+				"Laleh: Laleh.",
+				"Receptionist: Ja, ditt rum är nummer 307.",
+				"Laleh: Kan ni ta med mina resväskor till mitt rum?",
+				"Receptionist: Ja, visst."
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "فعل‌های کمکی\nhar",
+			"table": [
+				"Jag har gått.",
+				"Du har studerat."
+			]
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+			    "Snälla skicka en taxi till mitt hotel.", "لطفا یک تاکسی به هتل من بفرستید.",
+			    "Åt vilket håll ligger centrum?", "مرکز شهر از کدام طرف است؟"
+			]
+		},
+		{
+			"title": "På Hotell", "title2": "در هتل",
+			"table": [
+				"<a>receptionist</a>", "<a>reception</a>", "<a>hembiträde</a>", "<a>piccolo</a>",
+				"متصدی پذیرش", "پذیرش", "مستخدم زن", "باربر",
+				"<a>parkeringsvakt</a>", "<a>portier</a>", "<a>halvpension</a>", "<a>helpension</a>",
+				"مسئول پارک ماشین‌ها", "دربان هتل", "اتاق با صبخانه و شام", "اتاق با غذا"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Laleh: Hej, god morgon.",
+				"Receptionist: God morgon, vad behöver du?",
+				"Laleh: Jag är ute tills klockan nio. Jag ville lämna rumsnyckeln.",
+				"Receptionist: Ja visst, har du något annat jobb?",
+				"Laleh: Om någon ringer, säg att jag återvänder klockan nio.",
+				"Receptionist: Visst, ha en bra dag."
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Uppsala Universitet är det äldsta universitetet i Sverige. Detta universitet grundades för mer än femhundra år sedan i Uppsala. Detta universitet var det första universitetet i Sverige. Med nio fakulteter är universitetet fortfarande ett av de största universiteten i Sverige.\n\nFrån öppnandet av universitetet i Uppsala och fram till nu har många kända personer studerat där, till exempel femton nobelpristagare, åtta kungar och fjorton stadsministrar."
+		}
+	]
 }
