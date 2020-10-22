@@ -1,4 +1,66 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "بانک",
+	"content": [
+	    {
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "علامت‌های جمع",
+			"table": [
+				"-or: flicka -> flickor, våg -> vågor, ros -> rosor",
+				"-ar: pojke -> pojkar, hund -> hundar, sommar -> somrar, mor -> mödrar",
+				"-er: park -> parker, hand -> händer, land -> länder, bok -> böcker, nöt -> nötter"
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Bankman: Välkommen, vad kan jag hjälpa dig med?",
+				"Minna: Jag vill öppna ett konto.",
+				"Bankman: Vilken sorts konto? Sparkonto eller lönekonto?",
+				"Minna: Sparkonto.",
+				"Bankman: Fyll i detta formulär. Har du med dig ditt ID-kort?",
+				"Minna: Ja, varsågod. Jag vill också sätta in pengar på kontot.",
+				"Bankman: Fyll i detta formulär och skriv beloppet här.",
+				"Minna: Vad är sparräntan på denna bank?",
+				"Bankman: 0 procent som alla andra banker."
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Grammatik", "title2": "دستور زبان",
+			"description": "علامت‌های جمع",
+			"table": [
+				"-n: bi -> bin, äpple -> äpplen",
+				"-: barn -> barn, djur -> djur, lärare -> lärare, man -> män"
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+			    "Jag vill sätta in lite pengar.", "می‌هواهم مقداری پول واریز کنم.",
+			    "Jag vill ta ut lite pengar.", "می‌هواهم مقداری پول برداشت کنم.",
+			    "Var är närmsta växelkontor?", "نزدیکترین صرافی کجاست؟",
+			    "Hur länge har växelkontoret öppet?", "صرافی تا کی باز است؟",
+			    "Jag vill ha en insättningskvitto.", "من یک قبض واریز می‌هواهم.",
+			    "Jag vill ha en uttagskvitto.", "من یک قبض برداشت می‌هواهم."
+			]
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Adam: Vad är det? Varför är du ledsen?",
+				"Rebecka: Jag har för lite pengar för att köpa ett hus.",
+				"Adam: Ok, varför lånar du inte från banken?",
+				"Rebecka: Räntan är för hög, jag har inte råd.",
+				"Adam: Oh så illa! I så fall är det bättre att hyra en lägenhet. ",
+				"Rebecka: Ja, jag måste leta efter en lägenhen att hyra."
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Internet är ett kommunikationsmedel. Vem som helst kan kommunicera med andra över hela världen via Internet. Alla kan använda de hemsidor som finns på internet och alla kan publicera sina eget hemsidor på Internet.\n\nDet finns många artiklar och texter på Internet. Internet har gjort många saker mycket enklare, till exempel att köpa och sälja saker. Det finns även mycket roligt på Internet."
+		}
+	]
 }
