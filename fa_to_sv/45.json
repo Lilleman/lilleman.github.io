@@ -1,4 +1,53 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "وضعیت اضطراری",
+	"content": [
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Adam: Vad är det? Kan jag hjälpa dig?",
+				"Bea: Ja, snälla kör mig till sjukhuset.",
+				"Adam: Vad har hänt?",
+				"Bea: Jag trillade ner för trapporna. Jag kan inte gå.",
+				"Adam: Låt mig ringa en ambulans.",
+				"Bea: Tack. Min väska har fallit där, kan du hämta den åt mig?",
+				"Adam: Ja visst, Om du vill kan jag informera din familj.",
+				"Bea: Min makes nummer finns på min telefon, med namnet Sebbe.",
+				"Adam: Oroa dig inte, ambulansen kommer snart."
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+			    "Snälla ring en doktor.", "لطفا یک دکتر زنگ زنید.",
+			    "Snälla ring en ambulans.", "لطفا یک آمبولانس زنگ زنید."
+			]
+		},
+		{
+			"title": "Olyckor", "title2": "حوادث",
+			"table": [
+				"<a>explosion</a>", "<a>jordbävning</a>", "<a>krig</a>",
+				"اِنفِجار", "زلزله", "جنگ",
+				"<a>översvämning</a>", "<a>råka</a> <a>ut</a> <a>för</a> <a>en</a> <a>olycka</a>", "<a>brand</a>",
+				"سیل", "تصادف کردن", "آتش‌سوزی"
+			],
+			"numTableColumns": 3
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Amanda: Snälla hjälp! En person är skadad.",
+				"Bea: Vad har hänt?",
+				"Amanda: Det var en olycka. Han skulle korsa gatan när en motorcykel körde på honom.",
+				"Bea: Oh herre gud! Jag ringer en ambulans.",
+				"Amanda: Snälla ring polisen också.",
+				"Bea: Visst, han blöder mycket, må gud hålla honom vid liv."
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Röda korset är en humanitär organisation. Svenska Röda korset är medlem i internationella Röda korset. Röda korset bedriver hjälp och humanitära verksamheter i krigsdrabbade länder i världen.\nRöda korset måste hjälpa de skadade i kristider som översvämningar, jordbävningar, kris, och så vidare. Röda korset gör också omfattande utbildningar, medicinsk hjälp och tjänster."
+		}
+	]
 }
