@@ -1,4 +1,56 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "شخصیت‌ها",
+	"content": [
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Niklas: Vet u något om doktor Felicias lektioner?",
+				"Kim: Ja, henne känner jag, vill du gå på hennes lektioner?",
+				"Niklas: Ja, men jag har inte heft lektioner med henne tidigare. Denna termin vill jag gå på hennes lektioner.",
+				"Kim: Hon är en intressant och utmanande lärare. Hon är mycket sträng.",
+				"Niklas: Det är vad jag vill.",
+				"Kim: Vet u att hon har 20 års erfarenhet av undervisning?",
+				"Niklas: Verkligen? Nej, det visste jag inte.",
+				"Kim: Jag hoppas att jag kunde hjälpa dig.",
+				"Niklas: Ja, tack för din hjälp."
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+			    "Gillar du att sätta mål för framtiden?", "آیا می‌خواهی برای آینده‌ یک هدف مشخص کنی؟"
+			]
+		},
+		{
+			"title": "Beteenden", "title2": "رفتارها",
+			"table": [
+				"<a>snäll</a>", "<a>asocial</a>", "<a>social</a>", "<a>flitig</a>",
+				"مهربان", "گوشه‌گیر", "اجتماعی", "سخت‌کوش",
+				"dåligt <a>humör</a>", "<a>bra</a> <a>humör</a>", "<a>lugn</a>", "<a>nervös</a>",
+				"بداخلاق", "خوش‌اخلاق", "آرام", "عصبی",
+				"<a>artig</a>", "<a>blyg</a>", "<a>tyst</a>", "<a>pratsam</a>",
+				"مودب", "خجالتی", "کم‌حرف", "پرحرف"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Sanna: Känner du den här killen? Jag tror att han är din klasskamrat.",
+				"Omar: Ja, han är min klasskamrat.",
+				"Sanna: Jag har aldrig sett honom för än nu.",
+				"Omar: Han kom nyligen till detta universitet.",
+				"Sanna: Han verkar vara en väldigt lugn kille. Jag ser honom alltid läsa böcker.",
+				"Omar: Ja, han är också väldigt artig. Jag gillar hans personlighet.",
+				"Sanna: Det kanske beror på att han nyligen kom hit och inte känner någon.",
+				"Omar: Kanske."
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Vandringsleden Kungsleden är en av de viktigaste rekreationsområdena i Norrland. Anledningen till vandringsledens popularitet är dess höjd jämfört med de omgivande kullarna och närheten till staden Abisko.\nMånga människor går denna utflyktsväg, särskilt under semestern och njuter av den vackra utsikten över Norrland."
+		}
+	]
 }
