@@ -1,4 +1,62 @@
 {
-    "title": "TODO",
-    "content": []
+	"title": "تمیز کردن خانه",
+	"content": [
+	    {
+	        "title": "Grammatik", "title2": "دستور زبان",
+	        "description": "در نقل قول غیرمستقیم  معمولا از حرف ربع «att» استفاده می‌کنیم.\nAli sa till Sara att han skulle resa imorgon.\nSara sa att hon skulle köpa boken till honom."
+	    },
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Adam: Jag måste städa huset idag. Jag har inte städat på flera dagar.",
+				"Bea: Ja, det är väldigt smutsigt.",
+				"Adam: Du kan hjälpa mig.",
+				"Bea: Varför mig?",
+				"Adam: För att du hjälpe till att smutsa ner.",
+				"Bea: Okej! Vad vill du att jag ska göra?",
+				"Adam: Jag vill att du städar badrummet.",
+				"Bea: Okej! Det är enkelt.",
+				"Adam: Du måste städa handfatet, badkaret och toaletten också.",
+				"Bea: Måste jag göra allt det?",
+				"Adam: Det är inte allt. Det är många andra saker som jag gör."
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Vanliga fraser", "title2": "عبارات رایج",
+			"table": [
+			    "Kan vi campa här?", "ممکن است اینجا اردو بزنیم؟",
+			    "Har ni plats för ett tält?", "برای یک چادر جا دارید؟",
+			    "Var är fiske tillåtet?", "کجا ماهیگیری مجاز است؟"
+			]
+		},
+		{
+			"title": "Dagliga sysslor", "title2": "کارهای روزانه",
+			"table": [
+				"<a>träna</a>", "<a>äta</a> <a>frukost</a>", "<a>dricka</a> <a>kaffe</a>", "<a>laga</a> <a>mat</a>",
+				"ورزش کردن", "صبحانه خوردن", "قهوه نوشیدن", "شام پختن",
+				"<a>studera</a>", "<a>läsa</a> nyheterna", "<a>gå</a> <a>till</a> skolan", "<a>gå</a> <a>och</a> <a>lägga</a> <a>sig</a>",
+				"مطالعه کردن", "اخبار خواندن", "رفتن به مدرسه", "به تخت‌خواب رفتن",
+				"<a>tvätta</a>", "<a>diska</a>", "<a>städa</a> huset", "<a>titta</a> <a>på</a> <a>tv</a>",
+				"لباس شستن", "ظرف شستن", "تمیز کردن خانه", "تماشای تلویزیون"
+			],
+			"numTableColumns": 4
+		},
+		{
+			"title": "Konversation", "title2": "گفتگو",
+			"table": [
+				"Sanna: Vill du gå på picknick med mina vänner idag?",
+				"Simon: Nej, idag måste jag göra hushållssysslor.",
+				"Sanna: Vilka sysslor?",
+				"Simon: Diska, tvätta, sopa.",
+				"Sanna: Nej! Jag har ett möte med mina vänner.",
+				"Simon: Okej, du kan göra dina hushållssysslor snabbare så att du kan gå på picknick med dina vänner."
+			],
+			"numTableColumns": 1
+		},
+		{
+			"title": "Läsning", "title2": "خواندن",
+			"description": "Safavid Garden ligger i staden Qazvin. Denna trädgård har mer än 6 hektar. Safavid trädgården börjar vid Qapos höga port and ansluter till innergården till Chehelston Palace. Längs vägen kan olika historiska monument observeras.\nTrädgårdens huvudområde har sju entreer, varav en av dem kallas Qapo High Gate."
+		}
+	]
 }
