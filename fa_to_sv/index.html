@@ -30,6 +30,8 @@
 </body>
 </html>
 <script>
+// TODO: Part A1 1-30
+// TODO: Part A2 31-49
 async function init() {
   document.body = document.createElement('body');
   document.body.style.cursor = 'wait';
@@ -48,7 +50,7 @@ async function init() {
   let ol = document.createElement('ol');
 
   let baseURL = 'https://ackelman.github.io/fa_to_sv/';
-  let arr = await Promise.all([...Array(100).keys()].map(i => fetch(baseURL + (i+1) + '.json').then(el => el.json())));
+  let arr = await Promise.all([...Array(50).keys()].map(i => fetch(baseURL + (i+1) + '.json').then(el => el.json())));
   for (let i = 0; i < arr.length; i++) {
     let li = document.createElement('li');
     li.appendChild(createLink(arr[i].title, 'https://ackelman.github.io/fa_to_sv/view.html?lesson=' + (i+1)));
