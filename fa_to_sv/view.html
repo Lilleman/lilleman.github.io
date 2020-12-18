@@ -58,7 +58,7 @@ var storageRef = storage.ref()
 
 let audioLinks = {}
 function getLinkToSound(word) {
-  return storageRef.child(word.toLowerCase() + '.mp3').getDownloadURL().catch((e) => {})
+  return storageRef.child(word.toLowerCase() + '.mp3').getDownloadURL().catch((e) => {console.log(word);})
 }
 
 function splitAtSlash(txt) {
@@ -203,12 +203,13 @@ function createFrameAroundItem(label, label2, desc, item) {
   document.body.appendChild(fieldset);
 }
 
-const BASE_URL = 'https://api.mongolab.com/api/1/databases/persian_deck/collections/words'
-const KEY = 'apiKey=9ROoRY8i79_40JLlPIsUiCWBZUHuNMo_'
+const BASE_URL = 'https://persian-flashcards.herokuapp.com/api/words'
 
 async function fetchVocab(lesson) {
-  let condition = 'q={"tags":"Lesson ' + lesson + '"}'
-  let res = await fetch(BASE_URL + '?' + condition + '&' + KEY).then(e => e.json());
+  let res = await fetch(BASE_URL).then(e => e.json());
+  res = res.filter(elem => {
+      return (elem.tags.indexOf('Lesson ' + lesson) >= 0)
+  })
   return res.map(elem => {
     return [elem.swedish, elem.persian];
   })
