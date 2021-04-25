@@ -1,0 +1,144 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    body{margin:auto !important;padding:20px;text-align:justify;line-height:140%; -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-smoothing:antialiased;color:#222;font-family:Palatino,Georgia,"Times New Roman",serif;background-color: #fc9;background: transparent url(https://i.ganjoor.net/pbk.jpg) top center repeat scroll;}
+    div{margin: 16px 0 16px 0}
+    div.title{font-size:26px;font-weight:800;line-height:120%;text-align:center}
+    div.title,contents,h1,h2,h3,h4,h5,h6{font-family:Verdana,Helvetica,Arial,sans-serif;margin:13.4px 0 13.4px;padding:15px 0 3px;border-top:none;clear:both}
+    h1{border-bottom:3px solid;font-size:20px;font-weight:bold;}
+    h2{border-bottom:2px solid #999;color:#555;font-weight:bold;font-size:18px;}
+    h3,h4,h5,h6{font-family:Verdana,Helvetica,Arial,sans-serif;color:#555;font-size:16px;}
+    div table{margin:16px 0 16px 0}
+    table{border-collapse:collapse;line-height:140%;page-break-inside:avoid;margin:auto}
+    table th{color:#FFF;background-color:#8080d4;border:1px solid #888;padding:8px 15px 8px 15px;text-align: right}
+    table td{padding:5px 15px 5px 15px;border:1px solid #888;text-align: right}
+    table tr:nth-child(odd){background:transparent url(https://ganjoor.net/img/cbk.jpg) top center repeat scroll}
+    table th:first-child, table td:first-child{text-align: left}​
+    h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {margin-right:10px}
+    div.row {flex-wrap: initial;margin-block-start: 0;margin-block-end: 0;}
+    div.col-sm {margin-top: 0;margin-bottom: 0;}
+    a{color: blue !important; text-decoration: underline !important;}
+    a:hover{cursor: pointer}
+    </style>
+  </head>
+<body>
+<p><title>The ~3500 most common words</title></p>
+<div class="title">The ~3500 most common words</div>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet"/>
+
+<div class="container" style="max-width: none;">
+</div>
+
+</body>
+</html>
+<script>
+let audio = new Audio();
+function playAudio(url) {
+  audio.pause();
+  audio = new Audio(url);
+  audio.play();
+}
+
+function rowsToObj(rows) {
+  headers = rows[0]
+  out = []
+  for (let i = 1; i < rows.length; i++) {
+    row = rows[i]
+    data = {}
+    for (let j = 0; j < row.length; j++) {
+      data[headers[j]] = row[j]
+    }
+    out.push(data)
+  }
+  return out
+}
+
+const SKIP_INITIAL_SPACE = true
+
+function parseCSV(s) {
+  let inQuote = false
+  let fieldQuoted = false
+  let field = ""
+  let row = []
+  let out = []
+  
+  let processField = function(field) {
+    if (fieldQuoted !== true) {
+      if (field === "") {
+        field = null
+      } else if (SKIP_INITIAL_SPACE === true) { // Skip initial space
+        field = field.trim()
+      }
+
+      if (/^\d+$/.test(field)) {
+        field = parseInt(field, 10)
+      }
+    } else {
+      if (/^\d*,\d+$|^\d+,\d*$/.test(field)) {
+        field = parseFloat(field.replace('"', '').replace(',', '.'), 10)
+      }
+    }
+    return field
+  }
+
+  for (let i = 0; i < s.length; i++) {
+    let cur = s.charAt(i)
+
+    if (inQuote === false && (cur === ',' || cur === '\n')) {
+      field = processField(field)
+      row.push(field)
+      if (cur === '\n') {
+        out.push(row)
+        row = []
+      }
+
+      field = ""
+      fieldQuoted = false
+    } else {
+      if (cur !== '"') {
+        field += cur
+      } else {
+        if (!inQuote) {
+          inQuote = true
+          fieldQuoted = true
+        } else {
+          if (s.charAt(i + 1) === '"') {
+            field += '"'
+            i += 1
+          } else {
+            inQuote = false
+          }
+        }
+      }
+    }
+  }
+
+  field = processField(field)
+  row.push(field)
+  out.push(row)
+
+  return rowsToObj(out)
+}
+
+let dictionary = {};
+
+const wordDifficulties = ['A1', 'A2', 'B1', 'B2'];
+let promises = wordDifficulties.map(a => {
+  return fetch('https://ackelman.github.io/fasv/' + a + '.csv').then(res => res.text()).then(data => parseCSV(data));
+});
+
+Promise.all(promises)
+.then(function (values) {
+  dictionary = {
+    'A1': values[0],
+    'A2': values[1],
+    'B1': values[2],
+    'B2': values[3]
+  };
+  console.log(dictionary)
+})
+
+</script>
