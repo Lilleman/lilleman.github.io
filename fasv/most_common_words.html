@@ -22,26 +22,20 @@
     div.col-sm {margin-top: 0;margin-bottom: 0;}
     a{color: blue !important; text-decoration: underline !important;}
     a:hover{cursor: pointer}
+    .row * {margin: 4px 0 4px 0;}
+    .card-body{padding: 0.25rem !important;}
+    .card-text{margin-bottom: 0;}
     </style>
   </head>
 <body>
 <p><title>The ~3500 most common words</title></p>
 <div class="title">The ~3500 most common words</div>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet"/>
-
-<div class="container" style="max-width: none;">
+<div class="container" style="max-width: none;" id="container">
 </div>
-
 </body>
 </html>
 <script>
-let audio = new Audio();
-function playAudio(url) {
-  audio.pause();
-  audio = new Audio(url);
-  audio.play();
-}
-
 function rowsToObj(rows) {
   headers = rows[0]
   out = []
@@ -55,16 +49,16 @@ function rowsToObj(rows) {
   }
   return out
 }
-
+  
 const SKIP_INITIAL_SPACE = true
-
+  
 function parseCSV(s) {
   let inQuote = false
   let fieldQuoted = false
   let field = ""
   let row = []
   let out = []
-  
+    
   let processField = function(field) {
     if (fieldQuoted !== true) {
       if (field === "") {
@@ -72,7 +66,7 @@ function parseCSV(s) {
       } else if (SKIP_INITIAL_SPACE === true) { // Skip initial space
         field = field.trim()
       }
-
+  
       if (/^\d+$/.test(field)) {
         field = parseInt(field, 10)
       }
@@ -83,10 +77,10 @@ function parseCSV(s) {
     }
     return field
   }
-
+  
   for (let i = 0; i < s.length; i++) {
     let cur = s.charAt(i)
-
+  
     if (inQuote === false && (cur === ',' || cur === '\n')) {
       field = processField(field)
       row.push(field)
@@ -94,7 +88,7 @@ function parseCSV(s) {
         out.push(row)
         row = []
       }
-
+  
       field = ""
       fieldQuoted = false
     } else {
@@ -115,12 +109,87 @@ function parseCSV(s) {
       }
     }
   }
-
+  
   field = processField(field)
   row.push(field)
   out.push(row)
-
+  
   return rowsToObj(out)
+}
+
+function createCard(ele) {
+  let col = document.createElement('div')
+  col.classList.add('col-sm-6')
+  let card = document.createElement('div')
+  card.classList.add('card')
+  let body = document.createElement('div')
+  body.classList.add('card-body')
+  let p1 = document.createElement('p')
+  p1.classList.add('card-text')
+  p1.innerHTML = ele['sv'] + ', ' + (ele['fa'] || '') + ', ' + ele['wclass']
+  body.appendChild(p1)
+
+  if (ele['grammar'] === 'en' || ele['grammar'] === 'ett' || ele['grammar'] === 'att') {
+    let p2 = document.createElement('p')
+    p2.classList.add('card-text')
+    if (ele['grammar'] === 'en' || ele['grammar'] === 'ett') {
+      p2.innerHTML = ele['grammar'] + ' ' + ele['sv'] + ', flera ' + (ele['grammar2'] || '')
+    } else {
+      p2.innerHTML = (ele['grammar2'] || '')
+    }
+    body.appendChild(p2)
+  }
+
+  let p3 = document.createElement('p')
+  p3.classList.add('card-text')
+  p3.innerHTML = ele['ex'] || ''
+  body.appendChild(p3)
+
+  let p4 = document.createElement('p')
+  p4.classList.add('card-text')
+  p4.classList.add('text-right')
+  p4.style.direction = 'rtl'
+  p4.innerHTML = ele['fa_ex'] || ''
+  body.appendChild(p4)
+
+  let p5 = document.createElement('p')
+  p5.classList.add('card-text')
+  p5.innerHTML = ele['freq']
+  body.appendChild(p5)
+
+  card.appendChild(body)
+  col.appendChild(card)
+  return col
+}
+
+function createRow(d1, d2) {
+  let row = document.createElement('div')
+  row.classList.add('row')
+  row.appendChild(createCard(d1))
+  if (d2 && d2['sv']) {
+    row.appendChild(createCard(d2))
+  }
+  return row
+}
+
+function createRows(dict) {
+  let container = document.getElementById('container')
+  for (let i = 1; i < dict.length; i += 2) {
+    if (!dict[i - 1]['fa']) {
+      break
+    }
+    container.appendChild(createRow(dict[i - 1], dict[i]))
+  }
+}
+
+function getJsonFromUrl() {
+  var query = location.search.substr(1);
+  var result = {};
+  query.split("&").forEach(function(part) {
+    var item = part.split("=");
+    result[item[0]] = decodeURIComponent(item[1]);
+  });
+  return result;
 }
 
 let dictionary = {};
@@ -138,7 +207,7 @@ Promise.all(promises)
     'B1': values[2],
     'B2': values[3]
   };
-  console.log(dictionary)
-})
-
-</script>
+  //console.log(dictionary)
+  createRows(values[0])
+})  
+</script>  
