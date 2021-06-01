@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background-color: #fc9;
+      background: transparent url(https://i.ganjoor.net/pbk.jpg) top center repeat scroll;
+    }
+    h1 {
+      margin-top: -100px;
+      margin-bottom: 0;
+      text-align: center;
+    }
+    a {
+      color: black;
+    }
+    ol {
+      columns: 2;
+      -webkit-columns: 2;
+      -moz-columns: 2;
+    }
+    </style>
+  </head>
+<body>
+</body>
+</html>
+<script>
+let files = [
+  'Sommar i bergen - Edith Södergran'
+]
+
+async function init() {
+  document.body = document.createElement('body');
+  document.body.style.cursor = 'wait';
+
+  const createLink = (txt, link) => {
+    let a = document.createElement('a');
+    a.setAttribute('href', link);
+    a.appendChild(document.createTextNode(txt));
+    return a;
+  }
+  
+  let params = (new URL(document.location)).searchParams;
+  let folder = params.get('folder');
+
+  let ol = document.createElement('ol');
+  document.body.appendChild(ol);
+
+  let baseURL = 'https://raw.githubusercontent.com/ackelman/ackelman.github.io/master/swedish_poems_for_persians/';
+  for (let i = 0; i < files.length; i++) {
+    try{
+      let li = document.createElement('li');
+      li.appendChild(createLink(files[i], 'https://ackelman.github.io/swedish_poems_for_persians/view.html?poem=' + files[i]));
+      ol.appendChild(li);
+    } catch (e) {
+    }
+  }
+  
+  document.body.style.cursor = 'auto';
+}
+
+init();
+</script>

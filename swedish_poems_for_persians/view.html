@@ -1,0 +1,337 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    body{display: flex;align-items: center;justify-content: center;flex-direction: column;margin:auto !important;padding:20px;line-height:140%; -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-smoothing:antialiased;color:#222;font-family:Palatino,Georgia,"Times New Roman",serif;font-size:1.5em;background-color: #fc9;background:transparent url(https://i.ganjoor.net/pbk.jpg) top center repeat scroll}
+    div{margin: 0}
+    div.title{font-size:26px;font-weight:800;line-height:120%;text-align:center}
+    div.title,contents,h1{font-family:Verdana,Helvetica,Arial,sans-serif;margin:13.4px 0 13.4px;padding:15px 0 3px;border-top:none;clear:both}
+    h1{border-bottom:3px solid;font-size:2em;font-weight:bold;}
+    h1::before {margin-right:10px}
+    a{color:blue}
+    .split{height:100%;width:45%;position:fixed;}
+    .left{left:5%;}
+    .right{right:5%;column-count: 2;}
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-storage.js"></script>
+  </head>
+<body>
+<h1 id="title"></h1>
+<audio controls id="audio"></audio>
+<div style="margin-top: 16px;">
+  <div class="split left" id="content"></div>
+  <div class="split right" id="wordlist"></div>
+</div>
+</body>
+</html>
+<script>
+function rowsToObj(rows) {
+  headers = rows[0]
+  out = []
+  for (let i = 1; i < rows.length; i++) {
+    row = rows[i]
+    data = {}
+    for (let j = 0; j < row.length; j++) {
+      data[headers[j]] = row[j]
+    }
+    out.push(data)
+  }
+  return out
+}
+  
+const SKIP_INITIAL_SPACE = true
+  
+function parseCSV(s) {
+  let inQuote = false
+  let fieldQuoted = false
+  let field = ""
+  let row = []
+  let out = []
+    
+  let processField = function(field) {
+    if (fieldQuoted !== true) {
+      if (field === "") {
+        field = null
+      } else if (SKIP_INITIAL_SPACE === true) { // Skip initial space
+        field = field.trim()
+      }
+  
+      if (/^\d+$/.test(field)) {
+        field = parseInt(field, 10)
+      }
+    } else {
+      if (/^\d*,\d+$|^\d+,\d*$/.test(field)) {
+        field = parseFloat(field.replace('"', '').replace(',', '.'), 10)
+      }
+    }
+    return field
+  }
+  
+  for (let i = 0; i < s.length; i++) {
+    let cur = s.charAt(i)
+  
+    if (inQuote === false && (cur === ',' || cur === '\n')) {
+      field = processField(field)
+      row.push(field)
+      if (cur === '\n') {
+        out.push(row)
+        row = []
+      }
+  
+      field = ""
+      fieldQuoted = false
+    } else {
+      if (cur !== '"') {
+        field += cur
+      } else {
+        if (!inQuote) {
+          inQuote = true
+          fieldQuoted = true
+        } else {
+          if (s.charAt(i + 1) === '"') {
+            field += '"'
+            i += 1
+          } else {
+            inQuote = false
+          }
+        }
+      }
+    }
+  }
+  
+  field = processField(field)
+  row.push(field)
+  out.push(row)
+  
+  return rowsToObj(out)
+}
+
+let audio = new Audio()
+function playAudio(url) {
+  audio.pause()
+  audio = new Audio(url)
+  document.body.style.cursor = 'wait'
+  audio.play().then(e => {
+    document.body.style.cursor = 'auto'
+  })
+}
+
+const firebaseConfig = {
+  apiKey: "AIzaSyARQ6GCYcZ2Td4ACW6v9aZbF72hV9zm4kU",
+  authDomain: "swedish-word-pronunciation.firebaseapp.com",
+  databaseURL: "https://swedish-word-pronunciation.firebaseio.com",
+  projectId: "swedish-word-pronunciation",
+  storageBucket: "swedish-word-pronunciation.appspot.com",
+  messagingSenderId: "435901397395",
+  appId: "1:435901397395:web:c9c239d6c0cff7a0781066"
+}
+firebase.initializeApp(firebaseConfig)
+var storage = firebase.storage()
+var storageRef = storage.ref()
+
+let audioLinks = {}
+function getLinkToSound(word) {
+  return storageRef.child(word.toLowerCase() + '.mp3').getDownloadURL().catch((e) => {})
+}
+
+async function prefetchLinksToWords(words) {
+  let res = await Promise.all(words.map(e => getLinkToSound(e)))
+  words.forEach((e, i) => {
+    audioLinks[e] = res[i]
+  })
+}
+
+const createLink = (txt, link) => {
+  let a = document.createElement('a')
+  a.setAttribute('onclick', 'playAudio(\'' + link + '\')')
+  a.appendChild(document.createTextNode(txt))
+  return a
+}
+const createLinkIfAvailable = function(word) {
+  if (audioLinks[word]) {
+    return createLink(word, audioLinks[word])
+  }
+  console.log('Couldn\'t find word ' + word + ' in firebase.')
+  return document.createTextNode(word)
+}
+function create_dictionary_entry(dic_entry) {
+  let div = document.createElement('div')
+  div.appendChild(createLinkIfAvailable(dic_entry.sv))
+  div.appendChild(document.createTextNode('   '))
+  let p = document.createElement('div')
+  p.style.direction = "rtl"
+  p.style.display = "inline-block"
+  p.appendChild(document.createTextNode(dic_entry.fa))
+  div.appendChild(p)
+  return div
+}
+
+function createFrameAroundItem(desc) {
+  let div = document.getElementById('content')
+  let tokens = desc.split('\n')
+  for (let i = 0; i < tokens.length; i++) {
+    let tok = tokens[i].replace(/{.+}/g, '')
+    div.appendChild(document.createTextNode(tok))
+    if (i < tokens.length - 1) {
+      div.appendChild(document.createElement('br'))
+    }
+  }
+}
+
+function replace_if_ends_with(word, ar) {
+  ar.forEach(w => {
+    if (word.endsWith(w)) {
+      word = word.replace(new RegExp(w + '$', 'i'), '')
+    }
+  })
+  return word
+}
+
+function try_stem_word(word) {
+  word = replace_if_ends_with(word, ['heterna'])
+  word = replace_if_ends_with(word, ['hetens'])
+  word = replace_if_ends_with(word, ['anden', 'heten', 'heter', 'arnas', 'ernas', 'ornas', 'andes', 'arens', 'andet'])
+  word = replace_if_ends_with(word, ['arna', 'erna', 'orna', 'ande', 'arne', 'aste', 'aren', 'ades', 'erns'])
+  word = replace_if_ends_with(word, ['ade', 'are', 'ern', 'ens', 'het', 'ast'])
+  word = replace_if_ends_with(word, ['ad', 'en', 'er', 'or', 'as', 'es', 'at'])
+  //word = replace_if_ends_with(word, ['a', 'e'])
+
+  let h = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 't', 'v', 'y']
+  h.forEach(w => {if (word.endsWith(w + 's')) {word = word.replace(/s$/, '')}})
+
+  h = ['dd', 'gd', 'nn', 'dt', 'gt', 'kt', 'tt']
+  h.forEach(w => {if (word.endsWith(w)) {word = word.slice(0, -1)}})
+
+  word = replace_if_ends_with(word, ['lig', 'ig', 'els'])
+
+  if (word.endsWith('löst')) {word = word.replace(/löst$/, 'lös')}
+  if (word.endsWith('fullt')) {word = word.replace(/fullt$/, 'full')}
+
+  return word
+}
+
+const irregulars = {
+  'gamla': 'gammal',
+  'funnen': 'finna'
+}
+function try_custom_stem(word) {
+  if (Object.keys(irregulars).includes(word)) {
+    return irregulars[word]
+  }
+
+  if (word.endsWith('ar')) {return word.replace(/ar$/, 'a')}
+  if (word.endsWith('er')) {return word.replace(/er$/, 'e')}
+  if (word.endsWith('la')) {return word.replace(/la$/, 'el')}
+
+  return word
+}
+
+function find_in_dict(w, wclass) {
+  if (wclass) {
+    return dictionary.find(el => el.sv === w && el.wclass === wclass)
+  }
+  return dictionary.find(el => el.sv === w)
+}
+
+function try_diff_stem(w1) {
+  let w2 = w1.replace(/[^a-zA-ZåäöÅÄÖ_{} ]/g, '').toLowerCase()
+
+  let wclass = null
+  if (w2.endsWith('}')) {
+    wclass = w2.split('{')[1].split('}')[0]
+    w2 = w2.split('{')[0]
+  }
+
+  let dic_entry = find_in_dict(w2, wclass)
+  if (dic_entry) {
+    return dic_entry
+  }
+
+  w3 = try_stem_word(w2)
+  dic_entry = find_in_dict(w3, wclass)
+  if (dic_entry) {
+    //console.log('Found ' + w3 + ' in dictionary.')
+    return dic_entry
+  }
+
+  w4 = try_custom_stem(w2)
+  dic_entry = find_in_dict(w4, wclass)
+  if (dic_entry) {
+    //console.log('Found ' + w4 + ' in dictionary:', dic_entry)
+    return dic_entry
+  } else {
+    console.log('Not found in dictionary: ' + w2 + ', ' + w3 + ', ' + w4)
+  }
+  return null
+}
+
+function collect_words_and_prefetch_audiolinks(desc) {
+  let words = []
+  let tokens = desc.split('\n')
+  for (let i = 0; i < tokens.length; i++) {
+    tokens2 = tokens[i].split(' ')
+    for (let j = 0; j < tokens2.length; j++) {
+      let dic_entry = try_diff_stem(tokens2[j])
+      if (dic_entry != null && !words.includes(dic_entry.sv)) {
+        words.push(dic_entry.sv)
+      }
+    }
+  }
+  return prefetchLinksToWords(words)
+}
+
+function addWordlist(desc) {
+  collect_words_and_prefetch_audiolinks(desc).then(() => {
+    let div = document.getElementById('wordlist')
+    let tokens = desc.split('\n')
+    for (let i = 0; i < tokens.length; i++) {
+      tokens2 = tokens[i].split(' ')
+      for (let j = 0; j < tokens2.length; j++) {
+        let dic_entry = try_diff_stem(tokens2[j])
+        if (dic_entry != null) {
+          div.appendChild(create_dictionary_entry(dic_entry))
+        }
+      }
+    }
+  })
+}
+
+async function init() {
+  let params = new URLSearchParams(document.location.search.substring(1))
+  let poem = params.get('poem')
+  if (!poem) {
+    console.log('Error, no poem specified.')
+  } else {
+    let res = await fetch('https://raw.githubusercontent.com/ackelman/ackelman.github.io/master/swedish_poems_for_persians/Poesi/' + poem + '.txt').then(x => x.text())
+    console.log(res)
+    const title = document.getElementById('title')
+    title.innerText = poem
+    if (res.split('\n')[0].startsWith('http')) {
+      let link = res.split('\n')[0]
+      let au = document.getElementById('audio')
+      au.src = link
+      res = res.split('\n').slice(1).join('\n')
+    }
+    addWordlist(res)
+    createFrameAroundItem(res)
+  }
+}
+
+let dictionary = []
+
+const wordDifficulties = ['A1', 'A2', 'B1', 'B2', 'O']
+let promises = wordDifficulties.map(a => {
+  return fetch('https://ackelman.github.io/fasv/' + a + '.csv').then(res => res.text()).then(data => parseCSV(data))
+})
+
+Promise.all(promises)
+.then(function (values) {
+  dictionary = values[0].concat(values[1], values[2], values[3], values[4])
+})  
+
+init()
+</script>
